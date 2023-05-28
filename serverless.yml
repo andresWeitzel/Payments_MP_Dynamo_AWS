@@ -39,11 +39,11 @@ functions:
     events:
       - http:
           method: post
-          path: /${file(./serverless_ssm.yml):API_VERSION}/bioetanol-precios/insert
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/create-payment
           private: true 
 
 resources:
-  
+  - ${file(src/resources/dynamo-payments-table.yml)}
 custom:
   serverless-offline-ssm:
     stages:
@@ -52,3 +52,11 @@ custom:
   serverless-offline:
     httpPort: 4000
     lambdaPort: 4002 
+  dynamodb:
+    stages:
+      - dev
+    start:
+      inMemory: true
+      migrate: true
+      seed: true
+      port: 8000

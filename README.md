@@ -104,11 +104,12 @@ npm i
     API_VERSION : 'v1'
 
     # DYNAMODB VALUES
-    BIOET_PRECIOS_TABLE_NAME : 'payments'
+    DYNAMO_PAYMENTS_TABLE_NAME : 'payments-table'
+    API_ENDPOINT_PAYMENTS_NAME : 'payments'
     REGION : 'us-east-1'
     ACCESS_KEY_RANDOM_VALUE: 'xxxx'
     SECRET_KEY_RANDOM_VALUE: 'xxxx'
-    ENDPOINT: "http://localhost:8000"
+    DYNAMO_ENDPOINT: "http://localhost:8000"
   ```  
 * El siguiente script configurado en el package.json del proyecto es el encargado de
    * Levantar serverless-offline (serverless-offline)
@@ -187,7 +188,7 @@ npm i serverless-esbuild
 ```  
 * Instalamos serverless-dynamoDB-local (No dynamoDB)
 ```git
-npm install --save serverless-dynamodb-local
+npm install serverless-dynamodb-local --save-dev
 ```
  * Agregamos el plugin dentro del serverless.yml
 ```yml
@@ -245,6 +246,8 @@ custom:
     stages:
       - dev
 ```
+* Debemos descargar el .jar junto con su config para ejecutar el servicio de dynamodb desde docker. [Descargar aquí](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html#DynamoDBLocal.DownloadingAndRunning.title)
+* Una vez descargado el .jar en formato .tar descomprimimos y copiamos todo su contenido dentro de la carpeta `.dynamodb`. Este es el formato que utilizará docker.
 * Usaremos [git](https://www.hostinger.com.ar/tutoriales/instalar-git-en-distintos-sistemas-operativos) como control de versiones. Nos posicionamos en la app e inicializamos git
 ```git
 git init
@@ -271,6 +274,20 @@ Levantar serverless-offline (serverless-offline)
 * Ejecutamos la app desde terminal (el container de dynamo en docker debe estar previamente ejecutado)
 ```git
 npm start
+```
+* Deberíamos esperar un output por consola con los siguiente servicios levantados cuando se ejecuta el comando anterior
+```git
+> crud-amazon-dynamodb-aws@1.0.0 start
+> npm run serverless-offline
+
+> crud-amazon-dynamodb-aws@1.0.0 serverless-offline
+> sls offline start
+
+serverless-offline-ssm checking serverless version 3.31.0.
+Dynamodb Local Started, Visit: http://localhost:8000/shell
+DynamoDB - created table payments-table
+
+etc.....
 ```
 * Ya tenemos una app funcional con una estructura inicial definida por Serverless-Framework. La aplicación queda deployada en http://localhost:4002 y podemos testear el endpoint declarado en el serverless desde postman
 * `Aclaración` : El resto de las modificaciones aplicadas sobre la plantilla inicial no se describen por temas de simplificación de doc. Para más info consultar el tutorial de [Serverless-framework](https://www.serverless.com/) para el uso de servicios, plugins, etc.
@@ -346,143 +363,53 @@ npm start
 
 <br>
 
-### 2.1.1) Subir un objeto al bucket
+### 2.1.1) Crear un objeto pago
 #### Request
 ``` postman
-- Método : POST
-
-- Url : {{base_url}}/dev/upload-object
-
-- Headers: 
-   - Content-Type : application/json
-   - Authorization : {{bearer_token}}
-   - x-api-key : {{x-api-key}}
-
-- Body : 
-
-    {
-        "type":"image",
-        "format":"JPG",
-        "description":"1000 × 1261 png",
-        "url":"https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0"
-    }
 
 ```
 
 #### Response
 ``` postman
-{
-    "message": {
-        "type": "image",
-        "format": "JPG",
-        "description": "1000 × 1261 png",
-        "url": "https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0",
-        "uuid": 103053674
-    }
-}
 ```
 
 <br>
 
 <br>
 
-### 2.1.2) Obtener un objeto del bucket
+### 2.1.2) Obtener un objecto pago
 #### Request
 ``` postman
-- Método : GET
-
-- Url : {{base_url}}/dev/get-object/{uuid}
-
-- Headers: 
-  - Content-Type : application/json
-  - Authorization : {{bearer_token}}
-  - x-api-key : {{x-api-key}}
-
-- Body : 
-      
-      NULL
-
 ```
 
 #### Response
 ``` postman
-{
-    "message": {
-        "type": "image",
-        "format": "jpg",
-        "description": "1000 × 1261 png",
-        "url": "https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0",
-        "uuid": 103053674
-    }
-}
 ```
 
 <br>
 
 <br>
 
-### 2.1.3) Actualizar un objeto del bucket
+### 2.1.3) Actualizar un objeto pago
 #### Request
 ``` postman
-- Método : PUT
-
-- Url : {{base_url}}/dev/edit-object/{uuid}
-
-- Headers: 
-  - Content-Type : application/json
-  - Authorization : {{bearer_token}}
-  - x-api-key : {{x-api-key}}
-
-- Body : 
-  {
-    "type":"image",
-    "format":"png",
-    "description":"EDITED",
-    "url":"https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&  mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0"
-  }
-
 ```
 
 #### Response
 ``` postman
-{
-    "message": {
-        "type": "image",
-        "format": "JPG",
-        "description": "1000 × 1261 png",
-        "url": "https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0",
-        "uuid": 103053674
-    }
-}
 ```
 
 <br>
 
 <br>
 
-### 2.1.4) Eliminar un objeto del bucket
+### 2.1.4) Eliminar un objeto pago
 #### Request
 ``` postman
-- Método : DELETE
-
-- Url : {{base_url}}/dev/delete-object/{uuid}
-
-- Headers: 
-  - Content-Type : application/json
-  - Authorization : {{bearer_token}}
-  - x-api-key : {{x-api-key}}
-
-- Body : 
-      
-      NULL
-
 ```
 
 #### Response
 ``` postman
-{
-    "message": "Removed object with uuid 103053674 successfully."
-}
 ```
 
 <br>
@@ -501,10 +428,6 @@ npm start
   <summary>Ver</summary>
 <br>
 
-#### Tipos de Operaciones | [Ver](https://www.youtube.com/playlist?list=PLCl11UFjHurDPyOkEXOR6JO-vUnYqd1FW)
-
-![Index app](./doc/assets/pruebaFuncionalBucket.png)
-
 </details>
 
 
@@ -514,16 +437,8 @@ npm start
   <summary>Ver</summary>
  <br>
 
-#### Configuración buckets
-* [s3-example](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-configuring-buckets.html)
-* [s3-examples oficial](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-node-examples.html)
-
-
 #### Herramientas 
  * [Herramienta de Diseño AWS app.diagrams.net](https://app.diagrams.net/?splash=0&libs=aws4)
-
-#### AWS-SDK
-* [Doc Oficial](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/index.html) 
 
 #### Api Gateway
  * [Buenas Prácticas Api-Gateway](https://docs.aws.amazon.com/whitepapers/latest/best-practices-api-gateway-private-apis-integration/rest-api.html)

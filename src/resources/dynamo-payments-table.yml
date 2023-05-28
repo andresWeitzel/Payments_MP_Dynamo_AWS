@@ -7,21 +7,7 @@ Resources:
         - AttributeName: id
           AttributeType: S
         - AttributeName: additional_info
-          AttributeType: M
-        - AttributeName: payer
-          AttributeType: M
-        - AttributeName: shipments
-          AttributeType: M
-        - AttributeName: description
           AttributeType: S
-        - AttributeName: external_reference
-          AttributeType: S
-        - AttributeName: payment_method_id
-          AttributeType: S
-        - AttributeName: token
-          AttributeType: S  
-        - AttributeName: transaction_amount
-          AttributeType: N
       KeySchema:
         - AttributeName: id
           KeyType: HASH
@@ -37,70 +23,114 @@ Resources:
             ProjectionType: ALL
           ProvisionedThroughput:
             ReadCapacityUnits: 1
-            WriteCapacityUnits: 1 
-        - IndexName: payer
-          KeySchema:
-            - AttributeName: payer
-              KeyType: HASH    
-          Projection:
-            ProjectionType: ALL
-          ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1 
-        - IndexName: shipments
-          KeySchema:
-            - AttributeName: shipments
-              KeyType: HASH    
-          Projection:
-            ProjectionType: ALL
-          ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1   
-        - IndexName: description
-          KeySchema:
-            - AttributeName: description
-              KeyType: HASH    
-          Projection:
-            ProjectionType: ALL
-          ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1                   
-        - IndexName: external_reference
-          KeySchema:
-            - AttributeName: external_reference
-              KeyType: HASH    
-          Projection:
-            ProjectionType: ALL
-          ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1
-        - IndexName: payment_method_id
-          KeySchema:
-            - AttributeName: payment_method_id
-              KeyType: HASH    
-          Projection:
-            ProjectionType: ALL
-          ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1 
-        - IndexName: token
-          KeySchema:
-            - AttributeName: token
-              KeyType: HASH    
-          Projection:
-            ProjectionType: ALL
-          ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1 
-        - IndexName: transaction_amount
-          KeySchema:
-            - AttributeName: transaction_amount
-              KeyType: HASH    
-          Projection:
-            ProjectionType: ALL
-          ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1            
+            WriteCapacityUnits: 1      
+
+
+
+
+# Resources:
+#   DynamoPaymentsTable:
+#     Type: AWS::DynamoDB::Table
+#     Properties:
+#       TableName: payments-table
+#       AttributeDefinitions:
+#         - AttributeName: id
+#           AttributeType: S
+#         - AttributeName: additional_info
+#           AttributeType: M
+#         - AttributeName: payer
+#           AttributeType: M
+#         - AttributeName: shipments
+#           AttributeType: M
+#         - AttributeName: description
+#           AttributeType: S
+#         - AttributeName: external_reference
+#           AttributeType: S
+#         - AttributeName: payment_method_id
+#           AttributeType: S
+#         - AttributeName: token
+#           AttributeType: S  
+#         - AttributeName: transaction_amount
+#           AttributeType: N
+#       KeySchema:
+#         - AttributeName: id
+#           KeyType: HASH
+#       ProvisionedThroughput:
+#         ReadCapacityUnits: 1
+#         WriteCapacityUnits: 1      
+#       GlobalSecondaryIndexes:
+#         - IndexName: additional_info
+#           KeySchema:
+#             - AttributeName: additional_info
+#               KeyType: HASH    
+#           Projection:
+#             ProjectionType: ALL
+#           ProvisionedThroughput:
+#             ReadCapacityUnits: 1
+#             WriteCapacityUnits: 1 
+#         - IndexName: payer
+#           KeySchema:
+#             - AttributeName: payer
+#               KeyType: HASH    
+#           Projection:
+#             ProjectionType: ALL
+#           ProvisionedThroughput:
+#             ReadCapacityUnits: 1
+#             WriteCapacityUnits: 1 
+#         - IndexName: shipments
+#           KeySchema:
+#             - AttributeName: shipments
+#               KeyType: HASH    
+#           Projection:
+#             ProjectionType: ALL
+#           ProvisionedThroughput:
+#             ReadCapacityUnits: 1
+#             WriteCapacityUnits: 1   
+#         - IndexName: description
+#           KeySchema:
+#             - AttributeName: description
+#               KeyType: HASH    
+#           Projection:
+#             ProjectionType: ALL
+#           ProvisionedThroughput:
+#             ReadCapacityUnits: 1
+#             WriteCapacityUnits: 1                   
+#         - IndexName: external_reference
+#           KeySchema:
+#             - AttributeName: external_reference
+#               KeyType: HASH    
+#           Projection:
+#             ProjectionType: ALL
+#           ProvisionedThroughput:
+#             ReadCapacityUnits: 1
+#             WriteCapacityUnits: 1
+#         - IndexName: payment_method_id
+#           KeySchema:
+#             - AttributeName: payment_method_id
+#               KeyType: HASH    
+#           Projection:
+#             ProjectionType: ALL
+#           ProvisionedThroughput:
+#             ReadCapacityUnits: 1
+#             WriteCapacityUnits: 1 
+#         - IndexName: token
+#           KeySchema:
+#             - AttributeName: token
+#               KeyType: HASH    
+#           Projection:
+#             ProjectionType: ALL
+#           ProvisionedThroughput:
+#             ReadCapacityUnits: 1
+#             WriteCapacityUnits: 1 
+#         - IndexName: transaction_amount
+#           KeySchema:
+#             - AttributeName: transaction_amount
+#               KeyType: HASH    
+#           Projection:
+#             ProjectionType: ALL
+#           ProvisionedThroughput:
+#             ReadCapacityUnits: 1
+#             WriteCapacityUnits: 1            
 
 
 
