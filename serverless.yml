@@ -1,4 +1,4 @@
-service: microservice-mercadolibre-products-aws
+service: crud-amazon-dynamodb-aws
 
 frameworkVersion: '3'
 
@@ -32,13 +32,15 @@ plugins:
   - serverless-offline
 
 functions:
-  hello:
-    handler: src/functions/hello/handler.ts
+  createPayment:
+    handler: src/functions/createPayment.handler
+    description: Function to create a payment object in the payments table
+    timeout: 10
     events:
       - http:
-          path: /test
-          method: POST
-          private: true  
+          method: post
+          path: /${file(./serverless_ssm.yml):API_VERSION}/bioetanol-precios/insert
+          private: true 
 
 resources:
   

@@ -1,6 +1,8 @@
 # CRUD_Amazon_DynamoDB_AWS
-Modelo CRUD para el manejo de objetos con DynamoDB de aws implementado con Api-Gateway, Systems Manager Parameter Store, Serverless-Framework, Lambda, Typescript, DynamoDB, aws-sdk-v3, entre otros.
+Modelo CRUD para el manejo de objetos de mercadopago con DynamoDB de aws implementado con Api-Gateway, Systems Manager Parameter Store, Serverless-Framework, Lambda, Typescript, Docker, DynamoDB, aws-sdk-v3, entre otros.
+Como representación se tomara la api de mercado pago para el manejo de pagos.
 
+* [Api doc MP pagos](https://www.mercadopago.com.ar/developers/es/reference/payments/_payments/post)
 
 <br>
 
@@ -97,6 +99,16 @@ npm i
     X_API_KEY: "f98d8cd98h73s204e3456998ecl9427j"
 
     BEARER_TOKEN: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+
+    # API VALUES
+    API_VERSION : 'v1'
+
+    # DYNAMODB VALUES
+    BIOET_PRECIOS_TABLE_NAME : 'payments'
+    REGION : 'us-east-1'
+    ACCESS_KEY_RANDOM_VALUE: 'xxxx'
+    SECRET_KEY_RANDOM_VALUE: 'xxxx'
+    ENDPOINT: "http://localhost:8000"
   ```  
 * El siguiente script configurado en el package.json del proyecto es el encargado de
    * Levantar serverless-offline (serverless-offline)
