@@ -8,9 +8,10 @@ import {
     dynamoDBClient
 }  from "../config/dynamoDBClient";
 //Const-vars 
-let dynamo;
-let metadata;
-let requestId;
+let dynamo:any;
+let metadata:any;
+let item:any;
+let requestId:any;
 
 
 /**

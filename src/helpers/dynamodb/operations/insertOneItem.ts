@@ -3,9 +3,9 @@ const {
     PutItemCommand,
 } = require("@aws-sdk/client-dynamodb");
 //Helpers
-const {
+import {
     dynamoDBClient
-} = require("../config/dynamoDBClient");
+}  from "../config/dynamoDBClient";
 //Const-vars 
 let dynamo;
 let metadata;
@@ -18,7 +18,7 @@ let requestId;
  * @param {Object} item object json type
  * @returns a metadata with the information of the operation
  */
-const insertOneItem = async (tableName,item) => {
+export const insertOneItem = async (tableName,item) => {
     try {
 
         requestId=null;
@@ -36,12 +36,6 @@ const insertOneItem = async (tableName,item) => {
         return requestId;
 
     } catch (error) {
-        console.log(`Error in insertOneItem(), caused by ${{error}}`);
-        console.error(error.stack);
+        console.error(`ERROR in insertOneItems() function. Caused by ${error} . Specific stack is ${error.stack} `);
     }
-}
-
-
-module.exports = {
-    insertOneItem
 }

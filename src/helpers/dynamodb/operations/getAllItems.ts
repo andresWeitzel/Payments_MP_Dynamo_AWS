@@ -52,21 +52,6 @@ export const getAllItems = async (tableName:string, pageSizeNro:number, orderAt:
     }
 }
 
-
-//External
-const {
-    ScanCommand
-} = require("@aws-sdk/lib-dynamodb");
-//Helpers
-const {
-    dynamoDBClient
-} = require("../config/dynamoDBClient");
-//Const-vars 
-let dynamo;
-let metadata;
-let items;
-
-
 /**
  * @description get all items from the database according to the filter applied
  * @param {String} tableName string type
@@ -111,7 +96,6 @@ export const getAllItemsWithFilter = async (tableName, filter, filterValue,pageS
         return items;
 
     } catch (error) {
-        console.log(`Error in getAllItemsWithFilter(), caused by ${{error}}`);
-        console.error(error.stack);
+        console.error(`ERROR in getAllItemsWithFilter() function. Caused by ${error} . Specific stack is ${error.stack} `);
     }
 }

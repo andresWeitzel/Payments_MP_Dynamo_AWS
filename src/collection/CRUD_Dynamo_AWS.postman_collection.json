@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "4d861b0a-db69-4b1a-a0af-efd0a839dfd1",
+		"name": "CRUD_Dynamo_AWS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18757319"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "get-all-payment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/payments/list",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"payments",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-payment-by-id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/payments/108688497",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"payments",
+								"108688497"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "create-payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{bearer_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":\"image\",\r\n    \"format\":\"png\",\r\n    \"description\":\"5000 × 3061 png\",\r\n    \"url\":\"https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/payments/create-payment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"payments",
+								"create-payment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "edit-payment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{bearer_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":\"image\",\r\n    \"format\":\"jpg\",\r\n    \"description\":\"1200 × 1201 png\",\r\n    \"url\":\"https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&  mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/payments/108688497",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"payments",
+								"108688497"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "delete-payment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/payments/108688497",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"payments",
+								"108688497"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:4000/dev/v1"
+		},
+		{
+			"key": "x-api-key",
+			"value": "f98d8cd98h73s204e3456998ecl9427j"
+		},
+		{
+			"key": "bearer_token",
+			"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+		}
+	]
+}
