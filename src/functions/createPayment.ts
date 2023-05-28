@@ -5,7 +5,8 @@ import { statusCode } from "src/enums/http/statusCode";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
-import { insertOneItem } from "src/helpers/dynamodb/operations/insertOneItem";
+import { insertItems} from "src/helpers/dynamodb/operations/insertItems";
+import { I_Payments } from "src/interfaces/I_Payments";
 
 
 //Const/Vars
@@ -35,6 +36,7 @@ let checkEventHeadersAndKeys: any;
 // let newProduct: any;
 let msg: string;
 let code: number;
+let paymentObj: I_Payments;
 const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 
@@ -63,18 +65,62 @@ module.exports.handler = async (event: any) => {
             return checkEventHeadersAndKeys;
         }
 
-
-
-        let item = {
-            'id': {
-                'S': 'sss'
+        paymentObj =
+        {
+            "uuid": "SSD8SAJJSDASDASD",
+            "items":
+            {
+                "id": "MLB2907679857",
+                "title": "Point Mini",
+                "description": "Producto Point para cobros con tarjetas mediante bluetooth",
+                "picture_url": "https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png",
+                "category_id": "electronics",
+                "quantity": 1,
+                "unit_price": 58.8
             },
-            'additional_info': {
-                'S': 'sss'
-            }
+            "payer": {
+                "id": "12",
+                "first_name": "Test",
+                "last_name": "Test",
+            },
+            "shipments": {
+                "receiver_address": {
+                    "zip_code": "12312-123",
+                    "state_name": "Rio de Janeiro",
+                    "city_name": "Buzios",
+                    "street_name": "Av das Nacoes Unidas",
+                    "street_number": 3003
+                }
+            },
+            "description": "Payment for product",
+            "external_reference": "MP0001",
+            "payment_method_id": "visa",
+            "token": "ff8080814c11e237014c1ff593b57b4d",
+            "transaction_amount": 58.8
         };
 
-        let newPayment = await insertOneItem(PAYMENTS_TABLE_NAME, item);
+        // let item = {
+        //     'uuid': {
+        //         'S': paymentObj.uuid
+        //     },
+        //     'additiitemsonal_info': {
+        //         'S': 'sss'
+        //     }
+        // };
+
+        let item = {
+            uuid: paymentObj.uuid,
+            items: paymentObj.items,
+            payer: paymentObj.payer,
+            shipments : paymentObj.shipments,
+            description: paymentObj.description,
+            external_reference: paymentObj.external_reference,
+            payment_method_id: paymentObj.payment_method_id,
+            token: paymentObj.token,
+            transaction_amount: paymentObj.transaction_amount,
+        };
+
+        let newPayment = await insertItems(PAYMENTS_TABLE_NAME, item);
 
         return await requestResult(statusCode.OK, newPayment);
 

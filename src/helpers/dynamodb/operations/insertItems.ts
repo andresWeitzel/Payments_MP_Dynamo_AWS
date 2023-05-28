@@ -1,7 +1,5 @@
 //External
-const {
-    PutItemCommand,
-} = require("@aws-sdk/client-dynamodb");
+import { PutCommand } from "@aws-sdk/lib-dynamodb";
 //Helpers
 import {
     dynamoDBClient
@@ -15,18 +13,18 @@ let requestId;
 /**
  * @description insert one item into the database
 * @param {String} tableName string type
- * @param {Object} item object json type
+ * @param {Object} items object json type
  * @returns a metadata with the information of the operation
  */
-export const insertOneItem = async (tableName,item) => {
+export const insertItems = async (tableName,items) => {
     try {
 
         requestId=null;
         dynamo = await dynamoDBClient();
 
-        metadata = await dynamo.send(new PutItemCommand({
+        metadata = await dynamo.send(new PutCommand({
             TableName: tableName,
-            Item : item
+            Item : items
         }));
         
         if(metadata!=null){
@@ -36,6 +34,6 @@ export const insertOneItem = async (tableName,item) => {
         return requestId;
 
     } catch (error) {
-        console.error(`ERROR in insertOneItems() function. Caused by ${error} . Specific stack is ${error.stack} `);
+        console.error(`ERROR in insertItems() function. Caused by ${error} . Specific stack is ${error.stack} `);
     }
 }
