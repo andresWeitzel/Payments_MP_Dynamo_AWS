@@ -1,5 +1,5 @@
 # CRUD_Amazon_DynamoDB_AWS
-Modelo CRUD para el manejo de objetos de mercadopago con DynamoDB de aws implementado con Api-Gateway, Systems Manager Parameter Store, Serverless-Framework, Lambda, Typescript, Docker, DynamoDB, aws-sdk-v3, entre otros.
+Modelo CRUD para el manejo de objetos de mercadopago con DynamoDB de aws implementado con Api-Gateway, Systems Manager Parameter Store, Serverless-Framework, Lambda, Typescript, DynamoDB, aws-sdk-v3, entre otros.
 Como representación se tomara la api de mercado pago para el manejo de pagos.
 
 * [Api doc MP pagos](https://www.mercadopago.com.ar/developers/es/reference/payments/_payments/post)
@@ -75,8 +75,6 @@ cd 'projectRootName'
 git clone https://github.com/andresWeitzel/CRUD_Amazon_DynamoDB_AWS
 ```
 * Instalamos la última versión LTS de [Nodejs(v18)](https://nodejs.org/en/download)
-* Descargamos la Java Runtime Engine (JRE) versión 6.x o posterior para el uso de docker. [Descargar desde aquí](https://www.oracle.com/java/technologies/downloads/)
-* Instalamos docker desktop (junto a docker) para poder ejecutar dynamodb
 * Instalamos Serverless Framework de forma global si es que aún no lo hemos realizado
 ```git
 npm install -g serverless
@@ -119,7 +117,7 @@ npm i
     "start": "npm run serverless-offline"
   },
 ```
-* Ejecutamos la app desde terminal (el container de dynamo en docker debe estar previamente ejecutado)
+* Ejecutamos la app desde terminal.
 ```git
 npm start
 ```
@@ -142,8 +140,6 @@ npm start
 cd 'projectName'
 ```
 * Instalamos la última versión LTS de [Nodejs(v18)](https://nodejs.org/en/download)
-* Descargamos la Java Runtime Engine (JRE) versión 6.x o posterior para el uso de docker. [Descargar desde aquí](https://www.oracle.com/java/technologies/downloads/)
-* Instalamos docker desktop (junto a docker) para poder ejecutar dynamodb
 * Instalamos Serverless Framework de forma global si es que aún no lo tenemos instalado.
 ```git
 npm install -g serverless
@@ -246,8 +242,8 @@ custom:
     stages:
       - dev
 ```
-* Debemos descargar el .jar junto con su config para ejecutar el servicio de dynamodb desde docker. [Descargar aquí](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html#DynamoDBLocal.DownloadingAndRunning.title)
-* Una vez descargado el .jar en formato .tar descomprimimos y copiamos todo su contenido dentro de la carpeta `.dynamodb`. Este es el formato que utilizará docker.
+* Debemos descargar el .jar junto con su config para ejecutar el servicio de dynamodb. [Descargar aquí](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html#DynamoDBLocal.DownloadingAndRunning.title)
+* Una vez descargado el .jar en formato .tar descomprimimos y copiamos todo su contenido dentro de la carpeta `.dynamodb`.
 * Usaremos [git](https://www.hostinger.com.ar/tutoriales/instalar-git-en-distintos-sistemas-operativos) como control de versiones. Nos posicionamos en la app e inicializamos git
 ```git
 git init
@@ -271,7 +267,7 @@ Levantar serverless-offline (serverless-offline)
    "start": "npm run serverless-offline"
  },
 ```
-* Ejecutamos la app desde terminal (el container de dynamo en docker debe estar previamente ejecutado)
+* Ejecutamos la app desde terminal.
 ```git
 npm start
 ```

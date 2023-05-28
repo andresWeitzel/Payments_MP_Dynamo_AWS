@@ -5,7 +5,7 @@ import { statusCode } from "src/enums/http/statusCode";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
-import { insertItems} from "src/helpers/dynamodb/operations/insertItems";
+import { insertItems } from "src/helpers/dynamodb/operations/insertItems";
 import { I_Payments } from "src/interfaces/I_Payments";
 
 
@@ -37,6 +37,7 @@ let checkEventHeadersAndKeys: any;
 let msg: string;
 let code: number;
 let paymentObj: I_Payments;
+let item: I_Payments;
 const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 
@@ -64,6 +65,8 @@ module.exports.handler = async (event: any) => {
         if (checkEventHeadersAndKeys != null) {
             return checkEventHeadersAndKeys;
         }
+        //-- end with validation headers and keys  ---
+
 
         paymentObj =
         {
@@ -108,11 +111,11 @@ module.exports.handler = async (event: any) => {
         //     }
         // };
 
-        let item = {
+        item = {
             uuid: paymentObj.uuid,
             items: paymentObj.items,
             payer: paymentObj.payer,
-            shipments : paymentObj.shipments,
+            shipments: paymentObj.shipments,
             description: paymentObj.description,
             external_reference: paymentObj.external_reference,
             payment_method_id: paymentObj.payment_method_id,
@@ -184,7 +187,7 @@ module.exports.handler = async (event: any) => {
         // return newProduct;
 
     } catch (error) {
-        msg = `Error in ADD PRODUCT CONTROLLER lambda. Caused by ${error}`;
+        msg = `Error in CREATE PAYMENT lambda. Caused by ${error}`;
         code = statusCode.INTERNAL_SERVER_ERROR;
         console.error(`${msg}. Stack error type : ${error.stack}`);
 

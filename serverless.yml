@@ -41,7 +41,15 @@ functions:
           method: post
           path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/create-payment
           private: true 
-
+  getAllPayments:
+    handler: src/functions/getAllPayments.handler
+    description: Function to get all payments object from the payments table db
+    timeout: 10
+    events:
+      - http:
+          method: get
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/list
+          private: true 
 resources:
   - ${file(src/resources/dynamo-payments-table.yml)}
 custom:
