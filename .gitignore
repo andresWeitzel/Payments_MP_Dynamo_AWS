@@ -5,5 +5,8 @@ jspm_packages
 # Serverless directories
 .serverless
 
+# Serverless-ssm
+serverless_ssm.yml
+
 # esbuild directories
 .esbuild
