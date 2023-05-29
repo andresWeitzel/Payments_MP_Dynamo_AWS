@@ -1,8 +1,12 @@
+
+![Index app](./doc/assets/CRUD_DynamoDB.drawio.png)
+
 # CRUD_Amazon_DynamoDB_AWS
-Modelo CRUD para el manejo de objetos de mercadopago con DynamoDB de aws implementado con Api-Gateway, Systems Manager Parameter Store, Serverless-Framework, Lambda, Typescript, DynamoDB, aws-sdk-v3, entre otros.
+Modelo CRUD para el manejo de objetos payments de mercadopago con DynamoDB de aws implementado con Api-Gateway, Systems Manager Parameter Store, Serverless-Framework, Lambda, Typescript, DynamoDB, aws-sdk-v3, entre otros.
 Como representación se tomara la api de mercado pago para el manejo de pagos.
 
 * [Api doc MP pagos](https://www.mercadopago.com.ar/developers/es/reference/payments/_payments/post)
+* [Playlist prueba de funcionalidad](https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W)
 
 <br>
 
