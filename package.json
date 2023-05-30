@@ -15,6 +15,7 @@
     "@aws-sdk/lib-dynamodb": "^3.341.0",
     "@middy/core": "^3.4.0",
     "@middy/http-json-body-parser": "^3.4.0",
+    "class-validator": "^0.14.0",
     "node-input-validator": "^4.5.1"
   },
   "devDependencies": {
