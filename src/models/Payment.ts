@@ -29,7 +29,7 @@ const MAX_VALUE_TRANSAC_AMOUNT = 999999999.99;
 /**
  * @description Payment class for payment type objects
  */
-export class Payments {
+export class Payment {
     /**
      * @description identificador del pago
      */
@@ -42,21 +42,21 @@ export class Payments {
  * @description Lista de ítems a pagar
  */
     @IsNotEmpty({ message: 'The items cannot be empty' })
-    @IsString({ message: 'The items must be of type I_Items' })
+    @IsString({ message: 'The items must be of type I_Items (    id: string; title: string; description: string | null;picture_url: string | null; category_id: string; quantity: number; unit_price: number;)' })
     private items: I_Items;
 
     /**
  * @description El payer es quien realiza el pago. Este campo es un objeto que tiene la información del pagador.
  */
     @IsNotEmpty({ message: 'The payer cannot be empty' })
-    @IsString({ message: 'The payer must be of type I_Payer' })
+    @IsString({ message: 'The payer must be of type I_Payer (id: string; first_name: string; last_name: string | null;)' })
     private payer: I_Payer;
 
     /**
  * @description Objeto que comprende toda la información para el envío de la compra del cliente.
  */
     @IsNotEmpty({ message: 'The shipments cannot be empty' })
-    @IsString({ message: 'The shipments must be of type I_Shipments' })
+    @IsString({ message: 'The shipments must be of type I_Shipments (zip_code: string; state_name: string; city_name: string; street_name: string; street_number: number;)' })
     private shipments: I_Shipments;
 
     /**

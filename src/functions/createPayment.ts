@@ -1,16 +1,17 @@
-//Services
-
+//Models
+import { Payment } from "src/models/Payment";
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
 import { insertItems } from "src/helpers/dynamodb/operations/insertItems";
-import { I_Payments } from "src/interfaces/I_Payments";
+import { formatToJson } from "src/helpers/format/formatToJson";
+import { generateUuidV4 } from "src/helpers/math/generateUuid";
 
 
 //Const/Vars
-// let eventBody: any;
+let eventBody: any;
 let eventHeaders: any;
 let checkEventHeadersAndKeys: any;
 // let objProduct: any;
@@ -36,8 +37,8 @@ let checkEventHeadersAndKeys: any;
 // let newProduct: any;
 let msg: string;
 let code: number;
-let paymentObj: I_Payments;
-let item: I_Payments;
+// let paymentObj: I_Payments;
+// let item: I_Payments;
 const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 
@@ -68,39 +69,62 @@ module.exports.handler = async (event: any) => {
         //-- end with validation headers and keys  ---
 
 
-        paymentObj =
-        {
-            "uuid": "SSD8SAJJSDASDASD",
-            "items":
-            {
-                "id": "MLB2907679857",
-                "title": "Point Mini",
-                "description": "Producto Point para cobros con tarjetas mediante bluetooth",
-                "picture_url": "https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png",
-                "category_id": "electronics",
-                "quantity": 1,
-                "unit_price": 58.8
-            },
-            "payer": {
-                "id": "12",
-                "first_name": "Test",
-                "last_name": "Test",
-            },
-            "shipments": {
-                "receiver_address": {
-                    "zip_code": "12312-123",
-                    "state_name": "Rio de Janeiro",
-                    "city_name": "Buzios",
-                    "street_name": "Av das Nacoes Unidas",
-                    "street_number": 3003
-                }
-            },
-            "description": "Payment for product",
-            "external_reference": "MP0001",
-            "payment_method_id": "visa",
-            "token": "ff8080814c11e237014c1ff593b57b4d",
-            "transaction_amount": 58.8
-        };
+        //-- start with event body --
+        console.log({'EVENT.BODY' : event.body});
+        eventBody = await formatToJson(event.body);
+        console.log({'EVENT.BODY with format' : eventBody});
+        console.log({'EVENT.BODY ITEMS' : eventBody.items});
+        console.log({'EVENT.BODY ITEMS[]' : eventBody[0]});
+
+        let uuid = await generateUuidV4();
+        let items = await eventBody.items;
+        let payer = await eventBody.payer;
+        let shipments = await eventBody.shipments;
+        let description = await eventBody.description;
+        let externalReference = await eventBody.external_reference;
+        let paymentMethodId = await eventBody.payment_method_id;
+        let token = await eventBody.token;
+        let transactionAmount = await eventBody.transaction_amount;
+
+        let newPayment = new Payment(uuid, items, payer, shipments, description, externalReference, paymentMethodId, token, transactionAmount);
+
+
+        //-- start with event body --
+
+
+        // paymentObj =
+        // {
+        //     "uuid": "SSD8SAJJSDASDASD",
+        //     "items":
+        //     {
+        //         "id": "MLB2907679857",
+        //         "title": "Point Mini",
+        //         "description": "Producto Point para cobros con tarjetas mediante bluetooth",
+        //         "picture_url": "https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png",
+        //         "category_id": "electronics",
+        //         "quantity": 1,
+        //         "unit_price": 58.8
+        //     },
+        //     "payer": {
+        //         "id": "12",
+        //         "first_name": "Test",
+        //         "last_name": "Test",
+        //     },
+        //     "shipments": {
+        //         "receiver_address": {
+        //             "zip_code": "12312-123",
+        //             "state_name": "Rio de Janeiro",
+        //             "city_name": "Buzios",
+        //             "street_name": "Av das Nacoes Unidas",
+        //             "street_number": 3003
+        //         }
+        //     },
+        //     "description": "Payment for product",
+        //     "external_reference": "MP0001",
+        //     "payment_method_id": "visa",
+        //     "token": "ff8080814c11e237014c1ff593b57b4d",
+        //     "transaction_amount": 58.8
+        // };
 
         // let item = {
         //     'uuid': {
@@ -111,19 +135,19 @@ module.exports.handler = async (event: any) => {
         //     }
         // };
 
-        item = {
-            uuid: paymentObj.uuid,
-            items: paymentObj.items,
-            payer: paymentObj.payer,
-            shipments: paymentObj.shipments,
-            description: paymentObj.description,
-            external_reference: paymentObj.external_reference,
-            payment_method_id: paymentObj.payment_method_id,
-            token: paymentObj.token,
-            transaction_amount: paymentObj.transaction_amount,
-        };
+        // item = {
+        //     uuid: paymentObj.uuid,
+        //     items: paymentObj.items,
+        //     payer: paymentObj.payer,
+        //     shipments: paymentObj.shipments,
+        //     description: paymentObj.description,
+        //     external_reference: paymentObj.external_reference,
+        //     payment_method_id: paymentObj.payment_method_id,
+        //     token: paymentObj.token,
+        //     transaction_amount: paymentObj.transaction_amount,
+        // };
 
-        let newPayment = await insertItems(PAYMENTS_TABLE_NAME, item);
+        let newPaymentItem = await insertItems(PAYMENTS_TABLE_NAME, newPayment);
 
         return await requestResult(statusCode.OK, newPayment);
 

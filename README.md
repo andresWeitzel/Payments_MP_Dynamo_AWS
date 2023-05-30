@@ -440,6 +440,7 @@ etc.....
 
 #### Herramientas 
  * [Herramienta de Diseño AWS app.diagrams.net](https://app.diagrams.net/?splash=0&libs=aws4)
+ * [Formateo y validador online json format](https://jsonformatter.org/)
 
 #### Api Gateway
  * [Buenas Prácticas Api-Gateway](https://docs.aws.amazon.com/whitepapers/latest/best-practices-api-gateway-private-apis-integration/rest-api.html)

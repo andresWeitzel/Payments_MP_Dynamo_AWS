@@ -10,9 +10,10 @@ export const formatToJson = async (obj: any) => {
             //Convert to json to save
             obj = await JSON.parse(obj);
         }
+
+        return obj;
     } catch (error) {
         console.log(`Error in formatToJson(), caused by ${{ error }}`);
         console.error(error.stack);
     }
-    return obj;
 }

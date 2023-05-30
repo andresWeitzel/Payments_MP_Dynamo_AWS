@@ -16,7 +16,8 @@
     "@middy/core": "^3.4.0",
     "@middy/http-json-body-parser": "^3.4.0",
     "class-validator": "^0.14.0",
-    "node-input-validator": "^4.5.1"
+    "node-input-validator": "^4.5.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
