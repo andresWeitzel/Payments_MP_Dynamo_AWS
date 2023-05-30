@@ -334,7 +334,6 @@ etc.....
 | Prettier - Code formatter |
 | YAML - Autoformatter .yml (alt+shift+f) |
 | TypeScript constructor generator - automatic constructor generator | 
-| TypeScript constructor generator - automatic constructor generator | 
 
 <br>
 
