@@ -2,6 +2,10 @@
 import { Payment } from "src/models/Payment";
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
+//Services
+import { I_Items } from "src/interfaces/I_Items";
+import { I_Payer } from "src/interfaces/I_Payer";
+import { I_Shipments } from "src/interfaces/I_Shipments";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
@@ -9,36 +13,24 @@ import { insertItems } from "src/helpers/dynamodb/operations/insertItems";
 import { formatToJson } from "src/helpers/format/formatToJson";
 import { generateUuidV4 } from "src/helpers/math/generateUuid";
 
-
 //Const/Vars
 let eventBody: any;
 let eventHeaders: any;
 let checkEventHeadersAndKeys: any;
-// let objProduct: any;
-// let siteId: string;
-// let title: string;
-// let subtitle: string;
-// let sellerId: number;
-// let categoryId: string;
-// let officialStoreId: string;
-// let price: number;
-// let basePrice: number;
-// let originalPrice: number;
-// let initialQuantity: number;
-// let availableQuantity: number;
-// let dateNow: string;
-// let hasSpecification: boolean;
-// let addedProductObject: any;
-// let addedProductSpecificationObject: any;
-// let idAddedProductObject: number;
-// let objectsList: Array<any>;
-// let creationDate: string;
-// let updateDate: string;
-// let newProduct: any;
+let uuid: string;
+let items: I_Items;
+let payer: I_Payer;
+let shipments: I_Shipments;
+let description: string;
+let externalReference:string;
+let paymentMethodId: string;
+let transactionAmount:number;
+let newPayment: Payment;
+let item:any;
+let newPaymentItem:any;
+let token : string;
 let msg: string;
 let code: number;
-// let paymentObj: I_Payments;
-// let item: I_Payments;
 const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 
@@ -52,10 +44,9 @@ const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 module.exports.handler = async (event: any) => {
     try {
         //Init
-        // objProduct = null;
-        // newProduct = null;
-        // addedProductObject = null;
-        // objectsList = [];
+        newPayment = null;
+        item=null;
+        newPaymentItem=null;
 
 
         //-- start with validation headers and keys  ---
@@ -69,94 +60,55 @@ module.exports.handler = async (event: any) => {
         //-- end with validation headers and keys  ---
 
 
-        // -- start with event body --
-        console.log({'EVENT.BODY' : event.body});
-        eventBody = await formatToJson(event.body);
-        console.log({'EVENT.BODY with format' : eventBody});
-        console.log({'EVENT.BODY ITEMS' : eventBody.items});
-        console.log({'EVENT.BODY ITEMS[]' : eventBody[0]});
-
-        let uuid = await generateUuidV4();
-        let items = await eventBody.items;
-        let payer = await eventBody.payer;
-        let shipments = await eventBody.shipments;
-        let description = await eventBody.description;
-        let externalReference = await eventBody.external_reference;
-        let paymentMethodId = await eventBody.payment_method_id;
-        let token = await eventBody.token;
-        let transactionAmount = await eventBody.transaction_amount;
-
-        let newPayment = new Payment(uuid, items, payer, shipments, description, externalReference, paymentMethodId, token, transactionAmount);
-
 
         //-- start with event body --
+        eventBody = await formatToJson(event.body);
 
-        let newPaymentItem = await insertItems(PAYMENTS_TABLE_NAME, newPayment);
-
-        return await requestResult(statusCode.OK, newPayment);
-        
-        //-- end with validation headers and keys ---
-
-        // //-- start with event body --
-        // eventBody = await formatToJson(event.body);
-
-        // siteId = await eventBody.site_id;
-        // title = await eventBody.title;
-        // subtitle = await eventBody.subtitle;
-        // sellerId = await eventBody.seller_id;
-        // categoryId = await eventBody.category_id;
-        // officialStoreId = await eventBody.official_store_id;
-        // price = await eventBody.price;
-        // basePrice = await eventBody.base_price;
-        // originalPrice = await eventBody.original_price;
-        // initialQuantity = await eventBody.initial_quantity;
-        // availableQuantity = await eventBody.available_quantity;
-        // dateNow = await currentDateTime();
-        // hasSpecification = await eventBody.has_specification;
-        // creationDate = dateNow;
-        // updateDate = dateNow;
-
-        // //-- start with event body --
-
-        // //-- start with db PRODUCT operations  ---
-
-        // objProduct = new Product(siteId, title, subtitle, sellerId, categoryId, officialStoreId, price, basePrice, originalPrice, initialQuantity, availableQuantity, hasSpecification, creationDate, updateDate);
-
-        // newProduct = await addProductService(objProduct);
-
-        // //-- end with db PRODUCT operations  ---
+        uuid = await generateUuidV4();
+        items = await eventBody.items;
+        payer = await eventBody.payer;
+        shipments = await eventBody.shipments;
+        description = await eventBody.description;
+        externalReference = await eventBody.external_reference;
+        paymentMethodId = await eventBody.payment_method_id;
+        token = await eventBody.token;
+        transactionAmount = await eventBody.transaction_amount;
+        //-- end with event body --
 
 
-        // //-- start with db PRODUCT_SPECIFICATION operations  ---
+        //-- start with db Payments operations  ---
 
-        // if (hasSpecification
-        //   && (newProduct.statusCode == statusCode.OK)
-        // ) {
+        newPayment = new Payment(uuid, items, payer, shipments, description, externalReference, paymentMethodId, token, transactionAmount);
 
-        //   addedProductObject = await getLikeCreatDateAndTitleProdService(title, creationDate);
+        item = {
+            uuid: newPayment.$uuid,
+            description: newPayment.$description,
+            externalReference: newPayment.$externalReference,
+            paymentMethodId: newPayment.$paymentMethodId,
+            token: newPayment.$token,
+            transactionAmount: newPayment.$transactionAmount,
+            //Since it is not defined in the table, the following fields are added at the end
+            items: newPayment.$items,
+            payer: newPayment.$payer,
+            shipments: newPayment.$shipments,
+        }
 
-        //   if (addedProductObject.statusCode != statusCode.OK) {
-        //     return addedProductObject;
-        //   }
-        //   idAddedProductObject = await addedProductObject[0].dataValues.id;
+        newPaymentItem = await insertItems(PAYMENTS_TABLE_NAME, item);
 
-        //   const PRODUCT_SPECIFICATION_ENDPOINT = `http://${process.env.API_HOST}:${process.env.API_PORT}/${process.env.API_STAGE}/${process.env.API_VERSION}/${process.env.API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME}/add/${idAddedProductObject}`;
+        if (newPaymentItem == null || !(newPaymentItem.length)) {
+            return await requestResult(
+                statusCode.INTERNAL_SERVER_ERROR,
+                "An error has occurred, the object has not been inserted into the database"
+            );
+        }
 
+        return await requestResult(statusCode.OK, newPaymentItem);
 
-        //   addedProductSpecificationObject = await getAddedProductSpecifAxios(PRODUCT_SPECIFICATION_ENDPOINT, null, HEADERS);
-
-        //   objectsList.push(objProduct);
-        //   objectsList.push(addedProductSpecificationObject.data.message);
-
-        //   return await requestResult(statusCode.OK, objectsList);
-        // }
-        // //-- end with db PRODUCT_SPECIFICATION operations  ---
-
-        // return newProduct;
+        //-- end with db Payments operations  ---
 
     } catch (error) {
-        msg = `Error in CREATE PAYMENT lambda. Caused by ${error}`;
         code = statusCode.INTERNAL_SERVER_ERROR;
+        msg = `Error in CREATE PAYMENT lambda. Caused by ${error}`;
         console.error(`${msg}. Stack error type : ${error.stack}`);
 
         return await requestResult(code, msg);

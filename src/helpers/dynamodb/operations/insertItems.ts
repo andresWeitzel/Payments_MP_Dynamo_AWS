@@ -1,5 +1,6 @@
 //External
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import {marshall, unmarshall} from "@aws-sdk/util-dynamodb";
 //Helpers
 import {
     dynamoDBClient
