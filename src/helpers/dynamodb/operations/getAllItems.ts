@@ -44,7 +44,7 @@ export const getAllItems = async (tableName:string, pageSizeNro:number, orderAt:
         if(metadata != null){
             items = metadata.Items;
         }
-        
+  
         return items;
 
     } catch (error) {

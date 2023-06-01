@@ -5,8 +5,6 @@ import { statusCode } from "src/enums/http/statusCode";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
-import { insertItems } from "src/helpers/dynamodb/operations/insertItems";
-import { I_Payments } from "src/interfaces/I_Payments";
 import { getAllItems } from "src/helpers/dynamodb/operations/getAllItems";
 import { formatToBigint } from "src/helpers/format/formatToNumber";
 
@@ -40,7 +38,7 @@ let msg: string;
 let code: number;
 let pageSizeNro: number;
 let orderAt: string;
-let paymentObj: I_Payments;
+//let paymentObj: I_Payments;
 const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 
@@ -92,6 +90,7 @@ module.exports.handler = async (event: any) => {
                 : orderAt;
 
         //-- end with pagination  ---
+
 
         //-- start with db operations  ---
         let items = await getAllItems(PAYMENTS_TABLE_NAME, pageSizeNro, orderAt);

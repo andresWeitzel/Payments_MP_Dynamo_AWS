@@ -54,6 +54,8 @@ Como representación se tomara la api de mercado pago para el manejo de pagos.
 
 ### 1.0.0) Descripción General
 
+`Importante`: Hay alertas de seguridad de dependabot que apuntan contra el plugin "serverless-dynamodb-local". No aplicar parches de seguridad a dicho plugin, ya que la versión `^1.0.2` tiene problemas al momento de la creación de tablas y ejecución del servicio de dynamo. Se recomienda mantener la última versión estable `^0.2.40` con las alertas de seguridad generadas.
+
 
  
 ### 1.0.1) Descripción Arquitectura y Funcionamiento
@@ -91,6 +93,7 @@ sls -v
 ```git
 npm i
 ```
+`Importante`: Hay alertas de seguridad de dependabot que apuntan contra el plugin "serverless-dynamodb-local". No aplicar parches de seguridad a dicho plugin, ya que la versión `^1.0.2` tiene problemas al momento de la creación de tablas y ejecución del servicio de dynamo. Se recomienda mantener la última versión estable `^0.2.40` con las alertas de seguridad generadas.
 * Creamos un archivo para almacenar las variables ssm utilizadas en el proyecto (Más allá que sea un proyecto con fines no comerciales es una buena práctica utilizar variables de entorno).
   * Click der sobre la raíz del proyecto
   * New file
@@ -186,7 +189,8 @@ plugins:
 ```git
 npm i serverless-esbuild
 ```  
-* Instalamos serverless-dynamoDB-local (No dynamoDB)
+* Instalamos el plugin para el uso de dynamodb en local (No el servicio de dynamoDB, este viene configurado en los archivos dentro de .dynamodb).
+`Importante`: Hay alertas de seguridad de dependabot que apuntan contra el plugin "serverless-dynamodb-local". No aplicar parches de seguridad a dicho plugin, ya que la versión `^1.0.2` tiene problemas al momento de la creación de tablas y ejecución del servicio de dynamo. Se recomienda mantener la última versión estable `^0.2.40` con las alertas de seguridad generadas.
 ```git
 npm install serverless-dynamodb-local --save-dev
 ```
