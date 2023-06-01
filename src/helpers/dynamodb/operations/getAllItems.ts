@@ -13,7 +13,7 @@ let items:any;
 
 
 /**
- * @description get all items from the database
+ * @description get all payment objects items from the database
  * @param {String} tableName string type
  * @param {BigInt} pageSizeNro BigInt type
  * @param {String} orderAt String type
@@ -55,8 +55,8 @@ export const getAllItems = async (tableName:string, pageSizeNro:number, orderAt:
 /**
  * @description get all items from the database according to the filter applied
  * @param {String} tableName string type
- * @param {String} filter String type
- * @param {BigInt} limit BigInt type
+ * @param {String} tableName string type
+ * @param {BigInt} pageSizeNro BigInt type
  * @param {String} orderAt String type
  * @returns a list with all items from the db in json format
  */
