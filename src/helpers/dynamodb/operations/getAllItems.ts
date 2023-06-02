@@ -25,11 +25,7 @@ export const getAllItems = async (tableName:string, pageSizeNro:number, orderAt:
         metadata=null;
         orderAt = orderAt.toLowerCase();
 
-        if(orderAt=='asc' || orderAt == null){
-            orderAt=true;
-        }else{
-            orderAt=false;
-        }
+        orderAt = (orderAt=='asc' || orderAt == null) ? true : false;
 
         dynamo = await dynamoDBClient();
 
@@ -65,12 +61,8 @@ export const getAllItemsWithFilter = async (tableName, filter, filterValue,pageS
         items = null;
         metadata=null;
         orderAt = orderAt.toLowerCase();
-
-        if (orderAt == 'asc' || orderAt == null) {
-            orderAt = true;
-        } else {
-            orderAt = false;
-        }
+        
+        orderAt = (orderAt=='asc' || orderAt == null) ? true : false;
 
         dynamo = await dynamoDBClient();
 

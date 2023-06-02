@@ -28,3 +28,13 @@ export interface I_Items {
     */
     unit_price: number;
 }
+
+export async function I_ItemsBuild(obj:I_Items){
+  id : obj.id;
+  title : obj.title;
+  description : obj.description;
+  picture_url : obj.picture_url;
+  category_id: obj.category_id;
+  quantity: obj.quantity;
+  unit_price: obj.unit_price;
+}

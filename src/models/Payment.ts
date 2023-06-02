@@ -5,12 +5,14 @@ import {
     IsString,
     Length,
     Max,
-    Min
+    Min,
+    ValidateNested
 } from 'class-validator';
 //Interfaces
 import { I_Items } from "src/interfaces/I_Items";
 import { I_Payer } from "src/interfaces/I_Payer";
 import { I_Shipments } from "src/interfaces/I_Shipments";
+import { Payer } from './Payer';
 //Vars-const
 const MIN_VALUE_UUID = 30;
 const MAX_VALUE_UUID = 40;
@@ -29,7 +31,7 @@ const MAX_VALUE_TRANSAC_AMOUNT = 999999999.99;
 /**
  * @description Payment class for payment type objects
  */
-export class Payment {
+export class Payment extends Payer{
     /**
      * @description identificador del pago
      */
@@ -42,21 +44,21 @@ export class Payment {
  * @description Lista de ítems a pagar
  */
     @IsNotEmpty({ message: 'The items cannot be empty' })
-    @IsString({ message: 'The items must be of type I_Items (    id: string; title: string; description: string | null;picture_url: string | null; category_id: string; quantity: number; unit_price: number;)' })
+    @ValidateNested({ message: 'The items must be of type I_Items (id: string; title: string; description: string | null;picture_url: string | null; category_id: string; quantity: number; unit_price: number;)' })
     private items: I_Items;
 
-    /**
- * @description El payer es quien realiza el pago. Este campo es un objeto que tiene la información del pagador.
- */
-    @IsNotEmpty({ message: 'The payer cannot be empty' })
-    @IsString({ message: 'The payer must be of type I_Payer (id: string; first_name: string; last_name: string | null;)' })
-    private payer: I_Payer;
+//     /**
+//  * @description El payer es quien realiza el pago. Este campo es un objeto que tiene la información del pagador.
+//  */
+//     @IsNotEmpty({ message: 'The payer cannot be empty' })
+//     @ValidateNested({ message: 'The payer must be of type I_Payer (id: string; first_name: string; last_name: string | null;)' })
+//     private payer: Payer;
 
     /**
  * @description Objeto que comprende toda la información para el envío de la compra del cliente.
  */
     @IsNotEmpty({ message: 'The shipments cannot be empty' })
-    @IsString({ message: 'The shipments must be of type I_Shipments (zip_code: string; state_name: string; city_name: string; street_name: string; street_number: number;)' })
+    @ValidateNested({ message: 'The shipments must be of type I_Shipments (zip_code: string; state_name: string; city_name: string; street_name: string; street_number: number;)' })
     private shipments: I_Shipments;
 
     /**
@@ -104,7 +106,9 @@ export class Payment {
     constructor(
         uuid: string,
         items: I_Items,
-        payer: I_Payer,
+        idPayer: string,
+        firstNamePayer: string,
+        lastNamePayer: string,
         shipments: I_Shipments,
         description: string,
         externalReference: string,
@@ -112,9 +116,9 @@ export class Payment {
         token: string,
         transactionAmount: number
     ) {
+        super(idPayer, firstNamePayer, lastNamePayer)
         this.uuid = uuid
         this.items = items
-        this.payer = payer
         this.shipments = shipments
         this.description = description
         this.externalReference = externalReference
@@ -139,13 +143,13 @@ export class Payment {
         return this.items;
     }
 
-    /**
-     * Getter $payer
-     * @return {I_Payer}
-     */
-    public get $payer(): I_Payer {
-        return this.payer;
-    }
+    // /**
+    //  * Getter $payer
+    //  * @return {I_Payer}
+    //  */
+    // public get $payer(): Payer {
+    //     return this.payer;
+    // }
 
     /**
      * Getter $shipments
@@ -214,13 +218,13 @@ export class Payment {
         this.items = value;
     }
 
-    /**
-     * Setter $payer
-     * @param {I_Payer} value
-     */
-    public set $payer(value: I_Payer) {
-        this.payer = value;
-    }
+    // /**
+    //  * Setter $payer
+    //  * @param {I_Payer} value
+    //  */
+    // public set $payer(value: I_Payer) {
+    //     this.payer = value;
+    // }
 
     /**
      * Setter $shipments
