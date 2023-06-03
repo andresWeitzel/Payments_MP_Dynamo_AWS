@@ -1,6 +1,7 @@
-export class ReceiverAddress{
-
-
+/**
+* @description Objeto que comprende la dirección del destinatario de la compra.
+*/
+export class ReceiverAddress {
     private zipCode: string;
     private stateName: string;
     private cityName: string;
@@ -8,12 +9,12 @@ export class ReceiverAddress{
     private streetNumber: number;
 
     constructor($zipCode: string, $stateName: string, $cityName: string, $streetName: string, $streetNumber: number) {
-		this.zipCode = $zipCode;
-		this.stateName = $stateName;
-		this.cityName = $cityName;
-		this.streetName = $streetName;
-		this.streetNumber = $streetNumber;
-	}
+        this.zipCode = $zipCode;
+        this.stateName = $stateName;
+        this.cityName = $cityName;
+        this.streetName = $streetName;
+        this.streetNumber = $streetNumber;
+    }
 
     public getZipCode(): string {
         return this.zipCode;

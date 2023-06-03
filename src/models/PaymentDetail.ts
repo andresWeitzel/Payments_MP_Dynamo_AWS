@@ -30,9 +30,9 @@ const MAX_VALUE_TRANSAC_AMOUNT = 999999999.99;
 
 
 /**
- * @description Payment class for payment type objects
+ * @description Payment Detail class for payment objects
  */
-export class Payment{
+export class PaymentDetail{
     /**
      * @description identificador del pago
      */
@@ -40,13 +40,6 @@ export class Payment{
     @IsString({ message: 'The uuid must be of type string' })
     @Length(MIN_VALUE_UUID, MAX_VALUE_UUID, { message: `The value of the uuid must be between ${MIN_VALUE_UUID} and ${MAX_VALUE_UUID} characters` })
     private uuid: string;
-
-    /**
- * @description Objeto que comprende toda la información para el envío de la compra del cliente.
- */
-    @IsNotEmpty({ message: 'The shipments cannot be empty' })
-    @ValidateNested({ message: 'The shipments must be of type I_Shipments (zip_code: string; state_name: string; city_name: string; street_name: string; street_number: number;)' })
-    private shipments: I_Shipments;
 
     /**
  * @description Descripción del producto adquirido, el motivo del pago. Ej. - "Celular Xiaomi Redmi Note 11S 128gb 6gb Ram Original Global Blue Version" (descripción de un producto en el marketplace).
@@ -92,7 +85,6 @@ export class Payment{
 
     constructor(
         $uuid: string,
-        shipments: I_Shipments,
         description: string,
         externalReference: string,
         paymentMethodId: string,
@@ -100,7 +92,6 @@ export class Payment{
         transactionAmount: number
     ) {
         this.uuid = $uuid;
-        this.shipments = shipments
         this.description = description
         this.externalReference = externalReference
         this.paymentMethodId = paymentMethodId
@@ -118,13 +109,6 @@ export class Payment{
         this.uuid = uuid;
     }
 
-    /**
-     * Getter $shipments
-     * @return {I_Shipments}
-     */
-    public get $shipments(): I_Shipments {
-        return this.shipments;
-    }
 
     /**
      * Getter $description
@@ -175,15 +159,6 @@ export class Payment{
      */
     public set $uuid(value: string) {
         this.uuid = value;
-    }
-
-
-    /**
-     * Setter $shipments
-     * @param {I_Shipments} value
-     */
-    public set $shipments(value: I_Shipments) {
-        this.shipments = value;
     }
 
     /**

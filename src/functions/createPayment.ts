@@ -1,5 +1,5 @@
 //Models
-import { Payment } from "src/models/Payment";
+import {PaymentDetail } from "src/models/PaymentDetail";
 import { Payer } from "src/models/Payer";
 import { Item } from "src/models/Item";
 //Enums
@@ -12,13 +12,14 @@ import { formatToJson } from "src/helpers/format/formatToJson";
 import { generateUuidV4 } from "src/helpers/math/generateUuid";
 import { validateObject } from "src/helpers/validations/models/validateObject";
 import { I_Shipments } from "src/interfaces/I_Shipments";
+import { Shipment } from "src/models/Shipment";
 
 
 //Const/Vars
 let eventBody: any;
 let eventBodyItems: any;
 let eventBodyPayer: any;
-let eventBodyShipments: any;
+let eventBodyShipment: any;
 let eventHeaders: any;
 let checkEventHeadersAndKeys: any;
 let uuid: string;
@@ -29,13 +30,15 @@ let description: string;
 let externalReference: string;
 let paymentMethodId: string;
 let transactionAmount: number;
-let newPayment: Payment;
+let newPayment: PaymentDetail;
 let itemDynamoDB: any;
 let newPaymentItem: any;
+let newShipment:any
 let token: string;
 let validatePaymentObj: any;
 let validateItemObj: any;
-let validatePayerObj:any;
+let validatePayerObj: any;
+let validateShipmentObj:any;
 let msg: string;
 let code: number;
 const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
@@ -67,10 +70,10 @@ module.exports.handler = async (event: any) => {
 
 
 
-        //-- start with object operations --
+        //-- start with item object operations --
 
         eventBody = await formatToJson(event.body);
-    
+
 
         eventBodyItems = await eventBody.items;
 
@@ -90,6 +93,10 @@ module.exports.handler = async (event: any) => {
                 `Bad request, check request attributes for Item Object . Validate the following : ${validateItemObj}`
             );
         }
+        //-- end with item object operations --
+
+
+        //-- start with payer object operations --
 
         eventBodyPayer = await eventBody.payer;
 
@@ -106,20 +113,45 @@ module.exports.handler = async (event: any) => {
             );
         }
 
-        eventBodyShipments = await eventBody.shipments;
+        //-- end with payer object operations --
 
-        shipments = {
-            receiver_address: eventBodyShipments.receiver_address
-        };
-    
-        newPayment = new Payment(
-        await generateUuidV4()
-        , shipments
-        , eventBody.description
-        , eventBody.external_reference
-        , eventBody.payment_method_id
-        , eventBody.token
-        , eventBody.transaction_amount
+
+        //-- start with shipment object operations --
+
+        eventBodyShipment = await eventBody.shipments.receiver_address;
+
+
+        newShipment = new Shipment(
+            await generateUuidV4()
+            ,eventBodyShipment.street_number
+            , eventBodyShipment.city_name
+            , eventBodyShipment.state_name
+            , eventBodyShipment.zip_code
+            , eventBodyShipment.street_name
+        );
+
+        
+        validateShipmentObj = await validateObject(newShipment);
+
+        if (validateShipmentObj.length) {
+            return await requestResult(
+                statusCode.BAD_REQUEST,
+                `Bad request, check request attributes for Shipment Object . Validate the following : ${validateShipmentObj}`
+            );
+        }
+
+        //-- end with shipment object operations --
+
+
+        //-- start with payment object operations --
+
+        newPayment = new PaymentDetail(
+            await generateUuidV4()
+            , eventBody.description
+            , eventBody.external_reference
+            , eventBody.payment_method_id
+            , eventBody.token
+            , eventBody.transaction_amount
         );
 
         validatePaymentObj = await validateObject(newPayment);
@@ -130,7 +162,7 @@ module.exports.handler = async (event: any) => {
                 `Bad request, check request attributes for Payment Object. Validate the following : ${validatePaymentObj}`
             );
         }
-         //-- end with object operations --
+        //-- end with payment object operations --
 
 
 
@@ -157,7 +189,15 @@ module.exports.handler = async (event: any) => {
                 first_name: newPayer.getFirstName(),
                 last_name: newPayer.getLastName()
             },
-            shipments: newPayment.$shipments,
+            shipments: {
+                receiver_address:{
+                    street_number: newShipment.getStreetNumber(),
+                    city_name: newShipment.getCityName(),
+                    state_name: newShipment.getStateName(),
+                    zip_code: newShipment.getZipCode(),
+                    street_name: newShipment.getStateName()
+                }
+            },
         }
 
         newPaymentItem = await insertItems(PAYMENTS_TABLE_NAME, itemDynamoDB);
