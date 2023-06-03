@@ -13,6 +13,7 @@ import { I_Items } from "src/interfaces/I_Items";
 import { I_Payer } from "src/interfaces/I_Payer";
 import { I_Shipments } from "src/interfaces/I_Shipments";
 import { Payer } from './Payer';
+import { Item } from './Item';
 //Vars-const
 const MIN_VALUE_UUID = 30;
 const MAX_VALUE_UUID = 40;
@@ -31,7 +32,7 @@ const MAX_VALUE_TRANSAC_AMOUNT = 999999999.99;
 /**
  * @description Payment class for payment type objects
  */
-export class Payment extends Payer{
+export class Payment{
     /**
      * @description identificador del pago
      */
@@ -39,20 +40,6 @@ export class Payment extends Payer{
     @IsString({ message: 'The uuid must be of type string' })
     @Length(MIN_VALUE_UUID, MAX_VALUE_UUID, { message: `The value of the uuid must be between ${MIN_VALUE_UUID} and ${MAX_VALUE_UUID} characters` })
     private uuid: string;
-
-    /**
- * @description Lista de ítems a pagar
- */
-    @IsNotEmpty({ message: 'The items cannot be empty' })
-    @ValidateNested({ message: 'The items must be of type I_Items (id: string; title: string; description: string | null;picture_url: string | null; category_id: string; quantity: number; unit_price: number;)' })
-    private items: I_Items;
-
-//     /**
-//  * @description El payer es quien realiza el pago. Este campo es un objeto que tiene la información del pagador.
-//  */
-//     @IsNotEmpty({ message: 'The payer cannot be empty' })
-//     @ValidateNested({ message: 'The payer must be of type I_Payer (id: string; first_name: string; last_name: string | null;)' })
-//     private payer: Payer;
 
     /**
  * @description Objeto que comprende toda la información para el envío de la compra del cliente.
@@ -104,11 +91,7 @@ export class Payment extends Payer{
 
 
     constructor(
-        uuid: string,
-        items: I_Items,
-        idPayer: string,
-        firstNamePayer: string,
-        lastNamePayer: string,
+        $uuid: string,
         shipments: I_Shipments,
         description: string,
         externalReference: string,
@@ -116,9 +99,7 @@ export class Payment extends Payer{
         token: string,
         transactionAmount: number
     ) {
-        super(idPayer, firstNamePayer, lastNamePayer)
-        this.uuid = uuid
-        this.items = items
+        this.uuid = $uuid;
         this.shipments = shipments
         this.description = description
         this.externalReference = externalReference
@@ -127,29 +108,15 @@ export class Payment extends Payer{
         this.transactionAmount = transactionAmount
     }
 
-    /**
-     * Getter $uuid
-     * @return {string}
-     */
-    public get $uuid(): string {
+
+    
+    public getUuid(): string {
         return this.uuid;
     }
 
-    /**
-     * Getter $items
-     * @return {I_Items}
-     */
-    public get $items(): I_Items {
-        return this.items;
+    public setUuid(uuid: string): void {
+        this.uuid = uuid;
     }
-
-    // /**
-    //  * Getter $payer
-    //  * @return {I_Payer}
-    //  */
-    // public get $payer(): Payer {
-    //     return this.payer;
-    // }
 
     /**
      * Getter $shipments
@@ -210,21 +177,6 @@ export class Payment extends Payer{
         this.uuid = value;
     }
 
-    /**
-     * Setter $items
-     * @param {I_Items} value
-     */
-    public set $items(value: I_Items) {
-        this.items = value;
-    }
-
-    // /**
-    //  * Setter $payer
-    //  * @param {I_Payer} value
-    //  */
-    // public set $payer(value: I_Payer) {
-    //     this.payer = value;
-    // }
 
     /**
      * Setter $shipments

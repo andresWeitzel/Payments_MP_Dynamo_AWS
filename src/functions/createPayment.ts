@@ -1,29 +1,28 @@
 //Models
 import { Payment } from "src/models/Payment";
+import { Payer } from "src/models/Payer";
+import { Item } from "src/models/Item";
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
-//Services
-import { I_Items } from "src/interfaces/I_Items";
-import { I_Payer } from "src/interfaces/I_Payer";
-import { I_Shipments } from "src/interfaces/I_Shipments";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
 import { insertItems } from "src/helpers/dynamodb/operations/insertItems";
 import { formatToJson } from "src/helpers/format/formatToJson";
 import { generateUuidV4 } from "src/helpers/math/generateUuid";
-import { validatePaymentObject } from "src/helpers/validations/models/validatePaymentObject";
-import { Payer } from "src/models/Payer";
+import { validateObject } from "src/helpers/validations/models/validateObject";
+import { I_Shipments } from "src/interfaces/I_Shipments";
+
 
 //Const/Vars
 let eventBody: any;
-let eventBodyItems:any;
-let eventBodyPayer:any;
-let eventBodyShipments:any;
+let eventBodyItems: any;
+let eventBodyPayer: any;
+let eventBodyShipments: any;
 let eventHeaders: any;
 let checkEventHeadersAndKeys: any;
 let uuid: string;
-let items: I_Items;
+let newItem: Item;
 let newPayer: Payer;
 let shipments: I_Shipments;
 let description: string;
@@ -31,10 +30,12 @@ let externalReference: string;
 let paymentMethodId: string;
 let transactionAmount: number;
 let newPayment: Payment;
-let item: any;
+let itemDynamoDB: any;
 let newPaymentItem: any;
 let token: string;
-let validateObject: any;
+let validatePaymentObj: any;
+let validateItemObj: any;
+let validatePayerObj:any;
 let msg: string;
 let code: number;
 const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
@@ -51,7 +52,6 @@ module.exports.handler = async (event: any) => {
     try {
         //Init
         newPayment = null;
-        item = null;
         newPaymentItem = null;
 
 
@@ -67,72 +67,100 @@ module.exports.handler = async (event: any) => {
 
 
 
-        //-- start with event body --
+        //-- start with object operations --
+
         eventBody = await formatToJson(event.body);
+    
+
         eventBodyItems = await eventBody.items;
-        eventBodyPayer = await eventBody.payer;
-        eventBodyShipments = await eventBody.shipments;
 
-        uuid = await generateUuidV4();
-        items = { 
-            id: eventBodyItems.id, 
-            title: eventBodyItems.title,
-            description : eventBodyItems.description,
-            picture_url: eventBodyItems.picture_url,
-            category_id: eventBodyItems.category_id,
-            quantity : eventBodyItems.quantity,
-            unit_price : eventBodyItems.unit_price
-         };
-         newPayer = new Payer(eventBodyPayer.id, eventBodyPayer.first_name, eventBodyPayer.last_name);
-        shipments = {
-            receiver_address : eventBodyShipments.receiver_address
-        };
-        description = await eventBody.description;
-        externalReference = await eventBody.external_reference;
-        paymentMethodId = await eventBody.payment_method_id;
-        token = await eventBody.token;
-        transactionAmount = await eventBody.transaction_amount;
-        //-- end with event body --
+        newItem = new Item(eventBodyItems.id
+            , eventBodyItems.title
+            , eventBodyItems.description
+            , eventBodyItems.picture_url
+            , eventBodyItems.category_id
+            , eventBodyItems.quantity
+            , eventBodyItems.unit_price);
 
-        //-- start with validation object  ---
+        validateItemObj = await validateObject(newItem);
 
- 
-        newPayment = new Payment(uuid, items
-            , newPayer.getId()
-            , newPayer.getFirstName()
-            , newPayer.getLastName()
-            , shipments, description, externalReference, paymentMethodId, token, transactionAmount);
-
-        validateObject = await validatePaymentObject(newPayment);
-
-        if (validateObject.length) {
+        if (validateItemObj.length) {
             return await requestResult(
                 statusCode.BAD_REQUEST,
-                `Bad request, check request attributes. Validate the following : ${validateObject}`
+                `Bad request, check request attributes for Item Object . Validate the following : ${validateItemObj}`
             );
         }
-        //-- end with validation object  ---
+
+        eventBodyPayer = await eventBody.payer;
+
+        newPayer = new Payer(eventBodyPayer.id
+            , eventBodyPayer.first_name
+            , eventBodyPayer.last_name);
+
+        validatePayerObj = await validateObject(newPayer);
+
+        if (validatePayerObj.length) {
+            return await requestResult(
+                statusCode.BAD_REQUEST,
+                `Bad request, check request attributes for Payer Object . Validate the following : ${validatePayerObj}`
+            );
+        }
+
+        eventBodyShipments = await eventBody.shipments;
+
+        shipments = {
+            receiver_address: eventBodyShipments.receiver_address
+        };
+    
+        newPayment = new Payment(
+        await generateUuidV4()
+        , shipments
+        , eventBody.description
+        , eventBody.external_reference
+        , eventBody.payment_method_id
+        , eventBody.token
+        , eventBody.transaction_amount
+        );
+
+        validatePaymentObj = await validateObject(newPayment);
+
+        if (validatePaymentObj.length) {
+            return await requestResult(
+                statusCode.BAD_REQUEST,
+                `Bad request, check request attributes for Payment Object. Validate the following : ${validatePaymentObj}`
+            );
+        }
+         //-- end with object operations --
 
 
-        //-- start with db Payments operations  ---
-        item = {
-            uuid: newPayment.$uuid,
+
+        //-- start with db operations  ---
+        itemDynamoDB = {
+            uuid: newPayment.getUuid(),
             description: newPayment.$description,
             externalReference: newPayment.$externalReference,
             paymentMethodId: newPayment.$paymentMethodId,
             token: newPayment.$token,
             transactionAmount: newPayment.$transactionAmount,
             //Since it is not defined in the table, the following fields are added at the end
-            items: newPayment.$items,
+            items: {
+                id: newItem.getId(),
+                title: newItem.getTitle(),
+                description: newItem.getDescription(),
+                picture_url: newItem.getPictureUrl(),
+                category_id: newItem.getCategoryId(),
+                quantity: newItem.getQuantity(),
+                unit_price: newItem.getUnitPrice()
+            },
             payer: {
-                id : newPayer.getId(),
+                id: newPayer.getId(),
                 first_name: newPayer.getFirstName(),
-                last_name : newPayer.getLastName()
+                last_name: newPayer.getLastName()
             },
             shipments: newPayment.$shipments,
         }
 
-        newPaymentItem = await insertItems(PAYMENTS_TABLE_NAME, item);
+        newPaymentItem = await insertItems(PAYMENTS_TABLE_NAME, itemDynamoDB);
 
         if (newPaymentItem == null || !(newPaymentItem.length)) {
             return await requestResult(
@@ -143,7 +171,7 @@ module.exports.handler = async (event: any) => {
 
         return await requestResult(statusCode.OK, newPaymentItem);
 
-        //-- end with db Payments operations  ---
+        //-- end with db operations  ---
 
     } catch (error) {
         code = statusCode.INTERNAL_SERVER_ERROR;

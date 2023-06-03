@@ -1,12 +1,8 @@
 //External
 import {
     IsNotEmpty,
-    IsNumber,
     IsString,
-    Length,
-    Max,
-    Min,
-    ValidateNested
+    Length
 } from 'class-validator';
 //Vars-const
 const MIN_VALUE_ID = 1;
@@ -15,7 +11,7 @@ const MIN_VALUE_FIRST_LASTNAME = 3;
 const MAX_VALUE_FIRST_LASTNAME = 50;
 
 /**
- * @description Payer class for payer type objects
+ * @description El payer es quien realiza el pago. Este campo es un objeto que tiene la información del pagador.
  */
 export class Payer {
 
@@ -38,13 +34,13 @@ export class Payer {
     private lastName: string;
 
     constructor(
-        id: string,
-        firstName: string,
-        lastName: string
+        $id: string,
+        $firstName: string,
+        $lastName: string
     ) {
-        this.id = id
-        this.firstName = firstName
-        this.lastName = lastName
+        this.id = $id;
+        this.firstName = $firstName;
+        this.lastName = $lastName;
     }
 
     public getId(): string {
