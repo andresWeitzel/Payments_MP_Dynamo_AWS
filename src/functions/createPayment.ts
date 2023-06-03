@@ -2,6 +2,7 @@
 import {PaymentDetail } from "src/models/PaymentDetail";
 import { Payer } from "src/models/Payer";
 import { Item } from "src/models/Item";
+import { Shipment } from "src/models/Shipment";
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
 //Helpers
@@ -11,8 +12,6 @@ import { insertItems } from "src/helpers/dynamodb/operations/insertItems";
 import { formatToJson } from "src/helpers/format/formatToJson";
 import { generateUuidV4 } from "src/helpers/math/generateUuid";
 import { validateObject } from "src/helpers/validations/models/validateObject";
-import { I_Shipments } from "src/interfaces/I_Shipments";
-import { Shipment } from "src/models/Shipment";
 
 
 //Const/Vars
@@ -22,19 +21,12 @@ let eventBodyPayer: any;
 let eventBodyShipment: any;
 let eventHeaders: any;
 let checkEventHeadersAndKeys: any;
-let uuid: string;
 let newItem: Item;
 let newPayer: Payer;
-let shipments: I_Shipments;
-let description: string;
-let externalReference: string;
-let paymentMethodId: string;
-let transactionAmount: number;
 let newPayment: PaymentDetail;
 let itemDynamoDB: any;
 let newPaymentItem: any;
 let newShipment:any
-let token: string;
 let validatePaymentObj: any;
 let validateItemObj: any;
 let validatePayerObj: any;
@@ -169,11 +161,11 @@ module.exports.handler = async (event: any) => {
         //-- start with db operations  ---
         itemDynamoDB = {
             uuid: newPayment.getUuid(),
-            description: newPayment.$description,
-            externalReference: newPayment.$externalReference,
-            paymentMethodId: newPayment.$paymentMethodId,
-            token: newPayment.$token,
-            transactionAmount: newPayment.$transactionAmount,
+            description: newPayment.getDescription(),
+            externalReference: newPayment.getExternalReference(),
+            paymentMethodId: newPayment.getPaymentMethodId(),
+            token: newPayment.getToken(),
+            transactionAmount: newPayment.getTransactionAmount(),
             //Since it is not defined in the table, the following fields are added at the end
             items: {
                 id: newItem.getId(),
