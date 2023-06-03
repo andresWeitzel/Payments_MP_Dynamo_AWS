@@ -12,6 +12,7 @@ import { insertItems } from "src/helpers/dynamodb/operations/insertItems";
 import { formatToJson } from "src/helpers/format/formatToJson";
 import { generateUuidV4 } from "src/helpers/math/generateUuid";
 import { validateObject } from "src/helpers/validations/models/validateObject";
+import { formatToBigint } from "src/helpers/format/formatToNumber";
 
 
 //Const/Vars
@@ -115,11 +116,11 @@ module.exports.handler = async (event: any) => {
 
         newShipment = new Shipment(
             await generateUuidV4()
-            ,eventBodyShipment.street_number
+            , eventBodyShipment.zip_code
             , eventBodyShipment.city_name
             , eventBodyShipment.state_name
-            , eventBodyShipment.zip_code
             , eventBodyShipment.street_name
+            , await formatToBigint(eventBodyShipment.street_number)
         );
 
         

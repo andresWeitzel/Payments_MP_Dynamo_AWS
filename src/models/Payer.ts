@@ -15,9 +15,9 @@ const MAX_VALUE_FIRST_LASTNAME = 50;
  */
 export class Payer {
 
-    /**
- * @description identificador del pagador
- */
+        /**
+     * @description identificador del pagador
+     */
     @IsNotEmpty({ message: 'The id cannot be empty' })
     @IsString({ message: 'The id must be of type string' })
     @Length(MIN_VALUE_ID, MAX_VALUE_ID, { message: `The value of the id must be between ${MIN_VALUE_ID} and ${MAX_VALUE_ID} characters` })
