@@ -1,7 +1,6 @@
-//Services
-
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
+import { value } from "src/enums/general/values";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
@@ -12,79 +11,54 @@ import { formatToBigint } from "src/helpers/format/formatToNumber";
 //Const/Vars
 // let eventBody: any;
 let eventHeaders: any;
+let eventQueryStrParams: any;
 let checkEventHeadersAndKeys: any;
-// let objProduct: any;
-// let siteId: string;
-// let title: string;
-// let subtitle: string;
-// let sellerId: number;
-// let categoryId: string;
-// let officialStoreId: string;
-// let price: number;
-// let basePrice: number;
-// let originalPrice: number;
-// let initialQuantity: number;
-// let availableQuantity: number;
-// let dateNow: string;
-// let hasSpecification: boolean;
-// let addedProductObject: any;
-// let addedProductSpecificationObject: any;
-// let idAddedProductObject: number;
-// let objectsList: Array<any>;
-// let creationDate: string;
-// let updateDate: string;
-// let newProduct: any;
 let msg: string;
 let code: number;
 let pageSizeNro: number;
 let orderAt: string;
-//let paymentObj: I_Payments;
 const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 
 
-
-
 /**
- * @description Add a payment object according to the parameters passed in the request body
+ * @description Get all paginated payments list object
  * @param {Object} event Object type
- * @returns the result of the transaction carried out in the database
+ * @returns payments object list
  */
 module.exports.handler = async (event: any) => {
     try {
         //Init
-        // objProduct = null;
-        // newProduct = null;
-        // addedProductObject = null;
-        // objectsList = [];
-
         pageSizeNro = 5;
         orderAt = 'asc';
 
 
         //-- start with validation headers and keys  ---
         eventHeaders = await event.headers;
+    
 
         checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
 
-        if (checkEventHeadersAndKeys != null) {
+        if (checkEventHeadersAndKeys != value.IS_NULL) {
             return checkEventHeadersAndKeys;
         }
         //-- end with validation headers and keys  ---
 
         //-- start with pagination  ---
-        let paramPageSizeNro = await formatToBigint(event.queryStringParameters.limit);
-        let paramOrderAt = await event.queryStringParameters.orderAt;
+        eventQueryStrParams = await event.queryStringParameters;
+
+        let paramPageSizeNro = await formatToBigint(eventQueryStrParams.limit);
+        let paramOrderAt = eventQueryStrParams.orderAt;
 
         pageSizeNro =
-            (paramPageSizeNro != null &&
-                paramPageSizeNro != undefined &&
+            (paramPageSizeNro != value.IS_NULL &&
+                paramPageSizeNro != value.IS_UNDEFINED &&
                 !isNaN(paramPageSizeNro))
                 ? paramPageSizeNro
                 : pageSizeNro;
         orderAt =
-            (paramOrderAt != null &&
-                paramOrderAt != undefined &&
+            (paramOrderAt != value.IS_NULL &&
+                paramOrderAt != value.IS_UNDEFINED &&
                 isNaN(paramOrderAt))
                 ? paramOrderAt
                 : orderAt;
@@ -95,12 +69,19 @@ module.exports.handler = async (event: any) => {
         //-- start with db operations  ---
         let items = await getAllItems(PAYMENTS_TABLE_NAME, pageSizeNro, orderAt);
 
+        if (items == value.IS_NULL || !(items.length)) {
+            return await requestResult(
+                statusCode.INTERNAL_SERVER_ERROR,
+                "Bad request, could not get a paginated payments list. Try again"
+            );
+        }
+
         return await requestResult(statusCode.OK, items);
         //-- end with db operations  ---
 
     } catch (error) {
-        msg = `Error in GET ALL PAYMENTS lambda. Caused by ${error}`;
         code = statusCode.INTERNAL_SERVER_ERROR;
+        msg = `Error in GET ALL PAYMENTS lambda. Caused by ${error}`;
         console.error(`${msg}. Stack error type : ${error.stack}`);
 
         return await requestResult(code, msg);

@@ -5,6 +5,7 @@ import { Item } from "src/models/Item";
 import { Shipment } from "src/models/Shipment";
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
+import { value } from "src/enums/general/values";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
@@ -27,7 +28,7 @@ let newPayer: Payer;
 let newPayment: PaymentDetail;
 let itemDynamoDB: any;
 let newPaymentItem: any;
-let newShipment:any
+let newShipment:any;
 let validatePaymentObj: any;
 let validateItemObj: any;
 let validatePayerObj: any;
@@ -42,13 +43,13 @@ const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 /**
  * @description Add a payment object according to the parameters passed in the request body
  * @param {Object} event Object type
- * @returns the result of the transaction carried out in the database
+ * @returns the added object
  */
 module.exports.handler = async (event: any) => {
     try {
         //Init
-        newPayment = null;
-        newPaymentItem = null;
+        newPayment = value.IS_NULL;
+        newPaymentItem = value.IS_NULL;
 
 
         //-- start with validation headers and keys  ---
@@ -56,7 +57,7 @@ module.exports.handler = async (event: any) => {
 
         checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
 
-        if (checkEventHeadersAndKeys != null) {
+        if (checkEventHeadersAndKeys != value.IS_NULL) {
             return checkEventHeadersAndKeys;
         }
         //-- end with validation headers and keys  ---
@@ -195,14 +196,14 @@ module.exports.handler = async (event: any) => {
 
         newPaymentItem = await insertItems(PAYMENTS_TABLE_NAME, itemDynamoDB);
 
-        if (newPaymentItem == null || !(newPaymentItem.length)) {
+        if (newPaymentItem == value.IS_NULL || !(newPaymentItem.length)) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "An error has occurred, the object has not been inserted into the database"
             );
         }
 
-        return await requestResult(statusCode.OK, newPaymentItem);
+        return await requestResult(statusCode.OK, itemDynamoDB);
 
         //-- end with db operations  ---
 

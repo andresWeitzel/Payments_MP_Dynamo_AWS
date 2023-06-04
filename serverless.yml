@@ -38,8 +38,8 @@ functions:
     timeout: 10
     events:
       - http:
-          method: post
-          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/create-payment
+          method: POST
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/
           private: true 
   getAllPayments:
     handler: src/functions/getAllPayments.handler
@@ -47,9 +47,27 @@ functions:
     timeout: 10
     events:
       - http:
-          method: get
+          method: GET
           path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/list
-          private: true 
+          private: true
+  getByUuidPayment:
+    handler: src/functions/getByUuidPayment.handler
+    description: Function to get a payments object by uuid from the payments table db
+    timeout: 10
+    events:
+      - http:
+          method: GET
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/{uuid}
+          private: true            
+  updatePayment:
+    handler: src/functions/updatePayment.handler
+    description: Function to update a payment object from the payments table db
+    timeout: 10
+    events:
+      - http:
+          method: PUT
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/{uuid}
+          private: true           
 resources:
   - ${file(src/resources/dynamo-payments-table.yml)}
 custom:
