@@ -118,6 +118,9 @@
 			"item": [
 				{
 					"name": "create-payment",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -134,7 +137,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"items\": {\r\n    \"id\": \"MLB2907679857\",\r\n    \"title\": \"Point Mini\",\r\n    \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\r\n    \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\r\n    \"category_id\": \"electronics\",\r\n    \"quantity\": 1,\r\n    \"unit_price\": 58.8\r\n  },\r\n  \"payer\": {\r\n    \"id\": \"12\",\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"Test\"\r\n  },\r\n  \"shipments\": {\r\n    \"receiver_address\": {\r\n      \"zip_code\": \"12312-123\",\r\n      \"state_name\": \"Rio de Janeiro\",\r\n      \"city_name\": \"Buzios\",\r\n      \"street_name\": \"Av das Nacoes Unidas\",\r\n      \"street_number\": 3003\r\n    }\r\n  },\r\n  \"description\": \"Payment for product\",\r\n  \"external_reference\": \"MP0001\",\r\n  \"payment_method_id\": \"visa\",\r\n  \"token\": \"ff8080814c11e237014c1ff593b57b4d\",\r\n  \"transaction_amount\": 58.8\r\n}",
+							"raw": "{\r\n  \"items\": {\r\n    \"id\": \"MLB2907679857\",\r\n    \"title\": \"Point Mini\",\r\n    \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\r\n    \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\r\n    \"category_id\": \"electronics\",\r\n    \"quantity\": 1,\r\n    \"unit_price\": 1000\r\n  },\r\n  \"payer\": {\r\n    \"id\": \"12\",\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"Test\"\r\n  },\r\n  \"shipments\": {\r\n    \"receiver_address\": {\r\n      \"zip_code\": \"B16-2231FG\",\r\n      \"state_name\": \"Rio de Janeiro\",\r\n      \"city_name\": \"Buzios\",\r\n      \"street_name\": \"Av das Nacoes Unidas\",\r\n      \"street_number\": 3003\r\n    }\r\n  },\r\n  \"description\": \"Payment for product\",\r\n  \"external_reference\": \"MP0001\",\r\n  \"payment_method_id\": \"visa\",\r\n  \"token\": \"ff8080814c11e237014c1ff593b57b4d\",\r\n  \"transaction_amount\": 58.8\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -142,13 +145,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/payments/create-payment",
+							"raw": "{{base_url}}/payments/",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"payments",
-								"create-payment"
+								""
 							]
 						}
 					},
@@ -177,7 +180,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"type\":\"image\",\r\n    \"format\":\"jpg\",\r\n    \"description\":\"1200 × 1201 png\",\r\n    \"url\":\"https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&  mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0\"\r\n}",
+							"raw": "{\r\n  \"items\": {\r\n    \"id\": \"MLB2907679857\",\r\n    \"title\": \"Point Mini\",\r\n    \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\r\n    \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\r\n    \"category_id\": \"electronics\",\r\n    \"quantity\": 1,\r\n    \"unit_price\": 1000\r\n  },\r\n  \"payer\": {\r\n    \"id\": \"12\",\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"Test\"\r\n  },\r\n  \"shipments\": {\r\n    \"receiver_address\": {\r\n      \"zip_code\": \"B16-2231FG\",\r\n      \"state_name\": \"Rio de Janeiro\",\r\n      \"city_name\": \"Buzios\",\r\n      \"street_name\": \"Av das Nacoes Unidas\",\r\n      \"street_number\": 3003\r\n    }\r\n  },\r\n  \"description\": \"Payment for product\",\r\n  \"external_reference\": \"MP0001\",\r\n  \"payment_method_id\": \"visa\",\r\n  \"token\": \"ff8080814c11e237014c1ff593b57b4d\",\r\n  \"transaction_amount\": 58.8\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -185,13 +188,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/payments/108688497",
+							"raw": "{{base_url}}/payments/20eb8dea-de3e-4637-a545-ad8fade756a3",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"payments",
-								"108688497"
+								"20eb8dea-de3e-4637-a545-ad8fade756a3"
 							]
 						}
 					},
