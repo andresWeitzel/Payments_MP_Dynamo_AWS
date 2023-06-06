@@ -222,7 +222,7 @@ module.exports.handler = async (event: any) => {
         newPaymentObj = await updateOneItem(PAYMENTS_TABLE_NAME, key, itemDynamoDB);
 
         
-        if (newPaymentObj == value.IS_NULL || newPaymentObj == value.IS_UNDEFINED) {
+        if (newPaymentObj == value.IS_NULL || newPaymentObj == value.IS_UNDEFINED || !(newPaymentObj.length)) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "An error has occurred, the payment object has not been updated into the database"

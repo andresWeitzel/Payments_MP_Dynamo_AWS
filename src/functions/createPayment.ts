@@ -196,7 +196,7 @@ module.exports.handler = async (event: any) => {
 
         newPaymentItem = await insertItems(PAYMENTS_TABLE_NAME, itemDynamoDB);
 
-        if (newPaymentItem == value.IS_NULL || newPaymentItem == value.IS_UNDEFINED) {
+        if (newPaymentItem == value.IS_NULL || newPaymentItem == value.IS_UNDEFINED || !(newPaymentItem.length)) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "An error has occurred, the object has not been inserted into the database"
