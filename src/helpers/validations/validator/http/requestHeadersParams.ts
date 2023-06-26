@@ -1,13 +1,13 @@
 //External Imports
 const { Validator } = require("node-input-validator");
 //Const/vars
-let validateCheck;
-let validatorObj;
-let eventHeadersObj;
+let validateCheck:any;
+let validatorObj:any;
+let eventHeadersObj:any;
 
 /**
  * @description We validate the request headers parameters
- * @param {Object} headers event.headers type
+ * @param {Object} eventHeaders event.headers type
  * @returns a boolean
  * @example Content-Type, Authorization, etc
  */
@@ -40,7 +40,7 @@ export const validateHeadersParams = async (eventHeaders:any) => {
     }
 
   } catch (error) {
-    console.log(error);
+    console.error(`ERROR in function validateHeadersParams(). Caused by ${error} . Specific stack is ${error.stack} `);
   }
 
   return validateCheck;

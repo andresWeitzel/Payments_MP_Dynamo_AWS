@@ -52,6 +52,7 @@ const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 module.exports.handler = async (event: any) => {
     try {
         //Init
+        newPaymentObj = value.IS_NULL;
 
         //-- start with validation headers and keys  ---
         eventHeaders = await event.headers;

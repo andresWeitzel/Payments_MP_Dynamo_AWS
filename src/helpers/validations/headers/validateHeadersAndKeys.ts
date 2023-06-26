@@ -46,7 +46,9 @@ let validateAuth:boolean;
     return checkEventHeaders;
   
     } catch (error) {
-      console.error(`ERROR in function validateHeadersAndKeys(). Caused by ${error} . Specific stack is ${error.stack} `);
+      console.error(
+        `Error in validateHeadersAndKeys(), caused by ${error}. Specific stack is ${error.stack}`
+      );
     }
   
   }

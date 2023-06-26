@@ -1,3 +1,4 @@
+
 /**
  * @description provides us with general use values according to the use case
  * @returns the value of the case

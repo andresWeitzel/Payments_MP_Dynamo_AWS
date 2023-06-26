@@ -94,28 +94,7 @@ sls -v
 npm i
 ```
 `Importante`: Hay alertas de seguridad de dependabot que apuntan contra el plugin "serverless-dynamodb-local". No aplicar parches de seguridad a dicho plugin, ya que la versión `^1.0.2` tiene problemas al momento de la creación de tablas y ejecución del servicio de dynamo. Se recomienda mantener la última versión estable `^0.2.40` con las alertas de seguridad generadas.
-* Creamos un archivo para almacenar las variables ssm utilizadas en el proyecto (Más allá que sea un proyecto con fines no comerciales es una buena práctica utilizar variables de entorno).
-  * Click der sobre la raíz del proyecto
-  * New file
-  * Creamos el archivo con el name `serverless_ssm.yml`. Este deberá estar a la misma altura que el serverless.yml
-  * Añadimos las ssm necesarias dentro del archivo.
-  ```git
-    # Keys
-    X_API_KEY: "f98d8cd98h73s204e3456998ecl9427j"
-
-    BEARER_TOKEN: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-
-    # API VALUES
-    API_VERSION : 'v1'
-
-    # DYNAMODB VALUES
-    DYNAMO_PAYMENTS_TABLE_NAME : 'payments-table'
-    API_ENDPOINT_PAYMENTS_NAME : 'payments'
-    REGION : 'us-east-1'
-    ACCESS_KEY_RANDOM_VALUE: 'xxxx'
-    SECRET_KEY_RANDOM_VALUE: 'xxxx'
-    DYNAMO_ENDPOINT: "http://localhost:8000"
-  ```  
+* Las variables ssm utilizadas en el proyecto se mantienen para simplificar el proceso de configuración del mismo. Es recomendado agregar el archivo correspondiente (serverless_ssm.yml) al .gitignore.
 * El siguiente script configurado en el package.json del proyecto es el encargado de
    * Levantar serverless-offline (serverless-offline)
  ```git
@@ -128,7 +107,12 @@ npm i
 ```git
 npm start
 ```
- 
+* Si se presenta algún mensaje indicando qué el puerto 4000 u 8000 ya está en uso, podemos terminar todos los procesos dependientes y volver a ejecutar la app
+```git
+npx kill-port 4000 (serverless)
+npx kill-port 8000 (dynamo)
+npm start
+```
  
 <br>
 
@@ -267,16 +251,23 @@ git add *
 git commit -m "Add app config"
 git push origin master
 ```
+* Las variables ssm utilizadas en el proyecto se mantienen para simplificar el proceso de configuración del mismo. Es recomendado agregar el archivo correspondiente (serverless_ssm.yml) al .gitignore.
 * El siguiente script configurado en el package.json del proyecto es el encargado de
-Levantar serverless-offline (serverless-offline)
-```git
- "scripts": {
-   "serverless-offline": "sls offline start",
-   "start": "npm run serverless-offline"
- },
+   * Levantar serverless-offline (serverless-offline)
+ ```git
+  "scripts": {
+    "serverless-offline": "sls offline start",
+    "start": "npm run serverless-offline"
+  },
 ```
 * Ejecutamos la app desde terminal.
 ```git
+npm start
+```
+* Si se presenta algún mensaje indicando qué el puerto 4000 u 8000 ya está en uso, podemos terminar todos los procesos dependientes y volver a ejecutar la app
+```git
+npx kill-port 4000 (serverless)
+npx kill-port 8000 (dynamo)
 npm start
 ```
 * Deberíamos esperar un output por consola con los siguiente servicios levantados cuando se ejecuta el comando anterior
