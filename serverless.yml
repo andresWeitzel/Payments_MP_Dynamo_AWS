@@ -57,7 +57,7 @@ functions:
     events:
       - http:
           method: GET
-          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/{uuid}
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/uuid/{uuid}
           private: true            
   updatePayment:
     handler: src/functions/updatePayment.handler
