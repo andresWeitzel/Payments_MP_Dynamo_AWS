@@ -1,0 +1,22 @@
+Resources:
+  RestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: myRestApi
+  GatewayResponse:
+    Type: AWS::ApiGateway::GatewayResponse
+    Properties:
+      ResponseParameters:
+        gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+        gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+      ResponseTemplates:
+      #https://stackoverflow.com/a/49806967/10212963
+        application/json: |
+          {
+            "success":false,
+            "message":"asda"
+          }                
+      ResponseType: MISSING_AUTHENTICATION_TOKEN
+      RestApiId: 
+        Ref: 'RestApi'
+      StatusCode: '403'

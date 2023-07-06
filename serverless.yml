@@ -10,10 +10,27 @@ provider:
   memorySize: 512
   timeout: 10
   environment: ${file(./serverless_ssm.yml)}
+  httpApi:
+    cors:
+      allowedOrigins:
+        - ${file(./serverless_ssm.yml):CORS_ENDPOINT}
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+        - x-api-key
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+      allowCredentials: true
+      maxAge: 6000
+      
   apiGateway:
     apiKeys:
       - name: xApiKey
         value: ${file(./serverless_ssm.yml):X_API_KEY}
+        description: x-api-key for the api gateway
   logs:
     # Enable REST API logs
     restApi:
@@ -70,6 +87,7 @@ functions:
           private: true           
 resources:
   - ${file(src/resources/dynamo-payments-table.yml)}
+  - ${file(src/resources/api-gateway.yml)}
 custom:
   serverless-offline-ssm:
     stages:

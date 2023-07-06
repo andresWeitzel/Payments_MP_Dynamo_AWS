@@ -438,6 +438,8 @@ etc.....
  * [Formateo y validador online json format](https://jsonformatter.org/)
 
 #### Api Gateway
+ * [Api gateway serverless yml definition](https://dev.to/leventov/enable-cors-with-custom-headers-for-an-aws-lambda-function-behind-api-gateway-in-serverless-framework-3702)
+ * [Api Gateway Template Example](https://github.com/SeptiyanAndika/serverless-custom-authorizer/blob/master/index.js)
  * [Buenas Prácticas Api-Gateway](https://docs.aws.amazon.com/whitepapers/latest/best-practices-api-gateway-private-apis-integration/rest-api.html)
  * [Creación de Api-keys personalizadas](https://towardsaws.com/protect-your-apis-by-creating-api-keys-using-serverless-framework-fe662ad37447)
 
