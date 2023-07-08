@@ -1,6 +1,6 @@
 //External
 const { ScanCommand } = require("@aws-sdk/lib-dynamodb");
-import { QueryCommand, QueryCommandInput } from "@aws-sdk/client-dynamodb";
+import { QueryCommand } from "@aws-sdk/client-dynamodb";
 //Helpers
 import { dynamoDBClient } from "../config/dynamoDBClient";
 //Const-vars
@@ -52,9 +52,10 @@ export const getAllItems = async (
 /**
  * @description get all items from the database according to the filter applied
  * @param {String} tableName string type
- * @param {String} tableName string type
- * @param {BigInt} pageSizeNro BigInt type
- * @param {String} orderAt String type
+ * @param {String} filter string type
+ * @param {any} filterValue any type
+ * @param {number} pageSizeNro number type
+ * @param {any} orderAt any type
  * @returns a list with all items from the db in json format
  */
 export const getAllItemsWithFilter = async (
@@ -73,36 +74,20 @@ export const getAllItemsWithFilter = async (
 
     dynamo = await dynamoDBClient();
 
-    // metadata = await dynamo.send(
-    //   new ScanCommand({
-    //     TableName: tableName,
-    //     FilterExpression: "contains(#filter, :filterValue)",
-    //     ExpressionAttributeNames: {
-    //       "#filter": filter,
-    //     },
-    //     ExpressionAttributeValues: {
-    //       ":filterValue": filterValue,
-    //     },
-    //     Limit: pageSizeNro,
-    //     ScanIndexForward: orderAt,
-    //   })
-    // );
-
-    const params: QueryCommandInput = {
-      TableName: tableName,
-      Limit: pageSizeNro,
-      FilterExpression: "contains(#filter, :filterValue)",
-      //KeyConditionExpression: "uuid",
-      ExpressionAttributeNames: {
-        "#filter": filter,
-      },
-      ExpressionAttributeValues: {
-        ":filterValue": filterValue,
-      },
-      ScanIndexForward: orderAt,
-    };
-
-    metadata = await dynamo.send(new QueryCommand(params));
+    metadata = await dynamo.send(
+      new ScanCommand({
+        TableName: tableName,
+        FilterExpression: "contains(#filter, :filterValue)",
+        ExpressionAttributeNames: {
+          "#filter": filter,
+        },
+        ExpressionAttributeValues: {
+          ":filterValue": filterValue,
+        },
+        Limit: pageSizeNro,
+        ScanIndexForward: orderAt,
+      })
+    );
 
     if (metadata != null) {
       items = metadata.Items;
