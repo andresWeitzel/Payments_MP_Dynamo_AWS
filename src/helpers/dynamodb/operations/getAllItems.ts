@@ -1,16 +1,12 @@
 //External
-const {
-    ScanCommand
-} = require("@aws-sdk/lib-dynamodb");
+const { ScanCommand } = require("@aws-sdk/lib-dynamodb");
+import { QueryCommand, QueryCommandInput } from "@aws-sdk/client-dynamodb";
 //Helpers
-import {
-    dynamoDBClient
-}  from "../config/dynamoDBClient";
-//Const-vars 
-let dynamo:any;
-let metadata:any;
-let items:any;
-
+import { dynamoDBClient } from "../config/dynamoDBClient";
+//Const-vars
+let dynamo: any;
+let metadata: any;
+let items: any;
 
 /**
  * @description get all payment objects items from the database
@@ -19,34 +15,39 @@ let items:any;
  * @param {String} orderAt String type
  * @returns a list with all items from the db in json format
  */
-export const getAllItems = async (tableName:string, pageSizeNro:number, orderAt:any) => {
-    try {
-        items=null;
-        metadata=null;
-        orderAt = orderAt.toLowerCase();
+export const getAllItems = async (
+  tableName: string,
+  pageSizeNro: number,
+  orderAt: any
+) => {
+  try {
+    items = null;
+    metadata = null;
+    orderAt = orderAt.toLowerCase();
 
-        orderAt = (orderAt=='asc' || orderAt == null) ? true : false;
+    orderAt = orderAt == "asc" || orderAt == null ? true : false;
 
-        dynamo = await dynamoDBClient();
+    dynamo = await dynamoDBClient();
 
-        metadata = await dynamo.send(
-            new ScanCommand({
-                TableName: tableName,
-                Limit: pageSizeNro,
-                ScanIndexForward : orderAt
-            })
-        );
+    metadata = await dynamo.send(
+      new ScanCommand({
+        TableName: tableName,
+        Limit: pageSizeNro,
+        ScanIndexForward: orderAt,
+      })
+    );
 
-        if(metadata != null){
-            items = metadata.Items;
-        }
-  
-        return items;
-
-    } catch (error) {
-        console.error(`ERROR in getAllItems() function. Caused by ${error} . Specific stack is ${error.stack} `);
+    if (metadata != null) {
+      items = metadata.Items;
     }
-}
+
+    return items;
+  } catch (error) {
+    console.error(
+      `ERROR in getAllItems() function. Caused by ${error} . Specific stack is ${error.stack} `
+    );
+  }
+};
 
 /**
  * @description get all items from the database according to the filter applied
@@ -56,38 +57,61 @@ export const getAllItems = async (tableName:string, pageSizeNro:number, orderAt:
  * @param {String} orderAt String type
  * @returns a list with all items from the db in json format
  */
-export const getAllItemsWithFilter = async (tableName, filter, filterValue,pageSizeNro, orderAt) => {
-    try {
-        items = null;
-        metadata=null;
-        orderAt = orderAt.toLowerCase();
-        
-        orderAt = (orderAt=='asc' || orderAt == null) ? true : false;
+export const getAllItemsWithFilter = async (
+  tableName: string,
+  filter: string,
+  filterValue: any,
+  pageSizeNro: number,
+  orderAt: any
+) => {
+  try {
+    items = null;
+    metadata = null;
+    orderAt = orderAt.toLowerCase();
 
-        dynamo = await dynamoDBClient();
+    orderAt = orderAt == "asc" || orderAt == null ? true : false;
 
-        metadata = await dynamo.send(
-            new ScanCommand({
-                TableName: tableName,
-                FilterExpression: 'contains(#filter, :filterValue)',
-                ExpressionAttributeNames:{
-                    "#filter":filter
-                },
-                ExpressionAttributeValues: {
-                    ':filterValue': filterValue
-                },
-                Limit: pageSizeNro,
-                ScanIndexForward: orderAt
-            })
-        );
-        
-        if (metadata != null) {
-            items = metadata.Items;
-        }
+    dynamo = await dynamoDBClient();
 
-        return items;
+    // metadata = await dynamo.send(
+    //   new ScanCommand({
+    //     TableName: tableName,
+    //     FilterExpression: "contains(#filter, :filterValue)",
+    //     ExpressionAttributeNames: {
+    //       "#filter": filter,
+    //     },
+    //     ExpressionAttributeValues: {
+    //       ":filterValue": filterValue,
+    //     },
+    //     Limit: pageSizeNro,
+    //     ScanIndexForward: orderAt,
+    //   })
+    // );
 
-    } catch (error) {
-        console.error(`ERROR in getAllItemsWithFilter() function. Caused by ${error} . Specific stack is ${error.stack} `);
+    const params: QueryCommandInput = {
+      TableName: tableName,
+      Limit: pageSizeNro,
+      FilterExpression: "contains(#filter, :filterValue)",
+      //KeyConditionExpression: "uuid",
+      ExpressionAttributeNames: {
+        "#filter": filter,
+      },
+      ExpressionAttributeValues: {
+        ":filterValue": filterValue,
+      },
+      ScanIndexForward: orderAt,
+    };
+
+    metadata = await dynamo.send(new QueryCommand(params));
+
+    if (metadata != null) {
+      items = metadata.Items;
     }
-}
+
+    return items;
+  } catch (error) {
+    console.error(
+      `ERROR in getAllItemsWithFilter() function. Caused by ${error} . Specific stack is ${error.stack} `
+    );
+  }
+};

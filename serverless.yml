@@ -67,6 +67,15 @@ functions:
           method: GET
           path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/list
           private: true
+  getAllPaymentsWithFilters:
+    handler: src/functions/getAllPaymentsWithFilter.handler
+    description: Function to get all payments object from the payments table db with filters
+    timeout: 10
+    events:
+      - http:
+          method: GET
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/list-with-filters
+          private: true
   getByUuidPayment:
     handler: src/functions/getByUuidPayment.handler
     description: Function to get a payments object by uuid from the payments table db
