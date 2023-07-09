@@ -4,35 +4,36 @@ import { value } from "src/enums/general/values";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
-import { getOneItem } from "src/helpers/dynamodb/operations/getOneItem";
 import { formatToString } from "src/helpers/format/formatToString";
-
+import { deleteItemByUuid } from "src/helpers/dynamodb/operations/deleteItem";
 //Const/Vars
 let eventHeaders: any;
 let checkEventHeadersAndKeys: any;
-let paymentObj:any;
-let key:any;
+let paymentUuid:string;
+let itemDeleted:any;
 let msg: string;
 let code: number;
-let paymentUuid: string;
 const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 
 
 /**
- * @description Get a payment object by uuuid
+ * @description Delete a payment object from the database
  * @param {Object} event Object type
- * @returns a payment object
+ * @returns payments object list
  */
 module.exports.handler = async (event: any) => {
     try {
         //Init
-        paymentObj = value.IS_NULL;
+        paymentUuid = value.IS_NULL;
         msg=value.IS_NULL;
         code=value.IS_NULL;
+        itemDeleted=value.IS_NULL;
+
 
         //-- start with validation headers and keys  ---
         eventHeaders = await event.headers;
+    
 
         checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
 
@@ -41,35 +42,32 @@ module.exports.handler = async (event: any) => {
         }
         //-- end with validation headers and keys  ---
 
-        //-- start with pathParams operations  ---
-        paymentUuid = await formatToString(event.pathParameters.uuid);
+         //-- start with pathParams operations  ---
+         paymentUuid = await formatToString(event.pathParameters.uuid);
 
-        if (paymentUuid == value.IS_UNDEFINED || paymentUuid == value.IS_NULL) {
-            return await requestResult(
-                statusCode.BAD_REQUEST,
-                "Bad request, could not get an inexistent payment. Check the payment uuid and try again"
-            );
-        }
-        //-- end with pathParams operations ---
-
+         if (paymentUuid == value.IS_UNDEFINED || paymentUuid == value.IS_NULL) {
+             return await requestResult(
+                 statusCode.BAD_REQUEST,
+                 `Bad request, could not delete an inexistent payment. Check the payment uuid with the value ${paymentUuid} and try again`
+             );
+         }
+         //-- end with pathParams operations ---
 
         //-- start with db operations  ---
+        itemDeleted = await deleteItemByUuid(PAYMENTS_TABLE_NAME, paymentUuid);
 
-        key = {'uuid' :paymentUuid};
-        paymentObj = await getOneItem(PAYMENTS_TABLE_NAME, key);
 
-        if (paymentObj == value.IS_NULL ||  paymentObj == value.IS_UNDEFINED) {
+        if (itemDeleted == !(value.IS_TRUE)) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
-                "Bad request, could not get a payment by uuid. Check if the payment exists in the database and try again"
+                `Unable to delete payment based on uuid ${paymentUuid}`
             );
         }
         //-- end with db operations  ---
-        return await requestResult(statusCode.OK, paymentObj);
 
     } catch (error) {
         code = statusCode.INTERNAL_SERVER_ERROR;
-        msg = `Error in GET PAYMENT BY UUID lambda. Caused by ${error}`;
+        msg = `Error in DELETE PAYMENT lambda. Caused by ${error}`;
         console.error(`${msg}. Stack error type : ${error.stack}`);
 
         return await requestResult(code, msg);

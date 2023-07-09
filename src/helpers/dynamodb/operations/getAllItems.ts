@@ -1,6 +1,5 @@
 //External
 const { ScanCommand } = require("@aws-sdk/lib-dynamodb");
-import { QueryCommand } from "@aws-sdk/client-dynamodb";
 //Helpers
 import { dynamoDBClient } from "../config/dynamoDBClient";
 //Const-vars

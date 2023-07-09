@@ -53,6 +53,8 @@ module.exports.handler = async (event: any) => {
     try {
         //Init
         newPaymentObj = value.IS_NULL;
+        msg=value.IS_NULL;
+        code=value.IS_NULL;
 
         //-- start with validation headers and keys  ---
         eventHeaders = await event.headers;
@@ -223,7 +225,7 @@ module.exports.handler = async (event: any) => {
         newPaymentObj = await updateOneItem(PAYMENTS_TABLE_NAME, key, itemDynamoDB);
 
         
-        if (newPaymentObj == value.IS_NULL || newPaymentObj == value.IS_UNDEFINED || !(newPaymentObj.length)) {
+        if (newPaymentObj == value.IS_NULL || newPaymentObj == value.IS_UNDEFINED) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "An error has occurred, the payment object has not been updated into the database"

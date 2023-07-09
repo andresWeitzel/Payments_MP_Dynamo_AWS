@@ -50,6 +50,8 @@ module.exports.handler = async (event: any) => {
         //Init
         newPayment = value.IS_NULL;
         newPaymentItem = value.IS_NULL;
+        msg=value.IS_NULL;
+        code=value.IS_NULL;
 
 
         //-- start with validation headers and keys  ---

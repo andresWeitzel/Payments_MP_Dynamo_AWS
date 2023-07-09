@@ -8,7 +8,6 @@ import { getAllItemsWithFilter } from "src/helpers/dynamodb/operations/getAllIte
 import { formatToBigint } from "src/helpers/format/formatToNumber";
 
 //Const/Vars
-// let eventBody: any;
 let eventHeaders: any;
 let eventQueryStrParams: any;
 let checkEventHeadersAndKeys: any;
@@ -37,7 +36,9 @@ module.exports.handler = async (event: any) => {
     orderAt = "asc";
     filter = "uuid";
     filterValue = "A";
-    items = null;
+    items = value.IS_NULL;
+    msg=value.IS_NULL;
+    code=value.IS_NULL;
 
     //-- start with validation headers and keys  ---
     eventHeaders = await event.headers;
@@ -52,7 +53,7 @@ module.exports.handler = async (event: any) => {
     //-- start with query string params  ---
     eventQueryStrParams = await event.queryStringParameters;
 
-    if (eventQueryStrParams != null) {
+    if (eventQueryStrParams != value.IS_NULL) {
       paramPageSizeNro = await formatToBigint(eventQueryStrParams.limit);
       paramOrderAt = eventQueryStrParams.orderAt;
       paramFilter = eventQueryStrParams.filter;

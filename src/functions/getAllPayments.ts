@@ -6,10 +6,7 @@ import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
 import { getAllItems } from "src/helpers/dynamodb/operations/getAllItems";
 import { formatToBigint } from "src/helpers/format/formatToNumber";
-
-
 //Const/Vars
-// let eventBody: any;
 let eventHeaders: any;
 let eventQueryStrParams: any;
 let checkEventHeadersAndKeys: any;
@@ -17,6 +14,9 @@ let msg: string;
 let code: number;
 let pageSizeNro: number;
 let orderAt: string;
+let items:any;
+let paramPageSizeNro: any;
+let paramOrderAt: any;
 const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 
@@ -31,6 +31,9 @@ module.exports.handler = async (event: any) => {
         //Init
         pageSizeNro = 5;
         orderAt = 'asc';
+        items= value.IS_NULL;
+        msg=value.IS_NULL;
+        code=value.IS_NULL;
 
 
         //-- start with validation headers and keys  ---
@@ -47,8 +50,10 @@ module.exports.handler = async (event: any) => {
         //-- start with pagination  ---
         eventQueryStrParams = await event.queryStringParameters;
 
-        let paramPageSizeNro = await formatToBigint(eventQueryStrParams.limit);
-        let paramOrderAt = eventQueryStrParams.orderAt;
+        if (eventQueryStrParams != value.IS_NULL) {
+            paramPageSizeNro = await formatToBigint(eventQueryStrParams.limit);
+            paramOrderAt = eventQueryStrParams.orderAt;
+          }
 
         pageSizeNro =
             (paramPageSizeNro != value.IS_NULL &&
@@ -67,7 +72,7 @@ module.exports.handler = async (event: any) => {
 
 
         //-- start with db operations  ---
-        let items = await getAllItems(PAYMENTS_TABLE_NAME, pageSizeNro, orderAt);
+        items = await getAllItems(PAYMENTS_TABLE_NAME, pageSizeNro, orderAt);
 
         if (items == value.IS_NULL || !(items.length)) {
             return await requestResult(
