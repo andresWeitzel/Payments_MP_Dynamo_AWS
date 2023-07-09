@@ -57,12 +57,14 @@ module.exports.handler = async (event: any) => {
         itemDeleted = await deleteItemByUuid(PAYMENTS_TABLE_NAME, paymentUuid);
 
 
-        if (itemDeleted == !(value.IS_TRUE)) {
+        if (itemDeleted != value.IS_TRUE) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 `Unable to delete payment based on uuid ${paymentUuid}`
             );
         }
+        return await requestResult(statusCode.OK, `Successfully removed payment based on uuid ${paymentUuid}`);
+
         //-- end with db operations  ---
 
     } catch (error) {

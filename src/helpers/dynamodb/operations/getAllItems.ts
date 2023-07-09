@@ -59,7 +59,7 @@ export const getAllItems = async (
  */
 export const getAllItemsWithFilter = async (
   tableName: string,
-  filter: string,
+  filter: any,
   filterValue: any,
   pageSizeNro: number,
   orderAt: any

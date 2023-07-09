@@ -16,7 +16,7 @@ let code: number;
 let pageSizeNro: number;
 let orderAt: string;
 let filter: string;
-let filterValue: string;
+let filterValue: any;
 let paramPageSizeNro: any;
 let paramOrderAt: any;
 let paramFilter: any;

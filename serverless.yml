@@ -93,7 +93,16 @@ functions:
       - http:
           method: PUT
           path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/{uuid}
-          private: true           
+          private: true    
+  daletePayment:
+    handler: src/functions/deletePayment.handler
+    description: Function to delete a payment object from the payments table db
+    timeout: 10
+    events:
+      - http:
+          method: DELETE
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PAYMENTS_NAME}/{uuid}
+          private: true                     
 resources:
   - ${file(src/resources/dynamo-payments-table.yml)}
   - ${file(src/resources/api-gateway.yml)}
