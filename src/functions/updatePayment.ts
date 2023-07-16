@@ -15,8 +15,6 @@ import { validateObject } from "src/helpers/validations/models/validateObject";
 import { formatToBigint } from "src/helpers/format/formatToNumber";
 import { getOneItem } from "src/helpers/dynamodb/operations/getOneItem";
 import { updateOneItem } from "src/helpers/dynamodb/operations/updateOneItem";
-
-
 //Const/Vars
 let eventHeaders: any;
 let checkEventHeadersAndKeys: any;
@@ -114,7 +112,7 @@ module.exports.handler = async (event: any) => {
         if (validateItemObj.length) {
             return await requestResult(
                 statusCode.BAD_REQUEST,
-                `Bad request, unable to update object in db,  check request attributes for Item Object . Validate the following : ${validateItemObj}`
+                `Bad request, unable to update object in db, check request attributes for Item Object . Validate the following : ${validateItemObj}`
             );
         }
         //-- end with item object operations --

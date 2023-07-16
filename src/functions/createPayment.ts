@@ -14,8 +14,6 @@ import { formatToJson } from "src/helpers/format/formatToJson";
 import { generateUuidV4 } from "src/helpers/math/generateUuid";
 import { validateObject } from "src/helpers/validations/models/validateObject";
 import { formatToBigint } from "src/helpers/format/formatToNumber";
-
-
 //Const/Vars
 let eventBody: any;
 let eventBodyItems: any;

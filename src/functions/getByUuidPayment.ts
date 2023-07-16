@@ -6,7 +6,6 @@ import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
 import { getOneItem } from "src/helpers/dynamodb/operations/getOneItem";
 import { formatToString } from "src/helpers/format/formatToString";
-
 //Const/Vars
 let eventHeaders: any;
 let checkEventHeadersAndKeys: any;
@@ -20,7 +19,7 @@ const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 
 /**
- * @description Get a payment object by uuuid
+ * @description Get a payment object by uuid
  * @param {Object} event Object type
  * @returns a payment object
  */

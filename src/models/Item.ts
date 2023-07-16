@@ -29,7 +29,7 @@ export class Item {
     private id: string;
 
     /**
-     * @description Nombre de ítem
+     * @description Nombre del ítem
      */
     @IsNotEmpty({ message: 'The title of the item cannot be empty' })
     @IsString({ message: 'The title of the item must be of type string' })
@@ -61,7 +61,7 @@ export class Item {
     private categoryId: string;
 
     /**
-    * @description Cantidad de producto
+    * @description Cantidad del producto
     */
     @IsNotEmpty({message: 'The quantity of the item cannot be empty'})
     @IsInt({message: 'The quantity of the item must be of type integer'})

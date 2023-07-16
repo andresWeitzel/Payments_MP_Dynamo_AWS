@@ -54,11 +54,17 @@ Como representación se tomara la api de mercado pago para el manejo de pagos.
 
 ### 1.0.0) Descripción General
 
+Aplicación CRUD para operaciones de [objetos payments de MercadoPago](https://www.mercadopago.com.ar/developers/es/reference/payments/_payments/post) a través de una arquitectura serverless con Typescript y una db de tipo dynamodb, las operaciones incluyen la creación de un pago, obtener todos los pagos creados con y sin filtros, editar y eliminar un pago.
 `Importante`: Hay alertas de seguridad de dependabot que apuntan contra el plugin "serverless-dynamodb-local". No aplicar parches de seguridad a dicho plugin, ya que la versión `^1.0.2` tiene problemas al momento de la creación de tablas y ejecución del servicio de dynamo. Se recomienda mantener la última versión estable `^0.2.40` con las alertas de seguridad generadas.
 
 
  
 ### 1.0.1) Descripción Arquitectura y Funcionamiento
+
+La imagen de la arquitectura de aws empleada describe el flujo de funcionamiento de la app de forma general. Cualquier petición hacia la misma, parte desde un cliente (Ej: Postman, servidor, etc).
+La descripción y flujo de cada paso es la siguiente : 
+ * `Paso 0` : Se genera una solicitud-petición hacia una de las funcionalidades desarrollada, la misma es recibida a través del api-gateway y solamente se validará si es que dentro de los encabezados de dicha solicitud se encuentra la x-api-key correcta.
+ * `Pasos 1A, 1B, etc` : 
 
 
 <br>
@@ -438,6 +444,7 @@ etc.....
  * [Formateo y validador online json format](https://jsonformatter.org/)
 
 #### Api Gateway
+ * [Api gateway documentation](https://www.serverless.com/guides/amazon-api-gateway)
  * [Api gateway serverless yml definition](https://dev.to/leventov/enable-cors-with-custom-headers-for-an-aws-lambda-function-behind-api-gateway-in-serverless-framework-3702)
  * [Api Gateway Template Example](https://github.com/SeptiyanAndika/serverless-custom-authorizer/blob/master/index.js)
  * [Buenas Prácticas Api-Gateway](https://docs.aws.amazon.com/whitepapers/latest/best-practices-api-gateway-private-apis-integration/rest-api.html)

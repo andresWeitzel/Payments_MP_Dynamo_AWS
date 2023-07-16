@@ -99,7 +99,7 @@ module.exports.handler = async (event: any) => {
     if (items == value.IS_NULL || !items.length) {
       return await requestResult(
         statusCode.INTERNAL_SERVER_ERROR,
-        "Bad request, could not get a paginated payments list. Try again"
+        "Bad request, could not get a paginated payments list with filters. Try again"
       );
     }
 
