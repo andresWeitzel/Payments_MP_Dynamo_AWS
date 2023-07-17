@@ -1,5 +1,5 @@
 
-![Index app](./doc/assets/CRUD_DynamoDB.drawio.png)
+![Index app](./doc/assets/CRUD_Amazon_DynamoDB_AWS.drawio.png)
 
 # CRUD_Amazon_DynamoDB_AWS
 Modelo CRUD para el manejo de objetos payments de mercadopago con DynamoDB de aws implementado con Api-Gateway, Systems Manager Parameter Store, Serverless-Framework, Lambda, Typescript, DynamoDB, aws-sdk-v3, entre otros.
@@ -64,8 +64,9 @@ Aplicación CRUD para operaciones de [objetos payments de MercadoPago](https://w
 La imagen de la arquitectura de aws empleada describe el flujo de funcionamiento de la app de forma general. Cualquier petición hacia la misma, parte desde un cliente (Ej: Postman, servidor, etc).
 La descripción y flujo de cada paso es la siguiente : 
  * `Paso 0` : Se genera una solicitud-petición hacia una de las funcionalidades desarrollada, la misma es recibida a través del api-gateway y solamente se validará si es que dentro de los encabezados de dicha solicitud se encuentra la x-api-key correcta.
- * `Pasos 1A, 1B, etc` : 
-
+ * `Pasos 1A, 1B, etc` : Todos estos pasos corresponden a un endpoint con su recurso especifico. Por ej. para create payment (1A) es http://localhost:4000/dev/v1/payments....etc. Revisar dichos endpoints en sección endpoints. Cada lambda realiza comprobación de x-api-key y token.
+ * `Pasos 2` : Las lambdas realizan las validaciones de las ssm correspondientes con el System Manager Paramater Store.. validan token, valores de conexión con la db etc.
+* `Pasos 3` : Las lambdas realizan las transacciones y operaciones descritas con el tipo de base de datos Dynamodb.
 
 <br>
 
@@ -310,7 +311,8 @@ etc.....
 | [Serverless Framework Core v3](https://www.serverless.com//blog/serverless-framework-v3-is-live) | 3.23.0 | Core Servicios AWS |
 | [Systems Manager Parameter Store (SSM)](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) | 3.0 | Manejo de Variables de Entorno |
 | [Amazon Api Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) | 2.0 | Gestor, Autenticación, Control y Procesamiento de la Api | 
-| [Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingBucket.html) | 3.0 | Contenedor de Objetos | 
+| [Amazon DynamoDB](https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/Introduction.html) | 2019.11.21 | Servicio de base de datos NoSQL |
+| [Typescript](https://www.typescriptlang.org/) | 5.2 | Lenguaje altamente tipado |
 | [NodeJS](https://nodejs.org/en/) | 14.18.1  | Librería JS |
 | [VSC](https://code.visualstudio.com/docs) | 1.72.2  | IDE |
 | [Postman](https://www.postman.com/downloads/) | 10.11  | Cliente Http |
@@ -320,21 +322,13 @@ etc.....
 </br>
 
 
-| **Plugin** | **Descripción** |               
+| **Serverless Plugin** | **Descripción** |               
 | -------------  | ------------- |
-| [Serverless Plugin](https://www.serverless.com/plugins/) | Librerías para la Definición Modular |
+| [serverless-esbuild](https://www.serverless.com/plugins/serverless-esbuild) | Complemento para transpilar código Typescript y Javascript |
 | [serverless-offline](https://www.npmjs.com/package/serverless-offline) | Este complemento sin servidor emula AWS λ y API Gateway en entorno local |
-| [serverless-offline-ssm](https://www.npmjs.com/package/serverless-offline-ssm) |  busca variables de entorno que cumplen los parámetros de SSM en el momento de la compilación y las sustituye desde un archivo  |
-| [serverless-s3-local](https://www.serverless.com/plugins/serverless-s3-local) | complemento sin servidor para ejecutar clones de S3 en local
+| [serverless-offline-ssm](https://www.npmjs.com/package/serverless-offline-ssm) | Complemento para variables de entorno que cumplen los parámetros de SSM en el momento de la compilación y las sustituye desde un archivo  |
+| [serverless-dynamodb-local](https://www.serverless.com/plugins/serverless-dynamodb-local) | Complemento para tipo de db NoSQL DynamoDB |
 
-</br>
-
-
-| **Extensión** |              
-| -------------  | 
-| Prettier - Code formatter |
-| YAML - Autoformatter .yml (alt+shift+f) |
-| TypeScript constructor generator - automatic constructor generator | 
 
 <br>
 
@@ -349,15 +343,48 @@ etc.....
 
 ### 2.0) Endpoints y recursos [🔝](#índice-) 
 
+
+<details>
+  <summary>Ver</summary>
+
+### Operaciones de tipo GET:
+* http://localhost:4000/dev/v1/payments/list
+* http://localhost:4000/dev/v1/payments/list-with-filters
+* http://localhost:4000/dev/v1/payments/uuid/{uuid}
+* `Todos los endpoints son paginados opcionales menos el /uuid/{uuid}`
+
+### Operaciones de tipo POST:
+* http://localhost:4000/dev/v1/payments
+
+### Operaciones de tipo PUT:
+* http://localhost:4000/dev/v1/payments/{uuid}
+
+### Operaciones de tipo DELETE:
+* http://localhost:4000/dev/v1/payments/{uuid}
+
+### Aclaraciones
+* {valor-requerido}
+* Paginado por defecto : ?page=0&limit=5
+* Paginado opcional : ?page={nro}&limit={nro}
+
+
+<br>
+
+</details>
+
+
+### 2.1) Ejemplos [🔝](#índice-) 
+
 <details>
   <summary>Ver</summary>
 <br>
+
 
 ### 2.1.0) Variables en Postman
 
 | **Variable** | **Initial value** | **Current value** |               
 | ------------- | ------------- | ------------- |
-| base_url | http://localhost:4000  | http://localhost:4000 |
+| base_url | http://localhost:4000/dev/v1 | http://localhost:4000/dev/v1 |
 | x-api-key | f98d8cd98h73s204e3456998ecl9427j  | f98d8cd98h73s204e3456998ecl9427j |
 | bearer_token | Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c  | Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c |
 
@@ -365,54 +392,408 @@ etc.....
 
 <br>
 
-### 2.1.1) Crear un objeto pago
-#### Request
-``` postman
+### 2.1.1) Crear un objeto payment
 
+#### Request (POST) | Code snippet
+``` postman
+curl --location 'http://localhost:4000/dev/v1/payments/' \
+--header 'x-api-key: f98d8cd98h73s204e3456998ecl9427j' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "items": {
+    "id": "MLB2907679857",
+    "title": "Point Mini",
+    "description": "Producto Point para cobros con tarjetas mediante bluetooth",
+    "picture_url": "https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png",
+    "category_id": "electronics",
+    "quantity": 1,
+    "unit_price": 1000
+  },
+  "payer": {
+    "id": "12",
+    "first_name": "Test",
+    "last_name": "Test"
+  },
+  "shipments": {
+    "receiver_address": {
+      "zip_code": "B16-2231FG",
+      "state_name": "Rio de Janeiro",
+      "city_name": "Buzios",
+      "street_name": "Av das Nacoes Unidas",
+      "street_number": 3003
+    }
+  },
+  "description": "Payment for product",
+  "external_reference": "MP0001",
+  "payment_method_id": "visa",
+  "token": "ff8080814c11e237014c1ff593b57b4d",
+  "transaction_amount": 58.8
+}'
 ```
 
-#### Response
+#### Response (200 OK)
 ``` postman
+{
+    "message": {
+        "uuid": "d5d58c31-8c29-41d2-a2e0-88322cb0238d",
+        "description": "Payment for product",
+        "externalReference": "MP0001",
+        "paymentMethodId": "visa",
+        "token": "ff8080814c11e237014c1ff593b57b4d",
+        "transactionAmount": 58.8,
+        "items": {
+            "id": "MLB2907679857",
+            "title": "Point Mini",
+            "description": "Producto Point para cobros con tarjetas mediante bluetooth",
+            "picture_url": "https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png",
+            "category_id": "electronics",
+            "quantity": 1,
+            "unit_price": 1000
+        },
+        "payer": {
+            "id": "12",
+            "first_name": "Test",
+            "last_name": "Test"
+        },
+        "shipments": {
+            "receiver_address": {
+                "street_number": 3003,
+                "city_name": "Rio de Janeiro",
+                "state_name": "Buzios",
+                "zip_code": "B16-2231FG",
+                "street_name": "Buzios"
+            }
+        }
+    }
+}
 ```
+
+#### Response (400 Bad Request) --> Aplica a todos los atributos con validación
+``` postman
+{
+    "message": "Bad request, check request attributes for Item Object . Validate the following : The value of the item id must be between 1 and 25 characters,The id of item must be of type string,The id of item cannot be empty"
+}
+```
+
+#### Response (400 Bad Request)
+``` postman
+{
+    "message": "Bad request, check missing or malformed headers"
+}
+```
+
+
+#### Response (401 Unauthorized)
+``` postman
+{
+    "message": "Not authenticated, check x_api_key and Authorization"
+}
+```
+
+#### Other responses
+
 
 <br>
 
 <br>
 
-### 2.1.2) Obtener un objecto pago
-#### Request
+### 2.1.2) Obtener todos los objetos Payment según filtro aplicado (descripción)
+#### Request (GET) | Code snippet
 ``` postman
+curl --location 'http://localhost:4000/dev/v1/payments/list-with-filters?filter=description&filterValue=Payment&limit=10&orderAt=asc' \
+--header 'x-api-key: f98d8cd98h73s204e3456998ecl9427j' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+--header 'Content-Type: application/json' \
+--data ''
 ```
 
-#### Response
+#### Response (200 OK)
 ``` postman
+{
+    "message": [
+        {
+            "externalReference": "MP0001",
+            "paymentMethodId": "visa",
+            "transactionAmount": 58.8,
+            "description": "Payment for product",
+            "uuid": "d5d58c31-8c29-41d2-a2e0-88322cb0238d",
+            "items": {
+                "quantity": 1,
+                "picture_url": "https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png",
+                "category_id": "electronics",
+                "description": "Producto Point para cobros con tarjetas mediante bluetooth",
+                "id": "MLB2907679857",
+                "title": "Point Mini",
+                "unit_price": 1000
+            },
+            "payer": {
+                "first_name": "Test",
+                "last_name": "Test",
+                "id": "12"
+            },
+            "shipments": {
+                "receiver_address": {
+                    "street_number": 3003,
+                    "city_name": "Rio de Janeiro",
+                    "state_name": "Buzios",
+                    "zip_code": "B16-2231FG",
+                    "street_name": "Buzios"
+                }
+            },
+            "token": "ff8080814c11e237014c1ff593b57b4d"
+        }
+        ETC....
+    ]
+}
 ```
+
+
+#### Response (400 Bad Request)
+``` postman
+{
+    "message": "Bad request, check missing or malformed headers"
+}
+```
+
+
+#### Response (401 Unauthorized)
+``` postman
+{
+    "message": "Not authenticated, check x_api_key and Authorization"
+}
+```
+
+#### Other responses
+
 
 <br>
 
 <br>
 
-### 2.1.3) Actualizar un objeto pago
-#### Request
+### 2.1.3) Obtener un objeto payment según su uuid
+
+#### Request (GET) | Code snippet
 ``` postman
+curl --location 'http://localhost:4000/dev/v1/payments/uuid/d5d58c31-8c29-41d2-a2e0-88322cb0238d' \
+--header 'x-api-key: f98d8cd98h73s204e3456998ecl9427j' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+--header 'Content-Type: application/json' \
+--data ''
 ```
 
-#### Response
+#### Response (200 OK)
 ``` postman
+{
+    "message": {
+        "externalReference": "MP0001",
+        "paymentMethodId": "visa",
+        "transactionAmount": 58.8,
+        "description": "Payment for product",
+        "uuid": "d5d58c31-8c29-41d2-a2e0-88322cb0238d",
+        "items": {
+            "quantity": 1,
+            "picture_url": "https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png",
+            "category_id": "electronics",
+            "description": "Producto Point para cobros con tarjetas mediante bluetooth",
+            "id": "MLB2907679857",
+            "title": "Point Mini",
+            "unit_price": 1000
+        },
+        "payer": {
+            "first_name": "Test",
+            "last_name": "Test",
+            "id": "12"
+        },
+        "shipments": {
+            "receiver_address": {
+                "street_number": 3003,
+                "city_name": "Rio de Janeiro",
+                "state_name": "Buzios",
+                "zip_code": "B16-2231FG",
+                "street_name": "Buzios"
+            }
+        },
+        "token": "ff8080814c11e237014c1ff593b57b4d"
+    }
+}
 ```
+
+
+#### Response (400 Bad Request)
+``` postman
+{
+    "message": "Bad request, check missing or malformed headers"
+}
+```
+
+
+#### Response (401 Unauthorized)
+``` postman
+{
+    "message": "Not authenticated, check x_api_key and Authorization"
+}
+```
+
+#### Response (500 Internal Server Error)
+``` postman
+{
+    "message": "Bad request, unable to update object in db as failed to get a payment by uuid. Check if the payment exists in the database and try again"
+}
+```
+
+#### Other responses
+
 
 <br>
 
 <br>
 
-### 2.1.4) Eliminar un objeto pago
-#### Request
+### 2.1.4) Actualizar un objeto Payment según su uuid
+#### Request (PUT) | Code snippet
 ``` postman
+curl --location --request PUT 'http://localhost:4000/dev/v1/payments/d5d58c31-8c29-41d2-a2e0-88322cb0238d' \
+--header 'x-api-key: f98d8cd98h73s204e3456998ecl9427j' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "items": {
+    "id": "test",
+    "title": "test",
+    "description": "test",
+    "picture_url": "https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png",
+    "category_id": "electronics",
+    "quantity": 1,
+    "unit_price": 1000
+  },
+  "payer": {
+    "id": "12",
+    "first_name": "Test",
+    "last_name": "Test"
+  },
+  "shipments": {
+    "receiver_address": {
+      "zip_code": "B16-2231FG",
+      "state_name": "Rio de Janeiro",
+      "city_name": "Buzios",
+      "street_name": "Av das Nacoes Unidas",
+      "street_number": 3003
+    }
+  },
+  "description": "Payment for product",
+  "external_reference": "MP0001",
+  "payment_method_id": "visa",
+  "token": "ff8080814c11e237014c1ff593b57b4d",
+  "transaction_amount": 58.8
+}'
 ```
 
-#### Response
+
+#### Response (200 OK)
 ``` postman
+{
+    "message": {
+        "externalReference": "MP0001",
+        "paymentMethodId": "visa",
+        "transactionAmount": 58.8,
+        "description": "Payment for product",
+        "items": {
+            "quantity": 1,
+            "picture_url": "https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png",
+            "category_id": "electronics",
+            "description": "test",
+            "id": "test",
+            "title": "test",
+            "unit_price": 1000
+        },
+        "payer": {
+            "first_name": "Test",
+            "last_name": "Test",
+            "id": "12"
+        },
+        "shipments": {
+            "receiver_address": {
+                "street_number": 3003,
+                "city_name": "Rio de Janeiro",
+                "state_name": "Buzios",
+                "zip_code": "B16-2231FG",
+                "street_name": "Buzios"
+            }
+        },
+        "uuid": "d5d58c31-8c29-41d2-a2e0-88322cb0238d",
+        "token": "ff8080814c11e237014c1ff593b57b4d"
+    }
+}
 ```
+
+#### Response (400 Bad Request)
+``` postman
+{
+    "message": "Bad request, check missing or malformed headers"
+}
+```
+
+
+#### Response (401 Unauthorized)
+``` postman
+{
+    "message": "Not authenticated, check x_api_key and Authorization"
+}
+```
+
+#### Response (500 Internal Server Error)
+``` postman
+{
+    "message": "Bad request, unable to update object in db as failed to get a payment by uuid. Check if the payment exists in the database and try again"
+}
+```
+
+#### Other responses
+
+<br>
+
+<br>
+
+### 2.1.5) Eliminar un objeto Payment según su uuid
+#### Request (DELETE) | Code snippet
+``` postman
+curl --location --request DELETE 'http://localhost:4000/dev/v1/payments/d5d58c31-8c29-41d2-a2e0-88322cb0238d' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+--header 'x-api-key: f98d8cd98h73s204e3456998ecl9427j' \
+--header 'Content-Type: application/json'
+```
+
+#### Response (200 ok)
+``` postman
+{
+    "message": "Successfully removed payment based on uuid d5d58c31-8c29-41d2-a2e0-88322cb0238d"
+}
+```
+
+
+#### Response (400 Bad Request)
+``` postman
+{
+    "message": "Bad request, check missing or malformed headers"
+}
+```
+
+
+#### Response (401 Unauthorized)
+``` postman
+{
+    "message": "Not authenticated, check x_api_key and Authorization"
+}
+```
+
+#### Response (500 Internal Server Error)
+``` postman
+{
+    "message": "Unable to delete payment based on uuid d5d58c31-8S29-41d2-a2e0-88322cb0238d"
+}
+```
+
+#### Other responses
 
 <br>
 
@@ -429,6 +810,9 @@ etc.....
 <details>
   <summary>Ver</summary>
 <br>
+
+#### Tipos de Operaciones | [Ver](https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W)
+![Index app](./doc/assets/playlist.png)
 
 </details>
 
