@@ -9,6 +9,8 @@ const {
 let client:any;
 let dynamo:any;
 
+//For refactor
+
 
 /**
  * @description creating a dynamodb client
