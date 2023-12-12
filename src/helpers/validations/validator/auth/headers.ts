@@ -11,20 +11,18 @@ let validate;
  * @param {Object} eventHeaders event.headers type
  * @returns a boolean
  */
-export const validateAuthHeaders = async (eventHeaders:any) => {
-
+export const validateAuthHeaders = async (eventHeaders: any) => {
   xApiKey = await eventHeaders["x-api-key"];
   authorization = await eventHeaders["Authorization"];
 
   validate = true;
 
-  if (xApiKey != X_API_KEY
-    || authorization != BEARER_TOKEN
-    || authorization == null) {
+  if (
+    xApiKey != X_API_KEY ||
+    authorization != BEARER_TOKEN ||
+    authorization == null
+  ) {
     validate = false;
   }
   return validate;
-}
-
-
-
+};

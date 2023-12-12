@@ -2,10 +2,15 @@
 const { ScanCommand } = require("@aws-sdk/lib-dynamodb");
 //Helpers
 import { dynamoDBClient } from "../config/dynamoDBClient";
-//Const-vars
+//Const
+const GET_ALL_ERROR_DETAILS = "ERROR in getAllItems helper function.";
+const GET_ALL_WITH_FILTER_ERROR_DETAILS = "ERROR in getAllItemsWithFilter helper function.";
+//Vars
 let dynamo: any;
 let metadata: any;
 let items: any;
+let msgResponse: string;
+let msgLog: string;
 
 /**
  * @description get all payment objects items from the database
@@ -23,6 +28,8 @@ export const getAllItems = async (
     items = null;
     metadata = null;
     orderAt = orderAt.toLowerCase();
+    msgResponse = null;
+    msgLog = null;
 
     orderAt = orderAt == "asc" || orderAt == null ? true : false;
 
@@ -42,9 +49,12 @@ export const getAllItems = async (
 
     return items;
   } catch (error) {
-    console.error(
-      `ERROR in getAllItems() function. Caused by ${error} . Specific stack is ${error.stack} `
-    );
+    msgResponse = GET_ALL_ERROR_DETAILS;
+    msgLog = msgResponse + `Caused by ${error}`;
+    console.log(msgLog);
+
+    return msgResponse;
+
   }
 };
 
@@ -68,6 +78,8 @@ export const getAllItemsWithFilter = async (
     items = null;
     metadata = null;
     orderAt = orderAt.toLowerCase();
+    msgResponse = null;
+    msgLog = null;
 
     orderAt = orderAt == "asc" || orderAt == null ? true : false;
 
@@ -94,8 +106,12 @@ export const getAllItemsWithFilter = async (
 
     return items;
   } catch (error) {
-    console.error(
-      `ERROR in getAllItemsWithFilter() function. Caused by ${error} . Specific stack is ${error.stack} `
-    );
+    msgResponse = GET_ALL_ERROR_DETAILS;
+    msgLog = msgResponse + `Caused by ${error}`;
+    console.log(msgLog);
+
+    return msgResponse;
+
+
   }
 };

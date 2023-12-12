@@ -5,7 +5,7 @@
  */
 export const formatToJson = async (obj: any) => {
   try {
-    obj = (typeof obj != "object") ? await JSON.parse(obj) : obj;
+    obj = typeof obj != "object" ? await JSON.parse(obj) : obj;
 
     return obj;
   } catch (error) {

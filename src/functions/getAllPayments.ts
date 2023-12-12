@@ -14,12 +14,10 @@ let msg: string;
 let code: number;
 let pageSizeNro: number;
 let orderAt: string;
-let items:any;
+let items: any;
 let paramPageSizeNro: any;
 let paramOrderAt: any;
 const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
-
-
 
 /**
  * @description Get all paginated payments list object
@@ -27,68 +25,64 @@ const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
  * @returns payments object list
  */
 module.exports.handler = async (event: any) => {
-    try {
-        //Init
-        pageSizeNro = 5;
-        orderAt = 'asc';
-        items= value.IS_NULL;
-        msg=value.IS_NULL;
-        code=value.IS_NULL;
+  try {
+    //Init
+    pageSizeNro = 5;
+    orderAt = "asc";
+    items = value.IS_NULL;
+    msg = value.IS_NULL;
+    code = value.IS_NULL;
 
+    //-- start with validation headers and keys  ---
+    eventHeaders = await event.headers;
 
-        //-- start with validation headers and keys  ---
-        eventHeaders = await event.headers;
-    
+    checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
 
-        checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
-
-        if (checkEventHeadersAndKeys != value.IS_NULL) {
-            return checkEventHeadersAndKeys;
-        }
-        //-- end with validation headers and keys  ---
-
-        //-- start with pagination  ---
-        eventQueryStrParams = await event.queryStringParameters;
-
-        if (eventQueryStrParams != value.IS_NULL) {
-            paramPageSizeNro = await formatToBigint(eventQueryStrParams.limit);
-            paramOrderAt = eventQueryStrParams.orderAt;
-          }
-
-        pageSizeNro =
-            (paramPageSizeNro != value.IS_NULL &&
-                paramPageSizeNro != value.IS_UNDEFINED &&
-                !isNaN(paramPageSizeNro))
-                ? paramPageSizeNro
-                : pageSizeNro;
-        orderAt =
-            (paramOrderAt != value.IS_NULL &&
-                paramOrderAt != value.IS_UNDEFINED &&
-                isNaN(paramOrderAt))
-                ? paramOrderAt
-                : orderAt;
-
-        //-- end with pagination  ---
-
-
-        //-- start with db operations  ---
-        items = await getAllItems(PAYMENTS_TABLE_NAME, pageSizeNro, orderAt);
-
-        if (items == value.IS_NULL || !(items.length)) {
-            return await requestResult(
-                statusCode.INTERNAL_SERVER_ERROR,
-                "Bad request, could not get a paginated payments list. Try again"
-            );
-        }
-
-        return await requestResult(statusCode.OK, items);
-        //-- end with db operations  ---
-
-    } catch (error) {
-        code = statusCode.INTERNAL_SERVER_ERROR;
-        msg = `Error in GET ALL PAYMENTS lambda. Caused by ${error}`;
-        console.error(`${msg}. Stack error type : ${error.stack}`);
-
-        return await requestResult(code, msg);
+    if (checkEventHeadersAndKeys != value.IS_NULL) {
+      return checkEventHeadersAndKeys;
     }
+    //-- end with validation headers and keys  ---
+
+    //-- start with pagination  ---
+    eventQueryStrParams = await event.queryStringParameters;
+
+    if (eventQueryStrParams != value.IS_NULL) {
+      paramPageSizeNro = await formatToBigint(eventQueryStrParams.limit);
+      paramOrderAt = eventQueryStrParams.orderAt;
+    }
+
+    pageSizeNro =
+      paramPageSizeNro != value.IS_NULL &&
+      paramPageSizeNro != value.IS_UNDEFINED &&
+      !isNaN(paramPageSizeNro)
+        ? paramPageSizeNro
+        : pageSizeNro;
+    orderAt =
+      paramOrderAt != value.IS_NULL &&
+      paramOrderAt != value.IS_UNDEFINED &&
+      isNaN(paramOrderAt)
+        ? paramOrderAt
+        : orderAt;
+
+    //-- end with pagination  ---
+
+    //-- start with db operations  ---
+    items = await getAllItems(PAYMENTS_TABLE_NAME, pageSizeNro, orderAt);
+
+    if (items == value.IS_NULL || !items.length) {
+      return await requestResult(
+        statusCode.INTERNAL_SERVER_ERROR,
+        "Bad request, could not get a paginated payments list. Try again"
+      );
+    }
+
+    return await requestResult(statusCode.OK, items);
+    //-- end with db operations  ---
+  } catch (error) {
+    code = statusCode.INTERNAL_SERVER_ERROR;
+    msg = `Error in GET ALL PAYMENTS lambda. Caused by ${error}`;
+    console.error(`${msg}. Stack error type : ${error.stack}`);
+
+    return await requestResult(code, msg);
+  }
 };

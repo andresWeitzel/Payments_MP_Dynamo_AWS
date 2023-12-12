@@ -21,7 +21,7 @@ let paramPageSizeNro: any;
 let paramOrderAt: any;
 let paramFilter: any;
 let paramFilterValue: any;
-let items:any;
+let items: any;
 const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 /**
@@ -37,8 +37,8 @@ module.exports.handler = async (event: any) => {
     filter = "uuid";
     filterValue = "A";
     items = value.IS_NULL;
-    msg=value.IS_NULL;
-    code=value.IS_NULL;
+    msg = value.IS_NULL;
+    code = value.IS_NULL;
 
     //-- start with validation headers and keys  ---
     eventHeaders = await event.headers;

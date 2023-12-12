@@ -10,7 +10,7 @@ export const formatToBigint = async (obj: any) => {
     return obj;
   } catch (error) {
     console.error(
-        `Error in formatToBigint(), caused by ${error}. Specific stack is ${error.stack}`
-      );
+      `Error in formatToBigint(), caused by ${error}. Specific stack is ${error.stack}`
+    );
   }
 };
