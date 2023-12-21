@@ -106,7 +106,7 @@ export const getAllItemsWithFilter = async (
 
     return items;
   } catch (error) {
-    msgResponse = GET_ALL_ERROR_DETAILS;
+    msgResponse = GET_ALL_WITH_FILTER_ERROR_DETAILS;
     msgLog = msgResponse + `Caused by ${error}`;
     console.log(msgLog);
 

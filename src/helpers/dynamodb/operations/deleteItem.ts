@@ -3,7 +3,7 @@ const { DeleteCommand } = require("@aws-sdk/lib-dynamodb");
 //Helpers
 import { dynamoDBClient } from "../config/dynamoDBClient";
 //Const
-const ERROR_DETAILS = "ERROR in deleteItemByUuid helper function.";
+const DYNAMO_DB_ERROR = "ERROR in deleteItemByUuid helper function.";
 //Vars
 /**
  * @description undefined if the object has been deleted, defined if the object does not exist according to the key
@@ -47,7 +47,7 @@ export const deleteItemByUuid = async (tableName: string, uuid: string) => {
 
     return checkItemDeleted;
   } catch (error) {
-    msgResponse = ADD_USER_ERROR_DETAILS;
+    msgResponse = DYNAMO_DB_ERROR;
     msgLog = msgResponse + `Caused by ${error}`;
     console.log(msgLog);
 

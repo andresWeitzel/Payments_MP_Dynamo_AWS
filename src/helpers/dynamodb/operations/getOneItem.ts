@@ -2,10 +2,14 @@
 const { GetCommand } = require("@aws-sdk/lib-dynamodb");
 //Helpers
 import { dynamoDBClient } from "../config/dynamoDBClient";
-//Const-vars
+//Const
+const GET_ONE_ERROR = "ERROR in getOneItem helper function.";
+//Vars
 let dynamo: any;
 let metadata: any;
 let item: any;
+let msgResponse: string;
+let msgLog: string;
 
 /**
  * @description get one item from the database according the id
@@ -33,8 +37,11 @@ export const getOneItem = async (tableName: string, key: string) => {
 
     return item;
   } catch (error) {
-    console.error(
-      `ERROR in getOneItem() function. Caused by ${error} . Specific stack is ${error.stack} `
-    );
+    msgResponse = GET_ONE_ERROR;
+    msgLog = msgResponse + `Caused by ${error}`;
+    console.log(msgLog);
+
+    return msgResponse;
+
   }
 };

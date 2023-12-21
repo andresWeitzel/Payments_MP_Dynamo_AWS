@@ -1,12 +1,15 @@
 //External
 const { UpdateCommand } = require("@aws-sdk/lib-dynamodb");
-// const { marshall, unmarshall } = require('@aws-sdk/util-dynamodb');
 //Helpers
 import { dynamoDBClient } from "../config/dynamoDBClient";
-//Const-vars
+//Const
+const UPDATE_ITEM_ERROR = "ERROR in updateOneItem helper function.";
+//Vars
 let dynamo: any;
 let metadata: any;
 let itemUpdated: any;
+let msgResponse: string;
+let msgLog: string;
 
 /**
  * @description update one item into the database
@@ -32,7 +35,7 @@ export const updateOneItem = async (
         Key: key,
         ReturnValues: "ALL_NEW",
         UpdateExpression: `SET ${itemKeys
-          .map((k, index) => `#field${index} = :value${index}`)
+          .map((index) => `#field${index} = :value${index}`)
           .join(", ")}`,
         ExpressionAttributeNames: itemKeys.reduce(
           (accumulator, k, index) => ({
@@ -57,8 +60,10 @@ export const updateOneItem = async (
 
     return itemUpdated;
   } catch (error) {
-    console.error(
-      `ERROR in updateOneItem() function. Caused by ${error} . Specific stack is ${error.stack} `
-    );
+    msgResponse = UPDATE_ITEM_ERROR;
+    msgLog = msgResponse + `Caused by ${error}`;
+    console.log(msgLog);
+
+    return msgResponse;
   }
 };

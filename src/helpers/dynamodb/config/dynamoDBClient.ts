@@ -2,7 +2,7 @@
 const { DynamoDBDocumentClient } = require("@aws-sdk/lib-dynamodb");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 //Const
-const ERROR_DETAILS = "ERROR in add-dynamoDBClient helper function.";
+const DYNAMO_DB_ERROR = "ERROR in add-dynamoDBClient helper function.";
 //Vars
 let client: any;
 let dynamo: any;
@@ -26,7 +26,7 @@ export const dynamoDBClient = async () => {
 
     return dynamo;
   } catch (error) {
-    msgResponse = ADD_USER_ERROR_DETAILS;
+    msgResponse = DYNAMO_DB_ERROR;
     msgLog = msgResponse + `Caused by ${error}`;
     console.log(msgLog);
 
