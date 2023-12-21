@@ -1,5 +1,10 @@
 //External
 import { v4 as uuidv4 } from "uuid";
+//Const
+const GENERATE_UUID_ERROR = "ERROR in generateUuidV4 helper function.";
+//Vars
+let msgResponse: string;
+let msgLog: string;
 
 /**
  * @description Generate uuid v4
@@ -10,8 +15,10 @@ export const generateUuidV4 = async () => {
   try {
     return uuidv4();
   } catch (error) {
-    console.error(
-      `Error in generateUuidV4(), caused by ${error}. Specific stack is ${error.stack}`
-    );
+    msgResponse = GENERATE_UUID_ERROR;
+    msgLog = msgResponse + `Caused by ${error}`;
+    console.log(msgLog);
+
+    return msgResponse;
   }
 };

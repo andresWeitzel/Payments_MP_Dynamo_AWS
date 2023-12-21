@@ -1,3 +1,9 @@
+//Const
+const REQUEST_RESULT_ERROR = "ERROR in requestResult helper function.";
+//Vars
+let msgResponse: string;
+let msgLog: string;
+
 /**
  * @description get a json with the http status code, a message and input
  * @param {Number} statusCode Number type
@@ -17,8 +23,10 @@ export const requestResult = async (statusCode: number, message: any) => {
       ),
     };
   } catch (error) {
-    console.error(
-      `ERROR in function requestResult(). Caused by ${error} . Specific stack is ${error.stack} `
-    );
+    msgResponse = REQUEST_RESULT_ERROR;
+    msgLog = msgResponse + `Caused by ${error}`;
+    console.log(msgLog);
+
+    return msgResponse;
   }
 };

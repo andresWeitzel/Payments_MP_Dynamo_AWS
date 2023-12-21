@@ -1,3 +1,9 @@
+//Const
+const FORMAT_TO_STRING_ERROR = "ERROR in formatToString helper function.";
+//Vars
+let msgResponse: string;
+let msgLog: string;
+
 /**
  * @description Convert to string format
  * @param {Object} obj Object type
@@ -9,8 +15,10 @@ export const formatToString = async (obj: any) => {
 
     return obj;
   } catch (error) {
-    console.error(
-      `Error in formatToString(), caused by ${error}. Specific stack is ${error.stack}`
-    );
+    msgResponse = FORMAT_TO_STRING_ERROR;
+    msgLog = msgResponse + `Caused by ${error}`;
+    console.log(msgLog);
+
+    return msgResponse;
   }
 };
