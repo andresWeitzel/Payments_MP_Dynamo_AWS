@@ -4,7 +4,8 @@ const { ScanCommand } = require("@aws-sdk/lib-dynamodb");
 import { dynamoDBClient } from "../config/dynamoDBClient";
 //Const
 const GET_ALL_ERROR_DETAILS = "ERROR in getAllItems helper function.";
-const GET_ALL_WITH_FILTER_ERROR_DETAILS = "ERROR in getAllItemsWithFilter helper function.";
+const GET_ALL_WITH_FILTER_ERROR_DETAILS =
+  "ERROR in getAllItemsWithFilter helper function.";
 //Vars
 let dynamo: any;
 let metadata: any;
@@ -54,7 +55,6 @@ export const getAllItems = async (
     console.log(msgLog);
 
     return msgResponse;
-
   }
 };
 
@@ -111,7 +111,5 @@ export const getAllItemsWithFilter = async (
     console.log(msgLog);
 
     return msgResponse;
-
-
   }
 };

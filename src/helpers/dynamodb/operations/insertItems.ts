@@ -5,9 +5,9 @@ import { dynamoDBClient } from "../config/dynamoDBClient";
 //Const
 const INSERT_ITEM_ERROR = "ERROR in insertItems helper function.";
 //Vars
-let dynamo:any;
-let metadata:any;
-let requestId:any;
+let dynamo: any;
+let metadata: any;
+let requestId: any;
 let msgResponse: string;
 let msgLog: string;
 
@@ -17,7 +17,7 @@ let msgLog: string;
  * @param {Object} items object json type
  * @returns a metadata with the information of the operation
  */
-export const insertItems = async (tableName:any, items:any) => {
+export const insertItems = async (tableName: any, items: any) => {
   try {
     requestId = null;
     dynamo = await dynamoDBClient();

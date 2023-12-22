@@ -42,6 +42,5 @@ export const getOneItem = async (tableName: string, key: string) => {
     console.log(msgLog);
 
     return msgResponse;
-
   }
 };
