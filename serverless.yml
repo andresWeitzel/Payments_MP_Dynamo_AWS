@@ -121,4 +121,3 @@ custom:
       inMemory: true
       migrate: true
       seed: true
-      port: 8000

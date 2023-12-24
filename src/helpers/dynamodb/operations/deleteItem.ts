@@ -1,16 +1,19 @@
 //External
 const { DeleteCommand } = require("@aws-sdk/lib-dynamodb");
 //Helpers
-//Helpers
 import { dynamoDBClient } from "../config/dynamoDBClient";
-//Const-vars
-let dynamo: any;
-let metadata: any;
-let checkItemDeleted: any;
+//Const
+const DYNAMO_DB_ERROR = "ERROR in deleteItemByUuid helper function.";
+//Vars
 /**
  * @description undefined if the object has been deleted, defined if the object does not exist according to the key
  */
 let consumedCapacity: any;
+let dynamo: any;
+let metadata: any;
+let checkItemDeleted: any;
+let msgResponse: string;
+let msgLog: string;
 
 /**
  * @description Delete one item object from the database based on their specified table and limit
@@ -44,8 +47,10 @@ export const deleteItemByUuid = async (tableName: string, uuid: string) => {
 
     return checkItemDeleted;
   } catch (error) {
-    console.error(
-      `ERROR WITH deleteItemByUuid(), CAUSED BY.. ${error} . Specific stack error is ${error.stack}`
-    );
+    msgResponse = DYNAMO_DB_ERROR;
+    msgLog = msgResponse + `Caused by ${error}`;
+    console.log(msgLog);
+
+    return msgResponse;
   }
 };
