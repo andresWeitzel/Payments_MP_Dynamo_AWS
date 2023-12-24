@@ -1,9 +1,14 @@
 //External Imports
 const { Validator } = require("node-input-validator");
-//Const/vars
+//Const
+const VALIDATE_HEADERS_PARAMS_ERROR_MESSAGE =
+  "Error in validateHeadersParams helper function";
+//Vars
 let validateCheck: any;
 let validatorObj: any;
 let eventHeadersObj: any;
+let msgResponse: string;
+let msgLog: string;
 
 /**
  * @description We validate the request headers parameters
@@ -39,11 +44,12 @@ export const validateHeadersParams = async (eventHeaders: any) => {
       );
       validateCheck = await validatorObj.check();
     }
+    return validateCheck;
   } catch (error) {
-    console.error(
-      `ERROR in function validateHeadersParams(). Caused by ${error} . Specific stack is ${error.stack} `
-    );
-  }
+    msgResponse = VALIDATE_HEADERS_PARAMS_ERROR_MESSAGE;
+    msgLog = msgResponse + `Caused by ${error}`;
+    console.log(msgLog);
 
-  return validateCheck;
+    return msgResponse;
+  }
 };

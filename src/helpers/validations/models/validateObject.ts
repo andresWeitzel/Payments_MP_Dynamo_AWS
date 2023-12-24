@@ -1,15 +1,17 @@
 //External
 import { validate } from "class-validator";
-//Const/vars
+//Const
+const VALIDATE_OBJECT_ERROR_MESSAGE =
+  "Error in validateObject helper function";
+//Vars
 let stackFieldsErrors: any;
+let msgResponse: string;
+let msgLog: string;
 
 /**
    * @description Validation of all the properties of the object.
    * @param {object} obj any type
    * @returns an array object with the specific errors (constraints) of each class property
-   * @example {
-   
-}
    */
 export const validateObject = async (obj: any) => {
   stackFieldsErrors = [];
@@ -25,8 +27,10 @@ export const validateObject = async (obj: any) => {
 
     return stackFieldsErrors;
   } catch (error) {
-    console.error(
-      `ERROR in function validateObject(). Caused by ${error} . Specific stack is ${error.stack} `
-    );
+    msgResponse = VALIDATE_OBJECT_ERROR_MESSAGE;
+    msgLog = msgResponse + `Caused by ${error}`;
+    console.log(msgLog);
+
+    return msgResponse;
   }
 };
