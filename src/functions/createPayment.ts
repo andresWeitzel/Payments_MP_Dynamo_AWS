@@ -43,6 +43,7 @@ const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 module.exports.handler = async (event: any) => {
   try {
     //Init
+    //Remove here
     newPayment = value.IS_NULL;
     newPaymentItem = value.IS_NULL;
     msg = value.IS_NULL;
