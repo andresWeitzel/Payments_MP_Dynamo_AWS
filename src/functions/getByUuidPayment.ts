@@ -1,12 +1,13 @@
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
-import { value } from "src/enums/general/values";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
 import { getOneItem } from "src/helpers/dynamodb/operations/getOneItem";
 import { formatToString } from "src/helpers/format/formatToString";
-//Const/Vars
+//Const
+const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
+//Vars
 let eventHeaders: any;
 let checkEventHeadersAndKeys: any;
 let paymentObj: any;
@@ -14,7 +15,6 @@ let key: any;
 let msg: string;
 let code: number;
 let paymentUuid: string;
-const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 /**
  * @description Get a payment object by uuid
@@ -24,16 +24,16 @@ const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 module.exports.handler = async (event: any) => {
   try {
     //Init
-    paymentObj = value.IS_NULL;
-    msg = value.IS_NULL;
-    code = value.IS_NULL;
+    paymentObj = null;
+    msg = null;
+    code = null;
 
     //-- start with validation headers and keys  ---
     eventHeaders = await event.headers;
 
     checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
 
-    if (checkEventHeadersAndKeys != value.IS_NULL) {
+    if (checkEventHeadersAndKeys != null) {
       return checkEventHeadersAndKeys;
     }
     //-- end with validation headers and keys  ---
@@ -41,7 +41,7 @@ module.exports.handler = async (event: any) => {
     //-- start with pathParams operations  ---
     paymentUuid = await formatToString(event.pathParameters.uuid);
 
-    if (paymentUuid == value.IS_UNDEFINED || paymentUuid == value.IS_NULL) {
+    if (paymentUuid == undefined || paymentUuid == null) {
       return await requestResult(
         statusCode.BAD_REQUEST,
         "Bad request, could not get an inexistent payment. Check the payment uuid and try again"
@@ -54,7 +54,7 @@ module.exports.handler = async (event: any) => {
     key = { uuid: paymentUuid };
     paymentObj = await getOneItem(PAYMENTS_TABLE_NAME, key);
 
-    if (paymentObj == value.IS_NULL || paymentObj == value.IS_UNDEFINED) {
+    if (paymentObj == null || paymentObj == undefined) {
       return await requestResult(
         statusCode.INTERNAL_SERVER_ERROR,
         "Bad request, could not get a payment by uuid. Check if the payment exists in the database and try again"

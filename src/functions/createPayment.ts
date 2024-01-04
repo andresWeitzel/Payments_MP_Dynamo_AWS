@@ -5,7 +5,6 @@ import { Item } from "src/models/Item";
 import { Shipment } from "src/models/Shipment";
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
-import { value } from "src/enums/general/values";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
@@ -14,7 +13,9 @@ import { formatToJson } from "src/helpers/format/formatToJson";
 import { generateUuidV4 } from "src/helpers/math/generateUuid";
 import { validateObject } from "src/helpers/validations/models/validateObject";
 import { formatToBigint } from "src/helpers/format/formatToNumber";
-//Const/Vars
+//Const
+const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
+//Vars
 let eventBody: any;
 let eventBodyItems: any;
 let eventBodyPayer: any;
@@ -33,7 +34,6 @@ let validatePayerObj: any;
 let validateShipmentObj: any;
 let msg: string;
 let code: number;
-const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 /**
  * @description Add a payment object according to the parameters passed in the request body
@@ -43,18 +43,17 @@ const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 module.exports.handler = async (event: any) => {
   try {
     //Init
-    //Remove here
-    newPayment = value.IS_NULL;
-    newPaymentItem = value.IS_NULL;
-    msg = value.IS_NULL;
-    code = value.IS_NULL;
+    newPayment = null;
+    newPaymentItem = null;
+    msg = null;
+    code = null;
 
     //-- start with validation headers and keys  ---
     eventHeaders = await event.headers;
 
     checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
 
-    if (checkEventHeadersAndKeys != value.IS_NULL) {
+    if (checkEventHeadersAndKeys != null) {
       return checkEventHeadersAndKeys;
     }
     //-- end with validation headers and keys  ---
@@ -188,8 +187,8 @@ module.exports.handler = async (event: any) => {
     newPaymentItem = await insertItems(PAYMENTS_TABLE_NAME, itemDynamoDB);
 
     if (
-      newPaymentItem == value.IS_NULL ||
-      newPaymentItem == value.IS_UNDEFINED ||
+      newPaymentItem == null ||
+      newPaymentItem == undefined ||
       !newPaymentItem.length
     ) {
       return await requestResult(

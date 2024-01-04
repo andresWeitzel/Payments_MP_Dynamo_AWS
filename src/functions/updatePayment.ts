@@ -5,7 +5,6 @@ import { Item } from "src/models/Item";
 import { Shipment } from "src/models/Shipment";
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
-import { value } from "src/enums/general/values";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
@@ -15,7 +14,9 @@ import { validateObject } from "src/helpers/validations/models/validateObject";
 import { formatToBigint } from "src/helpers/format/formatToNumber";
 import { getOneItem } from "src/helpers/dynamodb/operations/getOneItem";
 import { updateOneItem } from "src/helpers/dynamodb/operations/updateOneItem";
-//Const/Vars
+//Const
+const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
+//Vars
 let eventHeaders: any;
 let checkEventHeadersAndKeys: any;
 let key: any;
@@ -37,7 +38,6 @@ let itemDynamoDB: any;
 let paymentUuid: string;
 let msg: string;
 let code: number;
-const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 /**
  * @description Edit a payment object according to the parameters passed in the request body
@@ -47,16 +47,16 @@ const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 module.exports.handler = async (event: any) => {
   try {
     //Init
-    newPaymentObj = value.IS_NULL;
-    msg = value.IS_NULL;
-    code = value.IS_NULL;
+    newPaymentObj = null;
+    msg = null;
+    code = null;
 
     //-- start with validation headers and keys  ---
     eventHeaders = await event.headers;
 
     checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
 
-    if (checkEventHeadersAndKeys != value.IS_NULL) {
+    if (checkEventHeadersAndKeys != null) {
       return checkEventHeadersAndKeys;
     }
     //-- end with validation headers and keys  ---
@@ -64,7 +64,7 @@ module.exports.handler = async (event: any) => {
     //-- start with pathParams operations  ---
     paymentUuid = await event.pathParameters.uuid;
 
-    if (paymentUuid == value.IS_UNDEFINED || paymentUuid == value.IS_NULL) {
+    if (paymentUuid == undefined || paymentUuid == null) {
       return await requestResult(
         statusCode.BAD_REQUEST,
         "Bad request, could not update an inexistent payment. Check the payment uuid and try again"
@@ -78,7 +78,7 @@ module.exports.handler = async (event: any) => {
 
     oldPaymentObj = await getOneItem(PAYMENTS_TABLE_NAME, key);
 
-    if (oldPaymentObj == value.IS_NULL || oldPaymentObj == value.IS_UNDEFINED) {
+    if (oldPaymentObj == null || oldPaymentObj == undefined) {
       return await requestResult(
         statusCode.INTERNAL_SERVER_ERROR,
         "Bad request, unable to update object in db as failed to get a payment by uuid. Check if the payment exists in the database and try again"
@@ -214,7 +214,7 @@ module.exports.handler = async (event: any) => {
 
     newPaymentObj = await updateOneItem(PAYMENTS_TABLE_NAME, key, itemDynamoDB);
 
-    if (newPaymentObj == value.IS_NULL || newPaymentObj == value.IS_UNDEFINED) {
+    if (newPaymentObj == null || newPaymentObj == undefined) {
       return await requestResult(
         statusCode.INTERNAL_SERVER_ERROR,
         "An error has occurred, the payment object has not been updated into the database"
