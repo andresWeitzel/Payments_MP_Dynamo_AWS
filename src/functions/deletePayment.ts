@@ -1,19 +1,19 @@
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
-import { value } from "src/enums/general/values";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
 import { formatToString } from "src/helpers/format/formatToString";
 import { deleteItemByUuid } from "src/helpers/dynamodb/operations/deleteItem";
-//Const/Vars
+//Const
+const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
+//Vars
 let eventHeaders: any;
 let checkEventHeadersAndKeys: any;
 let paymentUuid: string;
 let itemDeleted: any;
 let msg: string;
 let code: number;
-const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 /**
  * @description Delete a payment object from the database
@@ -23,17 +23,17 @@ const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 module.exports.handler = async (event: any) => {
   try {
     //Init
-    paymentUuid = value.IS_NULL;
-    msg = value.IS_NULL;
-    code = value.IS_NULL;
-    itemDeleted = value.IS_NULL;
+    paymentUuid = null;
+    msg = null;
+    code = null;
+    itemDeleted = null;
 
     //-- start with validation headers and keys  ---
     eventHeaders = await event.headers;
 
     checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
 
-    if (checkEventHeadersAndKeys != value.IS_NULL) {
+    if (checkEventHeadersAndKeys != null) {
       return checkEventHeadersAndKeys;
     }
     //-- end with validation headers and keys  ---
@@ -41,7 +41,7 @@ module.exports.handler = async (event: any) => {
     //-- start with pathParams operations  ---
     paymentUuid = await formatToString(event.pathParameters.uuid);
 
-    if (paymentUuid == value.IS_UNDEFINED || paymentUuid == value.IS_NULL) {
+    if (paymentUuid == undefined || paymentUuid == null) {
       return await requestResult(
         statusCode.BAD_REQUEST,
         `Bad request, could not delete an inexistent payment. Check the payment uuid with the value ${paymentUuid} and try again`
@@ -52,7 +52,7 @@ module.exports.handler = async (event: any) => {
     //-- start with db operations  ---
     itemDeleted = await deleteItemByUuid(PAYMENTS_TABLE_NAME, paymentUuid);
 
-    if (itemDeleted != value.IS_TRUE) {
+    if (itemDeleted != true) {
       return await requestResult(
         statusCode.INTERNAL_SERVER_ERROR,
         `Unable to delete payment based on uuid ${paymentUuid}`

@@ -1,13 +1,13 @@
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
-import { value } from "src/enums/general/values";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
 import { getAllItemsWithFilter } from "src/helpers/dynamodb/operations/getAllItems";
 import { formatToBigint } from "src/helpers/format/formatToNumber";
-
-//Const/Vars
+//Const
+const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
+//Vars
 let eventHeaders: any;
 let eventQueryStrParams: any;
 let checkEventHeadersAndKeys: any;
@@ -22,7 +22,6 @@ let paramOrderAt: any;
 let paramFilter: any;
 let paramFilterValue: any;
 let items: any;
-const PAYMENTS_TABLE_NAME = process.env.DYNAMO_PAYMENTS_TABLE_NAME;
 
 /**
  * @description Get all paginated payments list object with filters
@@ -36,16 +35,16 @@ module.exports.handler = async (event: any) => {
     orderAt = "asc";
     filter = "uuid";
     filterValue = "A";
-    items = value.IS_NULL;
-    msg = value.IS_NULL;
-    code = value.IS_NULL;
+    items = null;
+    msg = null;
+    code = null;
 
     //-- start with validation headers and keys  ---
     eventHeaders = await event.headers;
 
     checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
 
-    if (checkEventHeadersAndKeys != value.IS_NULL) {
+    if (checkEventHeadersAndKeys != null) {
       return checkEventHeadersAndKeys;
     }
     //-- end with validation headers and keys  ---
@@ -53,7 +52,7 @@ module.exports.handler = async (event: any) => {
     //-- start with query string params  ---
     eventQueryStrParams = await event.queryStringParameters;
 
-    if (eventQueryStrParams != value.IS_NULL) {
+    if (eventQueryStrParams != null) {
       paramPageSizeNro = await formatToBigint(eventQueryStrParams.limit);
       paramOrderAt = eventQueryStrParams.orderAt;
       paramFilter = eventQueryStrParams.filter;
@@ -61,26 +60,26 @@ module.exports.handler = async (event: any) => {
     }
 
     filter =
-      paramFilter != value.IS_NULL &&
-      paramFilter != value.IS_UNDEFINED &&
+      paramFilter != null &&
+      paramFilter != undefined &&
       isNaN(paramFilter)
         ? paramFilter
         : filter;
     filterValue =
-      paramFilterValue != value.IS_NULL &&
-      paramFilterValue != value.IS_UNDEFINED &&
+      paramFilterValue != null &&
+      paramFilterValue != undefined &&
       isNaN(paramFilterValue)
         ? paramFilterValue
         : filterValue;
     pageSizeNro =
-      paramPageSizeNro != value.IS_NULL &&
-      paramPageSizeNro != value.IS_UNDEFINED &&
+      paramPageSizeNro != null &&
+      paramPageSizeNro != undefined &&
       !isNaN(paramPageSizeNro)
         ? paramPageSizeNro
         : pageSizeNro;
     orderAt =
-      paramOrderAt != value.IS_NULL &&
-      paramOrderAt != value.IS_UNDEFINED &&
+      paramOrderAt != null &&
+      paramOrderAt != undefined &&
       isNaN(paramOrderAt)
         ? paramOrderAt
         : orderAt;
@@ -96,7 +95,7 @@ module.exports.handler = async (event: any) => {
       orderAt
     );
 
-    if (items == value.IS_NULL || !items.length) {
+    if (items == null || !items.length) {
       return await requestResult(
         statusCode.INTERNAL_SERVER_ERROR,
         "Bad request, could not get a paginated payments list with filters. Try again"

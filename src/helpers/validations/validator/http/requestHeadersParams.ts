@@ -9,7 +9,7 @@ let validatorObj: any;
 let eventHeadersObj: any;
 let msgResponse: string;
 let msgLog: string;
-
+//For refactor
 /**
  * @description We validate the request headers parameters
  * @param {Object} eventHeaders event.headers type
