@@ -1,12 +1,46 @@
+<div align="center">
 
 ![Index app](./doc/assets/CRUD_Amazon_DynamoDB_AWS.drawio.png)
 
-# CRUD_Amazon_DynamoDB_AWS
+</div>
+
+<div align="right">
+  <img width="25" height="25" src="./doc/assets/icons/devops/png/aws.png" />
+  <img width="25" height="25" src="./doc/assets/icons/aws/png/lambda.png" />
+  <img width="27" height="27" src="./doc/assets/icons/devops/png/postman.png" />
+  <img width="29" height="27" src="./doc/assets/icons/devops/png/git.png" />
+  <img width="28" height="27" src="./doc/assets/icons/aws/png/api-gateway.png" />
+  <img width="27" height="25" src="./doc/assets/icons/aws/png/parameter-store.png" />
+  <img width="27" height="27" src="./doc/assets/icons/backend/javascript-typescript/png/nodejs.png" />
+  <img width="27" height="27" src="./doc/assets/icons/backend/javascript-typescript/png/typescript.png" />
+   <img width="27" height="27" src="./doc/assets/icons/aws/png/dynamo.png" />
+</div>
+
+<br>
+
+<br>
+
+<div align="right">
+ <a href="./README.md" target="_blank">
+ <img src="./doc/assets/translation/arg-flag.jpg" width="10%" height="10%" />
+ </a>
+ <a href="https://github.com/andresWeitzel/CRUD_Amazon_S3_AWS" target="_blank">
+ <img src="./doc/assets/translation/eeuu-flag.jpg" width="10%" height="10%" />
+ </a>
+</div>
+
+<div align="center">
+
+# CRUD Amazon DynamoDB AWS
+
+</div>
+
+
 Modelo CRUD para el manejo de objetos payments de mercadopago con DynamoDB de aws implementado con Api-Gateway, Systems Manager Parameter Store, Serverless-Framework, Lambda, Typescript, DynamoDB, aws-sdk-v3, entre otros.
 Como representación se tomara la api de mercado pago para el manejo de pagos.
 
 * [Api doc MP pagos](https://www.mercadopago.com.ar/developers/es/reference/payments/_payments/post)
-* [Playlist prueba de funcionalidad](https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W)
+* [Playlist](https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W)<a href="https://www.youtube.com/playlist?list=PLCl11UFjHurDPyOkEXOR6JO-vUnYqd1FW" target="_blank"> <img src="./doc/assets/social-networks/yt.png" width="3%" height="3%" />
 
 <br>
 
