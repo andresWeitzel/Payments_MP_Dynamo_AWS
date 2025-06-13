@@ -121,10 +121,10 @@ cd 'projectRootName'
 ```git
 git clone https://github.com/andresWeitzel/CRUD_Amazon_DynamoDB_AWS
 ```
-* Instalamos la última versión LTS de [Nodejs(v18)](https://nodejs.org/en/download)
-* Instalamos Serverless Framework de forma global si es que aún no lo hemos realizado
+* Instalamos la versión LTS de [Nodejs(v18)](https://nodejs.org/en/download)
+* Instalamos el Serverless Framework globalmente si aún no lo hemos hecho. Recomiendo la version tres ya que es gratuita y no nos pide credenciales. Se puede usar la última version (cuatro) sin problemas, aunque es de pago.
 ```git
-npm install -g serverless
+npm install -g serverless@3
 ```
 * Verificamos la versión de Serverless instalada
 ```git
