@@ -1,0 +1,7 @@
+{
+  "watch": ["src", "serverless.yml", "serverless_ssm.yml"],
+  "ext": "ts,js,yml,json",
+  "ignore": ["node_modules", "dist", ".serverless"],
+  "exec": "sls offline start",
+  "delay": 1000
+}

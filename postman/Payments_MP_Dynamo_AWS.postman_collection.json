@@ -1,0 +1,870 @@
+{
+	"info": {
+		"_postman_id": "6318d554-e3da-4d82-a81d-0101e880f4ce",
+		"name": "Payments_MP_Dynamo_AWS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18757319"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "get-all-payment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/payments/list?limit=10&orderAt=asc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"payments",
+								"list"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "orderAt",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get-all-payment",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/payments/list?limit=10&orderAt=asc",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"payments",
+										"list"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "10"
+										},
+										{
+											"key": "orderAt",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin,accept-encoding"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 28 Oct 2025 17:06:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": [\n        {\n            \"externalReference\": \"MP0001\",\n            \"paymentMethodId\": \"visa\",\n            \"transactionAmount\": 58.8,\n            \"description\": \"Payment for product\",\n            \"uuid\": \"69675d13-4b65-411f-876b-50705abee519\",\n            \"items\": {\n                \"quantity\": 1,\n                \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\n                \"category_id\": \"electronics\",\n                \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\n                \"id\": \"MLB2907679857\",\n                \"title\": \"Point Mini\",\n                \"unit_price\": 1000\n            },\n            \"payer\": {\n                \"first_name\": \"Test\",\n                \"last_name\": \"Test\",\n                \"id\": \"12\"\n            },\n            \"shipments\": {\n                \"receiver_address\": {\n                    \"street_number\": 3003,\n                    \"city_name\": \"Buzios\",\n                    \"state_name\": \"Rio de Janeiro\",\n                    \"zip_code\": \"B16-2231FG\",\n                    \"street_name\": \"Av das Nacoes Unidas\"\n                }\n            },\n            \"token\": \"ff8080814c11e237014c1ff593b57b4d\"\n        },\n        {\n            \"externalReference\": \"MP0001\",\n            \"paymentMethodId\": \"visa\",\n            \"transactionAmount\": 58.8,\n            \"description\": \"Payment for product\",\n            \"uuid\": \"56fd0b8f-9ab6-4aac-8398-7922c38e70d8\",\n            \"items\": {\n                \"quantity\": 1,\n                \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\n                \"category_id\": \"electronics\",\n                \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\n                \"id\": \"MLB2907679857\",\n                \"title\": \"Point Mini\",\n                \"unit_price\": 1000\n            },\n            \"payer\": {\n                \"first_name\": \"Test\",\n                \"last_name\": \"Test\",\n                \"id\": \"12\"\n            },\n            \"shipments\": {\n                \"receiver_address\": {\n                    \"street_number\": 3003,\n                    \"city_name\": \"Rio de Janeiro\",\n                    \"state_name\": \"Buzios\",\n                    \"zip_code\": \"B16-2231FG\",\n                    \"street_name\": \"Buzios\"\n                }\n            },\n            \"token\": \"ff8080814c11e237014c1ff593b57b4d\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "get-all-payment-with-filters",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/payments/list-with-filters?filter=description&filterValue=Payment&limit=10&orderAt=asc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"payments",
+								"list-with-filters"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "description"
+								},
+								{
+									"key": "filterValue",
+									"value": "Payment"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "orderAt",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get-all-payment-with-filters",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/payments/list-with-filters?filter=description&filterValue=Payment&limit=10&orderAt=asc",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"payments",
+										"list-with-filters"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "description"
+										},
+										{
+											"key": "filterValue",
+											"value": "Payment"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										},
+										{
+											"key": "orderAt",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin,accept-encoding"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 28 Oct 2025 17:08:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": [\n        {\n            \"externalReference\": \"MP0001\",\n            \"paymentMethodId\": \"visa\",\n            \"transactionAmount\": 58.8,\n            \"description\": \"Payment for product\",\n            \"uuid\": \"69675d13-4b65-411f-876b-50705abee519\",\n            \"items\": {\n                \"quantity\": 1,\n                \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\n                \"category_id\": \"electronics\",\n                \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\n                \"id\": \"MLB2907679857\",\n                \"title\": \"Point Mini\",\n                \"unit_price\": 1000\n            },\n            \"payer\": {\n                \"first_name\": \"Test\",\n                \"last_name\": \"Test\",\n                \"id\": \"12\"\n            },\n            \"shipments\": {\n                \"receiver_address\": {\n                    \"street_number\": 3003,\n                    \"city_name\": \"Buzios\",\n                    \"state_name\": \"Rio de Janeiro\",\n                    \"zip_code\": \"B16-2231FG\",\n                    \"street_name\": \"Av das Nacoes Unidas\"\n                }\n            },\n            \"token\": \"ff8080814c11e237014c1ff593b57b4d\"\n        },\n        {\n            \"externalReference\": \"MP0001\",\n            \"paymentMethodId\": \"visa\",\n            \"transactionAmount\": 58.8,\n            \"description\": \"Payment for product\",\n            \"uuid\": \"56fd0b8f-9ab6-4aac-8398-7922c38e70d8\",\n            \"items\": {\n                \"quantity\": 1,\n                \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\n                \"category_id\": \"electronics\",\n                \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\n                \"id\": \"MLB2907679857\",\n                \"title\": \"Point Mini\",\n                \"unit_price\": 1000\n            },\n            \"payer\": {\n                \"first_name\": \"Test\",\n                \"last_name\": \"Test\",\n                \"id\": \"12\"\n            },\n            \"shipments\": {\n                \"receiver_address\": {\n                    \"street_number\": 3003,\n                    \"city_name\": \"Rio de Janeiro\",\n                    \"state_name\": \"Buzios\",\n                    \"zip_code\": \"B16-2231FG\",\n                    \"street_name\": \"Buzios\"\n                }\n            },\n            \"token\": \"ff8080814c11e237014c1ff593b57b4d\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "get-payment-by-uuid",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/payments/uuid/0d528eee-ed91-41a0-b7e4-29d1ddeffdd8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"payments",
+								"uuid",
+								"0d528eee-ed91-41a0-b7e4-29d1ddeffdd8"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get-payment-by-uuid",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/payments/uuid/69675d13-4b65-411f-876b-50705abee519",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"payments",
+										"uuid",
+										"69675d13-4b65-411f-876b-50705abee519"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "965"
+								},
+								{
+									"key": "accept-ranges",
+									"value": "bytes"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 28 Oct 2025 17:17:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": {\n        \"externalReference\": \"MP0001\",\n        \"paymentMethodId\": \"visa\",\n        \"transactionAmount\": 58.8,\n        \"description\": \"Payment for product\",\n        \"uuid\": \"69675d13-4b65-411f-876b-50705abee519\",\n        \"items\": {\n            \"quantity\": 1,\n            \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\n            \"category_id\": \"electronics\",\n            \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\n            \"id\": \"MLB2907679857\",\n            \"title\": \"Point Mini\",\n            \"unit_price\": 1000\n        },\n        \"payer\": {\n            \"first_name\": \"Test\",\n            \"last_name\": \"Test\",\n            \"id\": \"12\"\n        },\n        \"shipments\": {\n            \"receiver_address\": {\n                \"street_number\": 3003,\n                \"city_name\": \"Buzios\",\n                \"state_name\": \"Rio de Janeiro\",\n                \"zip_code\": \"B16-2231FG\",\n                \"street_name\": \"Av das Nacoes Unidas\"\n            }\n        },\n        \"token\": \"ff8080814c11e237014c1ff593b57b4d\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "create-payment",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{bearer_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"items\": {\r\n    \"id\": \"MLB2907679857\",\r\n    \"title\": \"Point Mini\",\r\n    \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\r\n    \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\r\n    \"category_id\": \"electronics\",\r\n    \"quantity\": 1,\r\n    \"unit_price\": 1000\r\n  },\r\n  \"payer\": {\r\n    \"id\": \"12\",\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"Test\"\r\n  },\r\n  \"shipments\": {\r\n    \"receiver_address\": {\r\n      \"zip_code\": \"B16-2231FG\",\r\n      \"state_name\": \"Rio de Janeiro\",\r\n      \"city_name\": \"Buzios\",\r\n      \"street_name\": \"Av das Nacoes Unidas\",\r\n      \"street_number\": 3003\r\n    }\r\n  },\r\n  \"description\": \"Payment for product\",\r\n  \"external_reference\": \"MP0001\",\r\n  \"payment_method_id\": \"visa\",\r\n  \"token\": \"ff8080814c11e237014c1ff593b57b4d\",\r\n  \"transaction_amount\": 58.8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/payments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"payments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create-payment",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{bearer_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"items\": {\r\n    \"id\": \"MLB2907679857\",\r\n    \"title\": \"Point Mini\",\r\n    \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\r\n    \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\r\n    \"category_id\": \"electronics\",\r\n    \"quantity\": 1,\r\n    \"unit_price\": 1000\r\n  },\r\n  \"payer\": {\r\n    \"id\": \"12\",\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"Test\"\r\n  },\r\n  \"shipments\": {\r\n    \"receiver_address\": {\r\n      \"zip_code\": \"B16-2231FG\",\r\n      \"state_name\": \"Rio de Janeiro\",\r\n      \"city_name\": \"Buzios\",\r\n      \"street_name\": \"Av das Nacoes Unidas\",\r\n      \"street_number\": 3003\r\n    }\r\n  },\r\n  \"description\": \"Payment for product\",\r\n  \"external_reference\": \"MP0001\",\r\n  \"payment_method_id\": \"visa\",\r\n  \"token\": \"ff8080814c11e237014c1ff593b57b4d\",\r\n  \"transaction_amount\": 58.8\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/payments",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"payments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "965"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 28 Oct 2025 17:02:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": {\n        \"uuid\": \"69675d13-4b65-411f-876b-50705abee519\",\n        \"description\": \"Payment for product\",\n        \"externalReference\": \"MP0001\",\n        \"paymentMethodId\": \"visa\",\n        \"token\": \"ff8080814c11e237014c1ff593b57b4d\",\n        \"transactionAmount\": 58.8,\n        \"items\": {\n            \"id\": \"MLB2907679857\",\n            \"title\": \"Point Mini\",\n            \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\n            \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\n            \"category_id\": \"electronics\",\n            \"quantity\": 1,\n            \"unit_price\": 1000\n        },\n        \"payer\": {\n            \"id\": \"12\",\n            \"first_name\": \"Test\",\n            \"last_name\": \"Test\"\n        },\n        \"shipments\": {\n            \"receiver_address\": {\n                \"street_number\": 3003,\n                \"city_name\": \"Buzios\",\n                \"state_name\": \"Rio de Janeiro\",\n                \"zip_code\": \"B16-2231FG\",\n                \"street_name\": \"Av das Nacoes Unidas\"\n            }\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "edit-payment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"items\": {\r\n    \"id\": \"MLB2907679857\",\r\n    \"title\": \"Point Mini\",\r\n    \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\r\n    \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\r\n    \"category_id\": \"electronics\",\r\n    \"quantity\": 1,\r\n    \"unit_price\": 1000\r\n  },\r\n  \"payer\": {\r\n    \"id\": \"12\",\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"Test\"\r\n  },\r\n  \"shipments\": {\r\n    \"receiver_address\": {\r\n      \"zip_code\": \"B16-2231FG\",\r\n      \"state_name\": \"Rio de Janeiro\",\r\n      \"city_name\": \"Buzios\",\r\n      \"street_name\": \"Av das Nacoes Unidas\",\r\n      \"street_number\": 3003\r\n    }\r\n  },\r\n  \"description\": \"Payment for product\",\r\n  \"external_reference\": \"MP0001\",\r\n  \"payment_method_id\": \"visa\",\r\n  \"token\": \"ff8080814c11e237014c1ff593b57b4d\",\r\n  \"transaction_amount\": 58.8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/payments/4a52737b-020a-40a9-b238-e4710efbab0f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"payments",
+								"4a52737b-020a-40a9-b238-e4710efbab0f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "edit-payment",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"items\": {\r\n    \"id\": \"MLB2907679857\",\r\n    \"title\": \"Point Mini\",\r\n    \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\r\n    \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\r\n    \"category_id\": \"electronics\",\r\n    \"quantity\": 1,\r\n    \"unit_price\": 1000\r\n  },\r\n  \"payer\": {\r\n    \"id\": \"12\",\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"Test\"\r\n  },\r\n  \"shipments\": {\r\n    \"receiver_address\": {\r\n      \"zip_code\": \"B16-2231FG\",\r\n      \"state_name\": \"Rio de Janeiro\",\r\n      \"city_name\": \"Buzios\",\r\n      \"street_name\": \"Av das Nacoes Unidas\",\r\n      \"street_number\": 3003\r\n    }\r\n  },\r\n  \"description\": \"Payment for product\",\r\n  \"external_reference\": \"MP0001\",\r\n  \"payment_method_id\": \"visa\",\r\n  \"token\": \"ff8080814c11e237014c1ff593b57b4d\",\r\n  \"transaction_amount\": 58.8\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/payments/f5bc442c-c042-426c-aa88-f11f9b1e741a",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"payments",
+										"f5bc442c-c042-426c-aa88-f11f9b1e741a"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin,accept-encoding"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 02:54:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": {\n        \"externalReference\": \"MP0001\",\n        \"paymentMethodId\": \"visa\",\n        \"transactionAmount\": 58.8,\n        \"description\": \"Payment for product\",\n        \"items\": {\n            \"quantity\": 1,\n            \"picture_url\": \"https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png\",\n            \"category_id\": \"electronics\",\n            \"description\": \"Producto Point para cobros con tarjetas mediante bluetooth\",\n            \"id\": \"MLB2907679857\",\n            \"title\": \"Point Mini\",\n            \"unit_price\": 1000\n        },\n        \"payer\": {\n            \"first_name\": \"Test\",\n            \"last_name\": \"Test\",\n            \"id\": \"12\"\n        },\n        \"shipments\": {\n            \"receiver_address\": {\n                \"street_number\": 3003,\n                \"city_name\": \"Rio de Janeiro\",\n                \"state_name\": \"Buzios\",\n                \"zip_code\": \"B16-2231FG\",\n                \"street_name\": \"Av das Nacoes Unidas\"\n            }\n        },\n        \"uuid\": \"f5bc442c-c042-426c-aa88-f11f9b1e741a\",\n        \"token\": \"ff8080814c11e237014c1ff593b57b4d\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "delete-payment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/payments/69675d13-4b65-411f-876b-50705abee519",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"payments",
+								"69675d13-4b65-411f-876b-50705abee519"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete-payment",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/payments/69675d13-4b65-411f-876b-50705abee519",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"payments",
+										"69675d13-4b65-411f-876b-50705abee519"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "67"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 03:23:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Unable to delete payment based on uuid 69675d13-4b65-411f-876b-50705abee519\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:4000/dev/v1"
+		},
+		{
+			"key": "x-api-key",
+			"value": "f98d8cd98h73s204e3456998ecl9427j"
+		},
+		{
+			"key": "bearer_token",
+			"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+		}
+	]
+}

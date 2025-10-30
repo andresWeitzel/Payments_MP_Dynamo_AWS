@@ -31,7 +31,7 @@ let validateItemObj: any;
 let validatePayerObj: any;
 let validateShipmentObj: any;
 let validatePaymentObj: any;
-let oldPaymentObj: PaymentDetail;
+let oldPaymentObj: any;
 let newPaymentObj: any;
 let newShipment: Shipment;
 let itemDynamoDB: any;
@@ -138,7 +138,7 @@ module.exports.handler = async (event: any) => {
     eventBodyShipment = await eventBody.shipments.receiver_address;
 
     newShipment = new Shipment(
-      await generateUuidV4(),
+      oldPaymentObj.shipments?.receiver_address?.uuid || await generateUuidV4(),
       eventBodyShipment.zip_code,
       eventBodyShipment.city_name,
       eventBodyShipment.state_name,
@@ -160,7 +160,7 @@ module.exports.handler = async (event: any) => {
     //-- start with payment object operations --
 
     newPayment = new PaymentDetail(
-      await generateUuidV4(),
+      paymentUuid, // Use the existing payment UUID instead of generating a new one
       eventBody.description,
       eventBody.external_reference,
       eventBody.payment_method_id,
@@ -181,6 +181,7 @@ module.exports.handler = async (event: any) => {
     //-- start with db operations  ---
 
     itemDynamoDB = {
+      uuid: newPayment.getUuid(),
       description: newPayment.getDescription(),
       externalReference: newPayment.getExternalReference(),
       paymentMethodId: newPayment.getPaymentMethodId(),
@@ -203,11 +204,12 @@ module.exports.handler = async (event: any) => {
       },
       shipments: {
         receiver_address: {
+          uuid: newShipment.getUuid(),
           street_number: newShipment.getStreetNumber(),
           city_name: newShipment.getCityName(),
           state_name: newShipment.getStateName(),
           zip_code: newShipment.getZipCode(),
-          street_name: newShipment.getStateName(),
+          street_name: newShipment.getStreetName(),
         },
       },
     };
