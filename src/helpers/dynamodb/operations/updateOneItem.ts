@@ -20,12 +20,14 @@ let msgLog: string;
  */
 export const updateOneItem = async (
   tableName: string,
-  key: string,
+  key: any,
   item: any
 ) => {
   try {
     itemUpdated = null;
     const itemKeys = Object.keys(item);
+    const keyAttributeNames = Object.keys(key);
+    const updatableKeys = itemKeys.filter((k) => !keyAttributeNames.includes(k));
 
     dynamo = await dynamoDBClient();
 
@@ -34,20 +36,20 @@ export const updateOneItem = async (
         TableName: tableName,
         Key: key,
         ReturnValues: "ALL_NEW",
-        UpdateExpression: `SET ${itemKeys
-          .map((index) => `#field${index} = :value${index}`)
+        UpdateExpression: `SET ${updatableKeys
+          .map((k) => `#field_${k} = :value_${k}`)
           .join(", ")}`,
-        ExpressionAttributeNames: itemKeys.reduce(
-          (accumulator, k, index) => ({
+        ExpressionAttributeNames: updatableKeys.reduce(
+          (accumulator, k) => ({
             ...accumulator,
-            [`#field${index}`]: k,
+            [`#field_${k}`]: k,
           }),
           {}
         ),
-        ExpressionAttributeValues: itemKeys.reduce(
-          (accumulator, k, index) => ({
+        ExpressionAttributeValues: updatableKeys.reduce(
+          (accumulator, k) => ({
             ...accumulator,
-            [`:value${index}`]: item[k],
+            [`:value_${k}`]: item[k],
           }),
           {}
         ),
@@ -62,7 +64,15 @@ export const updateOneItem = async (
   } catch (error) {
     msgResponse = UPDATE_ITEM_ERROR;
     msgLog = msgResponse + `Caused by ${error}`;
-    console.log(msgLog);
+    console.error(msgLog);
+    console.error('Error details:', {
+      tableName,
+      key,
+      itemKeys: Object.keys(item),
+      errorMessage: error.message,
+      errorCode: error.code,
+      errorStack: error.stack
+    });
 
     return msgResponse;
   }
