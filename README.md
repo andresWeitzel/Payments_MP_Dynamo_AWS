@@ -38,7 +38,7 @@
 Microservicio para gestionar pagos de MercadoPago con AWS DynamoDB implementado con Api-Gateway, Systems Manager Parameter Store, Serverless-Framework, Lambda, Typescript, DynamoDB, aws-sdk-v3, otros.
 
 *   [Api doc MP pagos](https://www.mercadopago.com.ar/developers/es/reference/payments/_payments/post)
-*   [Playlist](https://www.youtube.com/playlist?list=PLCl11UFjHurDPyOkEXOR6JO-vUnYqd1FW" target="_blank"> <img src="./doc/assets/social-networks/yt.png" width="3%" height="3%" />
+*   [Playlist]("https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W")<a href="https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W" target="_blank"> <img src="./doc/assets/social-networks/yt.png" width="25" />
 
 <br>
 
@@ -165,7 +165,6 @@ npm start
 
 </details>
 
-
 ### 1.2) Technologies [🔝](#index-)
 
 <details>
@@ -185,7 +184,6 @@ npm start
 | [Postman](https://www.postman.com/downloads/) | 11.0.5  | HTTP client |
 | [CMD](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd) | 10 | Command line |
 | [Git](https://git-scm.com/downloads) | 2.45.0  | Version control |
-
 
 </br>
 
@@ -248,9 +246,9 @@ npm start
 
 | **Variable** | **Initial value** | **Current value** |\
 | ------------- | ------------- | ------------- |
-| base_url | http://localhost:4000/dev/v1 | http://localhost:4000/dev/v1 |
+| base\_url | http://localhost:4000/dev/v1 | http://localhost:4000/dev/v1 |
 | x-api-key | f98d8cd98h73s204e3456998ecl9427j  | f98d8cd98h73s204e3456998ecl9427j |
-| bearer_token | Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c  | Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c |
+| bearer\_token | Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV\_adQssw5c  | Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV\_adQssw5c |
 
 <br>
 

@@ -38,7 +38,8 @@
 Microservicio para gestionar pagos de MercadoPago con AWS DynamoDB implementado con Api-Gateway, Systems Manager Parameter Store, Serverless-Framework, Lambda, Typescript, DynamoDB, aws-sdk-v3, otros.
 
 *   [Api doc MP pagos](https://www.mercadopago.com.ar/developers/es/reference/payments/_payments/post)
-*   [Playlist](https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W)<a href="https://www.youtube.com/playlist?list=PLCl11UFjHurDPyOkEXOR6JO-vUnYqd1FW" target="_blank"> <img src="../doc/assets/social-networks/yt.png" width="3%" height="3%" />
+*   [Playlist]("https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W")<a href="https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W" target="_blank"> <img src="../doc/assets/social-networks/yt.png" width="25" />
+
 
 <br>
 
@@ -165,7 +166,6 @@ npm start
 
 </details>
 
-
 ### 1.2) Tecnologías [🔝](#índice-)
 
 <details>
@@ -185,7 +185,6 @@ npm start
 | [Postman](https://www.postman.com/downloads/) | 11.0.5  | Cliente Http |
 | [CMD](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd) | 10 | Símbolo del Sistema para línea de comandos |
 | [Git](https://git-scm.com/downloads) | 2.45.0  | Control de Versiones |
-
 
 </br>
 
