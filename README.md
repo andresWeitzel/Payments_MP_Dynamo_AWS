@@ -113,7 +113,7 @@ cd 'projectRootName'
 *   Clone the project:
 
 ```git
-git clone https://github.com/andresWeitzel/CRUD_Amazon_DynamoDB_AWS
+git clone https://github.com/andresWeitzel/Payments_MP_Dynamo_AWS
 ```
 
 *   Install the LTS version of [Node.js (v18)](https://nodejs.org/en/download)
@@ -150,7 +150,7 @@ npm i
 *   Start the app from the terminal:
 
 ```git
-npm start start
+npm run start
 ```
 
 *   If ports 4000 or 8000 are in use, kill them and try again:
@@ -171,7 +171,7 @@ npm start
   <summary>View</summary>
  <br>
 
-| **Technology** | **Version** | **Purpose** |\
+| **Technology** | **Version** | **Purpose** |
 | ------------- | ------------- | ------------- |
 | [SDK](https://www.serverless.com/framework/docs/guides/sdk/) | 4.17.0  | Automatic module injection for Lambdas |
 | [Serverless Framework Core v3](https://www.serverless.com//blog/serverless-framework-v3-is-live) | 3.38.0 | AWS services core |
@@ -187,7 +187,7 @@ npm start
 
 </br>
 
-| **Serverless Plugin** | **Description** |\
+| **Serverless Plugin** | **Description** |
 | -------------  | ------------- |
 | [serverless-esbuild](https://www.serverless.com/plugins/serverless-esbuild) | Transpiles and bundles TypeScript/JavaScript |
 | [serverless-offline](https://www.npmjs.com/package/serverless-offline) | Emulates AWS Lambda and API Gateway locally |
@@ -244,7 +244,7 @@ npm start
 
 ### 2.1.0) Variables in Postman
 
-| **Variable** | **Initial value** | **Current value** |\
+| **Variable** | **Initial value** | **Current value** |
 | ------------- | ------------- | ------------- |
 | base\_url | http://localhost:4000/dev/v1 | http://localhost:4000/dev/v1 |
 | x-api-key | f98d8cd98h73s204e3456998ecl9427j  | f98d8cd98h73s204e3456998ecl9427j |
@@ -688,7 +688,7 @@ curl --location --request DELETE 'http://localhost:4000/dev/v1/payments/d5d58c31
 
 #### Operation types | [View](https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W)
 
-![Index app](./doc/assets/playlist.png)
+![Index app](./doc/assets/img/playlist.png)
 
 </details>
 
@@ -702,6 +702,10 @@ curl --location --request DELETE 'http://localhost:4000/dev/v1/payments/d5d58c31
 
 *   [AWS design tool app.diagrams.net](https://app.diagrams.net/?splash=0\&libs=aws4)
 *   [Online JSON formatter/validator](https://jsonformatter.org/)
+*   [JSONPath Online Evaluator](https://jsonpath.com/)
+*   [Postman API Platform](https://www.postman.com/)
+*   [Swagger Editor](https://editor.swagger.io/)
+*   [YAML Validator](https://jsonlint.com/?mode=yaml)
 
 #### API Gateway
 
@@ -710,10 +714,16 @@ curl --location --request DELETE 'http://localhost:4000/dev/v1/payments/d5d58c31
 *   [API Gateway template example](https://github.com/SeptiyanAndika/serverless-custom-authorizer/blob/master/index.js)
 *   [API Gateway best practices](https://docs.aws.amazon.com/whitepapers/latest/best-practices-api-gateway-private-apis-integration/rest-api.html)
 *   [Create custom API keys](https://towardsaws.com/protect-your-apis-by-creating-api-keys-using-serverless-framework-fe662ad37447)
+*   [AWS API Gateway Developer Guide](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html)
+*   [API Gateway CORS Setup](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-cors.html)
 
 #### Libraries
 
 *   [Field validation](https://www.npmjs.com/package/node-input-validator)
+*   [Joi - Object schema description and validation](https://joi.dev/)
+*   [Axios - Promise based HTTP client](https://www.npmjs.com/package/axios)
+*   [AWS SDK for JavaScript](https://www.npmjs.com/package/aws-sdk)
+*   [Serverless Framework](https://www.serverless.com/framework/docs/getting-started)
 
 <br>
 
