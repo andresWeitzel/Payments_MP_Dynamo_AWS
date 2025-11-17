@@ -50,7 +50,11 @@ Microservicio para gestionar pagos de MercadoPago con AWS DynamoDB implementado 
 <details>
  <summary> Ver </summary>
 
- <br>
+<div align="right">
+
+`Última actualización: 16/11/25` 
+
+</div>
 
 ### Sección 1)  Descripción, configuración y tecnologías
 
