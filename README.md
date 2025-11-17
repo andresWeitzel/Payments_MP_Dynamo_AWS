@@ -35,7 +35,8 @@
 
 </div>
 
-Microservice to manage MercadoPago payments with AWS DynamoDB implemented using API Gateway, Systems Manager Parameter Store, Serverless Framework, Lambda, TypeScript, DynamoDB, aws-sdk-v3, and more.
+Microservice to manage MercadoPago payments with AWS DynamoDB implemented using API Gateway, Systems Manager Parameter Store, Serverless Framework, Lambda, TypeScript, DynamoDB, aws-sdk-v3, and more. `Latest update: 16/11/25`
+
 
 *   [MercadoPago Payments API docs](https://www.mercadopago.com.ar/developers/es/reference/payments/_payments/post)
 *   [Playlist](https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W)<a href="https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W" target="_blank"> <img src="./doc/assets/social-networks/yt.png" width="25" />
