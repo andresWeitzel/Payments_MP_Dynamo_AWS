@@ -22,12 +22,14 @@
 
 <div align="right">
  <a href="./translations/README.es.md" target="_blank">
- <img src="./doc/assets/translation/arg-flag.jpg" width="10%" height="10%" />
+ <img src="./doc/assets/translation/arg-flag.jpg" width="65" height="40" />
  </a>
  <a href="./README.md" target="_blank">
- <img src="./doc/assets/translation/eeuu-flag.jpg" width="10%" height="10%" />
+ <img src="./doc/assets/translation/eeuu-flag.jpg" width="65" height="40" />
  </a>
 </div>
+
+<br>
 
 <div align="center">
 
