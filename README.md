@@ -48,11 +48,11 @@ Microservice to manage MercadoPago payments with AWS DynamoDB implemented using 
 ## Index 📜
 
 <details>
- <summary> View </summary>
+ <summary> View details </summary>
 
 <div align="right">
 
-`Latest update: 16/11/25` 
+`Latest update: 19/02/26` 
 
 </div>
 
@@ -83,7 +83,7 @@ Microservice to manage MercadoPago payments with AWS DynamoDB implemented using 
 ### 1.0) Description [🔝](#index-)
 
 <details>
-  <summary>View</summary>
+  <summary>View details</summary>
  <br>
 
 ### 1.0.0) General Description
@@ -109,7 +109,7 @@ Flow description:
 ### 1.1) Run the Project [🔝](#index-)
 
 <details>
-  <summary>View</summary>
+  <summary>View details</summary>
   <br>
 
 *   Create a working directory in your IDE; you may or may not create a project root folder. Navigate into it:
@@ -176,7 +176,7 @@ npm start
 ### 1.2) Technologies [🔝](#index-)
 
 <details>
-  <summary>View</summary>
+  <summary>View details</summary>
  <br>
 
 | **Technology** | **Version** | **Purpose** |
@@ -213,7 +213,7 @@ npm start
 ### 2.0) Endpoints and resources [🔝](#index-)
 
 <details>
-  <summary>View</summary>
+  <summary>View details</summary>
 
 ### GET operations:
 
@@ -247,7 +247,7 @@ npm start
 ### 2.1) Examples [🔝](#index-)
 
 <details>
-  <summary>View</summary>
+  <summary>View details</summary>
 <br>
 
 ### 2.1.0) Variables in Postman
@@ -691,7 +691,7 @@ curl --location --request DELETE 'http://localhost:4000/dev/v1/payments/d5d58c31
 ### 3.0) Demo [🔝](#index-)
 
 <details>
-  <summary>View</summary>
+  <summary>View details</summary>
 <br>
 
 #### Operation types | [View](https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W)
@@ -703,7 +703,7 @@ curl --location --request DELETE 'http://localhost:4000/dev/v1/payments/d5d58c31
 ### 3.1) References [🔝](#index-)
 
 <details>
-  <summary>View</summary>
+  <summary>View details</summary>
  <br>
 
 #### Tools

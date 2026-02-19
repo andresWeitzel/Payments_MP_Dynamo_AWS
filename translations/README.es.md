@@ -48,11 +48,11 @@ Microservicio para gestionar pagos de MercadoPago con AWS DynamoDB implementado 
 ## Índice 📜
 
 <details>
- <summary> Ver </summary>
+ <summary> Ver detalles </summary>
 
 <div align="right">
 
-`Última actualización: 16/11/25` 
+`Última actualización: 19/02/26` 
 
 </div>
 
@@ -82,7 +82,7 @@ Microservicio para gestionar pagos de MercadoPago con AWS DynamoDB implementado 
 ### 1.0) Descripción [🔝](#índice-)
 
 <details>
-  <summary>Ver</summary>
+  <summary>Ver detalles</summary>
  <br>
 
 ### 1.0.0) Descripción General
@@ -108,7 +108,7 @@ La descripción y flujo de cada paso es la siguiente :
 ### 1.1) Ejecución del Proyecto [🔝](#índice-)
 
 <details>
-  <summary>Ver</summary>
+  <summary>Ver detalles</summary>
   <br>
 
 *   Creamos un entorno de trabajo a través de algún ide, podemos o no crear una carpeta raíz para el proyecto, nos posicionamos sobre la misma
@@ -175,7 +175,7 @@ npm start
 ### 1.2) Tecnologías [🔝](#índice-)
 
 <details>
-  <summary>Ver</summary>
+  <summary>Ver detalles</summary>
  <br>
 
 | **Tecnología** | **Versión** | **Finalidad** |
@@ -212,7 +212,7 @@ npm start
 ### 2.0) Endpoints y recursos [🔝](#índice-)
 
 <details>
-  <summary>Ver</summary>
+  <summary>Ver detalles</summary>
 
 ### Operaciones de tipo GET:
 
@@ -246,7 +246,7 @@ npm start
 ### 2.1) Ejemplos [🔝](#índice-)
 
 <details>
-  <summary>Ver</summary>
+  <summary>Ver detalles</summary>
 <br>
 
 ### 2.1.0) Variables en Postman
@@ -690,7 +690,7 @@ curl --location --request DELETE 'http://localhost:4000/dev/v1/payments/d5d58c31
 ### 3.0) Prueba de funcionalidad [🔝](#índice-)
 
 <details>
-  <summary>Ver</summary>
+  <summary>Ver detalles</summary>
 <br>
 
 #### Tipos de Operaciones | [Ver](https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W)
@@ -702,7 +702,7 @@ curl --location --request DELETE 'http://localhost:4000/dev/v1/payments/d5d58c31
 ### 3.1) Referencias [🔝](#índice-)
 
 <details>
-  <summary>Ver</summary>
+  <summary>Ver detalles</summary>
  <br>
 
 #### Herramientas
