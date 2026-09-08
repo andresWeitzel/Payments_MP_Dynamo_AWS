@@ -1,19 +1,16 @@
 <div align="center">
-
-![Index app](./doc/assets/img/CRUD_Amazon_DynamoDB_AWS.drawio.png)
-
-</div>
-
+<img src="./doc/assets/img/CRUD_Amazon_DynamoDB_AWS.drawio.png" alt="Index app" />
 <div align="right">
-  <img width="25" height="25" src="./doc/assets/icons/devops/png/aws.png" />
-  <img width="25" height="25" src="./doc/assets/icons/aws/png/lambda.png" />
-  <img width="27" height="27" src="./doc/assets/icons/devops/png/postman.png" />
-  <img width="29" height="27" src="./doc/assets/icons/devops/png/git.png" />
-  <img width="28" height="27" src="./doc/assets/icons/aws/png/api-gateway.png" />
-  <img width="27" height="25" src="./doc/assets/icons/aws/png/parameter-store.png" />
-  <img width="27" height="27" src="./doc/assets/icons/backend/javascript-typescript/png/nodejs.png" />
-  <img width="27" height="27" src="./doc/assets/icons/backend/javascript-typescript/png/typescript.png" />
-   <img width="27" height="27" src="./doc/assets/icons/aws/png/dynamo.png" />
+<img width="16" height="16" src="./doc/assets/icons/devops/png/aws.png" alt="AWS" />
+<img width="16" height="16" src="./doc/assets/icons/aws/png/lambda.png" alt="Lambda" />
+<img width="16" height="16" src="./doc/assets/icons/devops/png/postman.png" alt="Postman" />
+<img width="16" height="16" src="./doc/assets/icons/devops/png/git.png" alt="Git" />
+<img width="16" height="16" src="./doc/assets/icons/aws/png/api-gateway.png" alt="API Gateway" />
+<img width="16" height="16" src="./doc/assets/icons/aws/png/parameter-store.png" alt="Parameter Store" />
+<img width="16" height="16" src="./doc/assets/icons/backend/javascript-typescript/png/nodejs.png" alt="Node.js" />
+<img width="16" height="16" src="./doc/assets/icons/backend/javascript-typescript/png/typescript.png" alt="TypeScript" />
+<img width="16" height="16" src="./doc/assets/icons/aws/png/dynamo.png" alt="DynamoDB" />
+</div>
 </div>
 
 <br>
@@ -21,11 +18,11 @@
 <br>
 
 <div align="right">
- <a href="./translations/README.es.md" target="_blank">
- <img src="./doc/assets/translation/arg-flag.jpg" width="65" height="40" />
+ <a href="./README.md" title="Español">
+ <img src="./doc/assets/translation/arg-flag.jpg" width="64" height="40" alt="Español" title="Español" />
  </a>
- <a href="./README.md" target="_blank">
- <img src="./doc/assets/translation/eeuu-flag.jpg" width="65" height="40" />
+ <a href="./translations/README.en.md" title="Inglés">
+ <img src="./doc/assets/translation/eeuu-flag.jpg" width="64" height="40" alt="Inglés" title="Inglés" />
  </a>
 </div>
 
@@ -37,40 +34,44 @@
 
 </div>
 
-Microservice to manage MercadoPago payments with AWS DynamoDB implemented using API Gateway, Systems Manager Parameter Store, Serverless Framework, Lambda, TypeScript, DynamoDB, aws-sdk-v3, and more.
+Microservicio serverless para gestionar pagos de Mercado Pago con DynamoDB, siguiendo el modelo de su API oficial. Incluye ítems, pagador, envíos, método de pago y referencia externa, con altas autenticadas, consultas por uuid o filtros, listados paginados y edición o baja.
 
-
-*   [MercadoPago Payments API docs](https://www.mercadopago.com.ar/developers/es/reference/payments/_payments/post)
-*   [Playlist](https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W)<a href="https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W" target="_blank"> <img src="./doc/assets/social-networks/yt.png" width="25" />
-
+<div align="left">
+<a href="https://www.mercadopago.com.ar/developers/es/reference/payments/_payments/post" target="_blank" rel="noopener noreferrer" title="API Doc"><img src="./doc/assets/icons/detail-actions/api-doc-pill.svg" alt="API Doc" width="100" height="30" border="0" /></a>
 <br>
-
-## Index 📜
-
-<details>
- <summary> View details </summary>
-
-<div align="right">
-
-`Latest update: 19/02/26` 
-
+<a href="./postman/Payments_MP_Dynamo_AWS.postman_collection.json" target="_blank" rel="noopener noreferrer" title="Colección de Postman"><img src="./doc/assets/icons/detail-actions/postman-pill.svg" alt="Postman" width="100" height="30" border="0" /></a>
+<br>
+<a href="https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W" target="_blank" rel="noopener noreferrer" title="Playlist"><img src="./doc/assets/icons/detail-actions/playlist-pill.svg" alt="Playlist" width="100" height="30" border="0" /></a>
 </div>
 
 
-### Section 1) Description, setup and technologies
+<br>
 
-*   [1.0) Project description.](#10-description-)
-*   [1.1) Run the project.](#11-run-the-project-)
-*   [1.2) Technologies.](#12-technologies-)
+## Índice 📜
 
-### Section 2) Endpoints and Examples
+<details>
+ <summary> Ver detalles </summary>
 
-*   [2.0) Endpoints and resources.](#20-endpoints-and-resources-)
+<div align="right">
 
-### Section 3) Demo and References
+`Última actualización: 07/09/26` 
 
-*   [3.0) Demo.](#30-demo-)
-*   [3.1) References.](#31-references-)
+</div>
+
+### Sección 1)  Descripción, configuración y tecnologías
+
+*   [1.0) Descripción del Proyecto.](#10-descripción-)
+*   [1.1) Ejecución del Proyecto.](#11-ejecución-del-proyecto-)
+*   [1.2) Tecnologías.](#12-tecnologías-)
+
+### Sección 2) Endpoints y Ejemplos
+
+*   [2.0) EndPoints y recursos.](#20-endpoints-y-recursos-)
+
+### Sección 3) Prueba de funcionalidad y Referencias
+
+*   [3.0) Prueba de funcionalidad.](#30-prueba-de-funcionalidad-)
+*   [3.1) Referencias.](#31-referencias-)
 
 <br>
 
@@ -78,75 +79,75 @@ Microservice to manage MercadoPago payments with AWS DynamoDB implemented using 
 
 <br>
 
-## Section 1) Description, setup and technologies
+## Sección 1)  Descripción, configuración y tecnologías
 
-### 1.0) Description [🔝](#index-)
+### 1.0) Descripción [🔝](#índice-)
 
 <details>
-  <summary>View details</summary>
+  <summary>Ver detalles</summary>
  <br>
 
-### 1.0.0) General Description
+### 1.0.0) Descripción General
 
-This project implements a CRUD system for managing [MercadoPago payment objects](https://www.mercadopago.com.ar/developers/es/reference/payments/_payments/post) using Amazon DynamoDB. It is built on a serverless architecture with AWS Lambda, API Gateway, Systems Manager Parameter Store, and Serverless Framework. The backend is written in TypeScript and uses AWS SDK v3 to interact with the database. Structure, operations, and data follow MercadoPago's official payments API, enabling create, read, update, and delete operations on payments.
+Este proyecto implementa un sistema CRUD para la gestión de [objetos payments de MercadoPago](https://www.mercadopago.com.ar/developers/es/reference/payments/_payments/post) utilizando Amazon DynamoDB, desarrollado en una arquitectura serverless con AWS Lambda, API Gateway, Systems Manager Parameter Store y Serverless Framework. El backend está construido en TypeScript y hace uso del AWS SDK v3 para la interacción con la base de datos. La estructura, las operaciones y los datos toman como referencia la API oficial de MercadoPago para pagos, permitiendo crear, leer, actualizar y eliminar pagos desde la plataforma.
 
-`Important`: There are dependabot security alerts related to the "serverless-dynamodb-local" plugin. Do not apply security patches to that plugin, since version `^1.0.2` has issues creating tables and starting the local DynamoDB service. Keep the last stable version `^0.2.40` even if security alerts are present.
+`Importante`: Hay alertas de seguridad de dependabot que apuntan contra el plugin "serverless-dynamodb-local". No aplicar parches de seguridad a dicho plugin, ya que la versión `^1.0.2` tiene problemas al momento de la creación de tablas y ejecución del servicio de dynamo. Se recomienda mantener la última versión estable `^0.2.40` con las alertas de seguridad generadas.
 
-### 1.0.1) Architecture and Flow
+### 1.0.1) Descripción Arquitectura y Funcionamiento
 
-The AWS architecture diagram shows the overall application flow. Any request to the app starts from a client (e.g., Postman, server, etc.).
-Flow description:
+La imagen de la arquitectura de aws empleada describe el flujo de funcionamiento de la app de forma general. Cualquier petición hacia la misma, parte desde un cliente (Ej: Postman, servidor, etc).
+La descripción y flujo de cada paso es la siguiente :
 
-*   `Step 0`: A request is sent to one of the implemented features, received by API Gateway, and only validated if the correct x-api-key header is present.
-*   `Steps 1A, 1B, etc.`: Each of these corresponds to a specific endpoint and resource. For example, create payment (1A) is http://localhost:4000/dev/v1/payments ... See section 2 for endpoints. Each Lambda validates x-api-key and token.
-*   `Step 2`: Lambdas validate SSM parameters via Systems Manager Parameter Store (token, DB connection values, etc.).
-*   `Step 3`: Lambdas execute the described transactions and operations against DynamoDB.
+*   `Paso 0` : Se genera una solicitud-petición hacia una de las funcionalidades desarrollada, la misma es recibida a través del api-gateway y solamente se validará si es que dentro de los encabezados de dicha solicitud se encuentra la x-api-key correcta.
+*   `Pasos 1A, 1B, etc` : Todos estos pasos corresponden a un endpoint con su recurso especifico. Por ej. para create payment (1A) es http://localhost:4000/dev/v1/payments....etc. Revisar dichos endpoints en sección endpoints. Cada lambda realiza comprobación de x-api-key y token.
+*   `Pasos 2` : Las lambdas realizan las validaciones de las ssm correspondientes con el System Manager Paramater Store.. validan token, valores de conexión con la db etc.
+*   `Pasos 3` : Las lambdas realizan las transacciones y operaciones descritas con el tipo de base de datos Dynamodb.
 
 <br>
 
 </details>
 
-### 1.1) Run the Project [🔝](#index-)
+### 1.1) Ejecución del Proyecto [🔝](#índice-)
 
 <details>
-  <summary>View details</summary>
+  <summary>Ver detalles</summary>
   <br>
 
-*   Create a working directory in your IDE; you may or may not create a project root folder. Navigate into it:
+*   Creamos un entorno de trabajo a través de algún ide, podemos o no crear una carpeta raíz para el proyecto, nos posicionamos sobre la misma
 
 ```git
 cd 'projectRootName'
 ```
 
-*   Clone the project:
+*   Una vez creado un entorno de trabajo a través de algún ide, clonamos el proyecto
 
 ```git
 git clone https://github.com/andresWeitzel/Payments_MP_Dynamo_AWS
 ```
 
-*   Install the LTS version of [Node.js (v18)](https://nodejs.org/en/download)
-*   Install Serverless Framework globally if you haven't yet. I recommend version 3 as it’s free and doesn’t require credentials. You can also use v4, but it’s paid.
+*   Instalamos la versión LTS de [Nodejs(v18)](https://nodejs.org/en/download)
+*   Instalamos el Serverless Framework globalmente si aún no lo hemos hecho. Recomiendo la version tres ya que es gratuita y no nos pide credenciales. Se puede usar la última version (cuatro) sin problemas, aunque es de pago.
 
 ```git
 npm install -g serverless@3
 ```
 
-*   Check the installed Serverless version:
+*   Verificamos la versión de Serverless instalada
 
 ```git
 sls -v
 ```
 
-*   Install dependencies:
+*   Instalamos todos los paquetes necesarios
 
 ```git
 npm i
 ```
 
-`Important`: There are dependabot security alerts related to the "serverless-dynamodb-local" plugin. Do not apply security patches to that plugin, since version `^1.0.2` has issues creating tables and starting the local DynamoDB service. Keep the last stable version `^0.2.40` even if security alerts are present.
+`Importante`: Hay alertas de seguridad de dependabot que apuntan contra el plugin "serverless-dynamodb-local". No aplicar parches de seguridad a dicho plugin, ya que la versión `^1.0.2` tiene problemas al momento de la creación de tablas y ejecución del servicio de dynamo. Se recomienda mantener la última versión estable `^0.2.40` con las alertas de seguridad generadas.
 
-*   SSM variables are kept in the project to simplify setup. It’s recommended to add the corresponding file (`serverless_ssm.yml`) to `.gitignore`.
-*   The following `package.json` script starts serverless-offline:
+*   Las variables ssm utilizadas en el proyecto se mantienen para simplificar el proceso de configuración del mismo. Es recomendado agregar el archivo correspondiente (serverless\_ssm.yml) al .gitignore.
+*   El siguiente script configurado en el package.json del proyecto es el encargado de levantar serverless-offline (serverless-offline).
 
 ```git
  "scripts": {
@@ -155,13 +156,13 @@ npm i
  },
 ```
 
-*   Start the app from the terminal:
+*   Ejecutamos la app desde terminal.
 
 ```git
 npm run start
 ```
 
-*   If ports 4000 or 8000 are in use, kill them and try again:
+*   Si se presenta algún mensaje indicando qué el puerto 4000 u 8000 ya está en uso, podemos terminar todos los procesos dependientes y volver a ejecutar la app.
 
 ```git
 npx kill-port 4000 (serverless)
@@ -173,34 +174,34 @@ npm start
 
 </details>
 
-### 1.2) Technologies [🔝](#index-)
+### 1.2) Tecnologías [🔝](#índice-)
 
 <details>
-  <summary>View details</summary>
+  <summary>Ver detalles</summary>
  <br>
 
-| **Technology** | **Version** | **Purpose** |
+| **Tecnología** | **Versión** | **Finalidad** |
 | ------------- | ------------- | ------------- |
-| [SDK](https://www.serverless.com/framework/docs/guides/sdk/) | 4.17.0  | Automatic module injection for Lambdas |
-| [Serverless Framework Core v3](https://www.serverless.com//blog/serverless-framework-v3-is-live) | 3.38.0 | AWS services core |
-| [Systems Manager Parameter Store (SSM)](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) | 3.3.0 | Environment variable management |
-| [Amazon Api Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) | 2.57.0 | API management, auth, control and processing |
-| [Amazon DynamoDB](https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/Introduction.html) | 2024.03.11 | NoSQL database service |
-| [Typescript](https://www.typescriptlang.org/) | 5.4.5 | Strongly typed language |
-| [NodeJS](https://nodejs.org/en/) | 20.12.2  | JavaScript runtime |
+| [SDK](https://www.serverless.com/framework/docs/guides/sdk/) | 4.17.0  | Inyección Automática de Módulos para Lambdas |
+| [Serverless Framework Core v3](https://www.serverless.com//blog/serverless-framework-v3-is-live) | 3.38.0 | Core Servicios AWS |
+| [Systems Manager Parameter Store (SSM)](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) | 3.3.0 | Manejo de Variables de Entorno |
+| [Amazon Api Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) | 2.57.0 | Gestor, Autenticación, Control y Procesamiento de la Api |
+| [Amazon DynamoDB](https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/Introduction.html) | 2024.03.11 | Servicio de base de datos NoSQL |
+| [Typescript](https://www.typescriptlang.org/) | 5.4.5 | Lenguaje altamente tipado |
+| [NodeJS](https://nodejs.org/en/) | 20.12.2  | Entorno de ejecución JS |
 | [VSC](https://code.visualstudio.com/docs) | 1.89.1  | IDE |
-| [Postman](https://www.postman.com/downloads/) | 11.0.5  | HTTP client |
-| [CMD](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd) | 10 | Command line |
-| [Git](https://git-scm.com/downloads) | 2.45.0  | Version control |
+| [Postman](https://www.postman.com/downloads/) | 11.0.5  | Cliente Http |
+| [CMD](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd) | 10 | Símbolo del Sistema para línea de comandos |
+| [Git](https://git-scm.com/downloads) | 2.45.0  | Control de Versiones |
 
 </br>
 
-| **Serverless Plugin** | **Description** |
+| **Serverless Plugin** | **Descripción** |
 | -------------  | ------------- |
-| [serverless-esbuild](https://www.serverless.com/plugins/serverless-esbuild) | Transpiles and bundles TypeScript/JavaScript |
-| [serverless-offline](https://www.npmjs.com/package/serverless-offline) | Emulates AWS Lambda and API Gateway locally |
-| [serverless-offline-ssm](https://www.npmjs.com/package/serverless-offline-ssm) | Replaces SSM parameters from a file at build-time |
-| [serverless-dynamodb-local](https://www.serverless.com/plugins/serverless-dynamodb-local) | Local DynamoDB for development |
+| [serverless-esbuild](https://www.serverless.com/plugins/serverless-esbuild) | Complemento para transpilar y actualizar código Typescript y Javascript |
+| [serverless-offline](https://www.npmjs.com/package/serverless-offline) | Este complemento sin servidor emula AWS λ y API Gateway en entorno local |
+| [serverless-offline-ssm](https://www.npmjs.com/package/serverless-offline-ssm) | Complemento para variables de entorno que cumplen los parámetros de SSM en el momento de la compilación y las sustituye desde un archivo  |
+| [serverless-dynamodb-local](https://www.serverless.com/plugins/serverless-dynamodb-local) | Complemento para actualizar tipo de db NoSQL DynamoDB |
 
 <br>
 
@@ -208,49 +209,49 @@ npm start
 
 <br>
 
-## Section 2) Endpoints and Examples.
+## Sección 2) Endpoints y Ejemplos.
 
-### 2.0) Endpoints and resources [🔝](#index-)
+### 2.0) Endpoints y recursos [🔝](#índice-)
 
 <details>
-  <summary>View details</summary>
+  <summary>Ver detalles</summary>
 
-### GET operations:
+### Operaciones de tipo GET:
 
 *   http://localhost:4000/dev/v1/payments/list
 *   http://localhost:4000/dev/v1/payments/list-with-filters
 *   http://localhost:4000/dev/v1/payments/uuid/{uuid}
-*   `All endpoints are optionally paginated except /uuid/{uuid}`
+*   `Todos los endpoints son paginados opcionales menos el /uuid/{uuid}`
 
-### POST operations:
+### Operaciones de tipo POST:
 
 *   http://localhost:4000/dev/v1/payments
 
-### PUT operations:
+### Operaciones de tipo PUT:
 
 *   http://localhost:4000/dev/v1/payments/{uuid}
 
-### DELETE operations:
+### Operaciones de tipo DELETE:
 
 *   http://localhost:4000/dev/v1/payments/{uuid}
 
-### Notes
+### Aclaraciones
 
-*   {required-value}
-*   Default pagination: ?page=0\&limit=5
-*   Optional pagination: ?page={n}\&limit={n}
+*   {valor-requerido}
+*   Paginado por defecto : ?page=0\&limit=5
+*   Paginado opcional : ?page={nro}\&limit={nro}
 
 <br>
 
 </details>
 
-### 2.1) Examples [🔝](#index-)
+### 2.1) Ejemplos [🔝](#índice-)
 
 <details>
-  <summary>View details</summary>
+  <summary>Ver detalles</summary>
 <br>
 
-### 2.1.0) Variables in Postman
+### 2.1.0) Variables en Postman
 
 | **Variable** | **Initial value** | **Current value** |
 | ------------- | ------------- | ------------- |
@@ -262,7 +263,7 @@ npm start
 
 <br>
 
-### 2.1.1) Create a payment object
+### 2.1.1) Crear un objeto payment
 
 #### Request (POST) | Code snippet
 
@@ -341,7 +342,7 @@ curl --location 'http://localhost:4000/dev/v1/payments' \
 }
 ```
 
-#### Response (400 Bad Request) --> Applies to all validated attributes
+#### Response (400 Bad Request) --> Aplica a todos los atributos con validación
 
 ```postman
 {
@@ -371,7 +372,7 @@ curl --location 'http://localhost:4000/dev/v1/payments' \
 
 <br>
 
-### 2.1.2) Get all payment objects by applied filter (description)
+### 2.1.2) Obtener todos los objetos Payment según filtro aplicado (descripción)
 
 #### Request (GET) | Code snippet
 
@@ -446,7 +447,7 @@ curl --location 'http://localhost:4000/dev/v1/payments/list-with-filters?filter=
 
 <br>
 
-### 2.1.3) Get a payment object by uuid
+### 2.1.3) Obtener un objeto payment según su uuid
 
 #### Request (GET) | Code snippet
 
@@ -526,7 +527,7 @@ curl --location 'http://localhost:4000/dev/v1/payments/uuid/d5d58c31-8c29-41d2-a
 
 <br>
 
-### 2.1.4) Update a payment object by uuid
+### 2.1.4) Actualizar un objeto Payment según su uuid
 
 #### Request (PUT) | Code snippet
 
@@ -635,7 +636,7 @@ curl --location --request PUT 'http://localhost:4000/dev/v1/payments/d5d58c31-8c
 
 <br>
 
-### 2.1.5) Delete a payment object by uuid
+### 2.1.5) Eliminar un objeto Payment según su uuid
 
 #### Request (DELETE) | Code snippet
 
@@ -686,51 +687,51 @@ curl --location --request DELETE 'http://localhost:4000/dev/v1/payments/d5d58c31
 
 <br>
 
-## Section 3) Demo and References.
+## Sección 3) Prueba de funcionalidad y Referencias.
 
-### 3.0) Demo [🔝](#index-)
+### 3.0) Prueba de funcionalidad [🔝](#índice-)
 
 <details>
-  <summary>View details</summary>
+  <summary>Ver detalles</summary>
 <br>
 
-#### Operation types | [View](https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W)
+#### Tipos de Operaciones | [Ver](https://www.youtube.com/playlist?list=PLCl11UFjHurBIy51oB_CZa46KSF1cWn9W)
 
 ![Index app](./doc/assets/img/playlist.png)
 
 </details>
 
-### 3.1) References [🔝](#index-)
+### 3.1) Referencias [🔝](#índice-)
 
 <details>
-  <summary>View details</summary>
+  <summary>Ver detalles</summary>
  <br>
 
-#### Tools
+#### Herramientas
 
-*   [AWS design tool app.diagrams.net](https://app.diagrams.net/?splash=0\&libs=aws4)
-*   [Online JSON formatter/validator](https://jsonformatter.org/)
-*   [JSONPath Online Evaluator](https://jsonpath.com/)
-*   [Postman API Platform](https://www.postman.com/)
+*   [Herramienta de Diseño AWS app.diagrams.net](https://app.diagrams.net/?splash=0\&libs=aws4)
+*   [Formateo y validador online JSON](https://jsonformatter.org/)
+*   [Evaluador JSONPath Online](https://jsonpath.com/)
+*   [Plataforma Postman API](https://www.postman.com/)
 *   [Swagger Editor](https://editor.swagger.io/)
-*   [YAML Validator](https://jsonlint.com/?mode=yaml)
+*   [Validador YAML](https://jsonlint.com/?mode=yaml)
 
-#### API Gateway
+#### Api Gateway
 
-*   [API Gateway documentation](https://www.serverless.com/guides/amazon-api-gateway)
-*   [API Gateway serverless yml definition](https://dev.to/leventov/enable-cors-with-custom-headers-for-an-aws-lambda-function-behind-api-gateway-in-serverless-framework-3702)
-*   [API Gateway template example](https://github.com/SeptiyanAndika/serverless-custom-authorizer/blob/master/index.js)
-*   [API Gateway best practices](https://docs.aws.amazon.com/whitepapers/latest/best-practices-api-gateway-private-apis-integration/rest-api.html)
-*   [Create custom API keys](https://towardsaws.com/protect-your-apis-by-creating-api-keys-using-serverless-framework-fe662ad37447)
-*   [AWS API Gateway Developer Guide](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html)
-*   [API Gateway CORS Setup](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-cors.html)
+*   [Api gateway documentation](https://www.serverless.com/guides/amazon-api-gateway)
+*   [Api gateway serverless yml definition](https://dev.to/leventov/enable-cors-with-custom-headers-for-an-aws-lambda-function-behind-api-gateway-in-serverless-framework-3702)
+*   [Api Gateway Template Example](https://github.com/SeptiyanAndika/serverless-custom-authorizer/blob/master/index.js)
+*   [Buenas Prácticas Api-Gateway](https://docs.aws.amazon.com/whitepapers/latest/best-practices-api-gateway-private-apis-integration/rest-api.html)
+*   [Creación de Api-keys personalizadas](https://towardsaws.com/protect-your-apis-by-creating-api-keys-using-serverless-framework-fe662ad37447)
+*   [Guía del Desarrollador de AWS API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html)
+*   [Configuración de CORS en API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-cors.html)
 
-#### Libraries
+#### Librerías
 
-*   [Field validation](https://www.npmjs.com/package/node-input-validator)
-*   [Joi - Object schema description and validation](https://joi.dev/)
-*   [Axios - Promise based HTTP client](https://www.npmjs.com/package/axios)
-*   [AWS SDK for JavaScript](https://www.npmjs.com/package/aws-sdk)
+*   [Validación de campos](https://www.npmjs.com/package/node-input-validator)
+*   [Joi - Esquemas y validación de objetos](https://joi.dev/)
+*   [Axios - Cliente HTTP basado en Promesas](https://www.npmjs.com/package/axios)
+*   [AWS SDK para JavaScript](https://www.npmjs.com/package/aws-sdk)
 *   [Serverless Framework](https://www.serverless.com/framework/docs/getting-started)
 
 <br>
