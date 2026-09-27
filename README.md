@@ -1,5 +1,5 @@
 <div align="center">
-<img src="./doc/assets/img/CRUD_Amazon_DynamoDB_AWS.drawio.png" alt="Index app" />
+<img src="./doc/assets/img/CRUD_Amazon_DynamoDB_AWS.drawio.png" alt="Index app" width="100%" />
 <div align="right">
 <img width="16" height="16" src="./doc/assets/icons/devops/png/aws.png" alt="AWS" />
 <img width="16" height="16" src="./doc/assets/icons/aws/png/lambda.png" alt="Lambda" />
